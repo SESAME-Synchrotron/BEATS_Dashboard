@@ -1,0 +1,234 @@
+#!/bin/bash
+
+SHORT=s:,h
+LONG=process:,help
+OPTS=$(getopt -a -n weather --options $SHORT --longoptions $LONG -- "$@")
+
+eval set -- "$OPTS"
+
+while :
+do
+  case "$1" in
+    -p | --process )
+      process="$2"
+      #-----------------Common IOCs--------------------------#
+      if [ "$process" == "shutterIOC" ] ; then
+        ssh -X dev.control@10.1.50.5 "
+            cd /home/dev.control/top/mirrors 
+            tmux send-keys -t ShutterIOC.0 "exit" ENTER
+            sleep 2 
+            tmux new -d -s ShutterIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd' 
+            "   
+
+      elif [ "$process" == "motorIOC" ] ; then
+        ssh -X root@10.1.50.12 "
+            cd /opt/top/motor-sim 
+            tmux send-keys -t MotorIOC.0 "exit" ENTER
+            sleep 2
+            tmux new -d -s MotorIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd'
+            "
+
+      elif [ "$process" == "tomoscanSupportIOC" ] ; then
+        ssh -X root@10.1.50.16 "
+            cd /opt/epics7/synApps/support/suppIoc
+            tmux send-keys -t TomoscanSupportIOC "exit" ENTER
+            sleep 2
+            tmux new -d -s TomoscanSupportIOC 
+            tmux send-keys -t TomoscanSupportIOC.0 \"softIoc -d suppIoc.db\" ENTER
+            "
+
+      elif [ "$process" == "writerSupportIOC" ] ; then
+        ssh -X root@10.1.50.207 "
+            cd /opt/DAQ/IOCs/BEATS_DAQ_Supp_IOC
+            tmux send-keys -t WriterSupportIOC "exit" ENTER
+            sleep 2
+            tmux new -d -s WriterSupportIOC
+            tmux send-keys -t WriterSupportIOC \"softIoc -d writerStatus.db\" ENTER 
+            "
+      #---------------------PCO & FLIR IOCs --------------------#
+      elif [ "$process" == "FLIRIOC" ] ; then
+        ssh -X root@10.1.50.207 "
+            tmux send-keys -t FLIR_CameraIOC "exit" ENTER 
+            sleep 2
+            cd /root/ad-iaxd
+            sleep 1 
+            tmux new -d -s FLIR_CameraIOC './bin/linux-x86_64/ad-iaxd iocBoot/iocad-iaxd/st.cmd' 
+            "
+      #---------------------PCO Step Scan --------------------#
+      elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
+        cd /opt/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_BEATS_Step ;
+        tmux send-keys -t PCO_StepTomoscanIOC "exit" ENTER ;
+        sleep 2 ;
+        tmux new -d -s PCO_StepTomoscanIOC './start_IOC'
+
+      elif [ "$process" == "PCO_PythonServerStep" ] ; then
+        cd /opt/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_BEATS_Step
+        tmux send-keys -t PCO_PythonServerStep "exit()" ENTER
+        sleep 1
+        tmux send-keys -t PCO_PythonServerStep "exit" ENTER
+        sleep 1
+        tmux new -d -s PCO_PythonServerStep
+        tmux send-keys -t PCO_PythonServerStep "./start_python" ENTER
+
+      elif [ "$process" == "PCO_WriterServerStep" ] ; then
+        ssh -X root@10.1.50.207 "
+            cd /opt/DAQ/BEATSH5Writer
+            tmux send-keys -t PCO_WriterServerStep C-c
+            sleep 1 
+            tmux send-keys -t PCO_WriterServerStep "exit" ENTER
+            sleep 1
+            source /opt/DAQ/venv/bin/activate
+            sleep 1
+            tmux new -d -s PCO_WriterServerStep
+            sleep 1
+            tmux send-keys -t PCO_WriterServerStep "xvfb-run" Space "./start_writer" Space "--scanMode" Space "PCO-step" ENTER
+            "
+      #---------------------PCO Continuous Scan --------------------#
+      elif [ "$process" == "PCO_ContTomoscanIOC" ] ; then
+        cd /opt/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_BEATS_Continuous ; 
+        tmux send-keys -t PCO_ContTomoscanIOC "exit" ENTER ;
+        sleep 2 ;
+        tmux new -d -s PCO_ContTomoscanIOC './start_IOC'
+
+      elif [ "$process" == "PCO_PythonServerCont" ] ; then
+        cd /opt/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_BEATS_Continuous
+        tmux send-keys -t PCO_PythonServerCont "exit()" ENTER
+        sleep 1
+        tmux send-keys -t PCO_PythonServerCont "exit" ENTER
+        sleep 1 
+        tmux new -d -s PCO_PythonServerCont
+        tmux send-keys -t PCO_PythonServerCont "./start_python" ENTER
+
+      elif [ "$process" == "PCO_WriterServerCont" ] ; then
+        ssh -X root@10.1.50.207 "
+            cd /opt/DAQ/BEATSH5Writer
+            tmux send-keys -t PCO_WriterServerCont C-c
+            sleep 1 
+            tmux send-keys -t PCO_WriterServerCont "exit" ENTER
+            sleep 1
+            source /opt/DAQ/venv/bin/activate
+            sleep 1
+            tmux new -d -s PCO_WriterServerCont
+            sleep 1
+            tmux send-keys -t PCO_WriterServerCont "xvfb-run" Space "./start_writer" Space "--scanMode" Space "PCO-cont" ENTER
+            "
+      #---------------------FLIR Step Scan --------------------#
+      elif [ "$process" == "FLIR_StepTomoscanIOC" ] ; then
+        ssh -X root@10.1.50.4 "
+            tmux send-keys -t FLIR_StepTomoscanIOC "exit" ENTER 
+            sleep 2
+            cd /opt/epics/support/tomoscan/iocBoot/iocTomoScan_BEATS_Step
+            sleep 1 
+            tmux new -d -s FLIR_StepTomoscanIOC './start_IOC' 
+            " 
+
+      elif [ "$process" == "FLIR_PythonServerStep" ] ; then
+        ssh -X root@10.1.50.4 "
+            cd /opt/epics/support/tomoscan/iocBoot/iocTomoScan_BEATS_Step
+            tmux send-keys -t FLIR_PythonServerStep C-c
+            sleep 1 
+            tmux send-keys -t FLIR_PythonServerStep "exit" ENTER 
+            sleep 1
+            source /opt/SW/venv3.9/bin/activate
+            sleep 1
+            tmux new -d -s FLIR_PythonServerStep
+            sleep 1
+            tmux send-keys -t FLIR_PythonServerStep "xvfb-run" Space "python" Space "-i" Space "start_tomoscan.py" ENTER
+            "
+
+      elif [ "$process" == "FLIR_WriterServerStep" ] ; then
+        ssh -X root@10.1.50.207 "
+            cd /opt/DAQ/BEATSH5Writer
+            tmux send-keys -t FLIR_WriterServerStep C-c
+            sleep 1 
+            tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
+            sleep 1
+            source /opt/DAQ/venv/bin/activate
+            sleep 1
+            tmux new -d -s FLIR_WriterServerStep
+            sleep 1
+            tmux send-keys -t FLIR_WriterServerStep "xvfb-run" Space "./start_writer" Space "--scanMode" Space "FLIR-step" ENTER
+            "
+      #---------------------FLIR Continuous Scan --------------------#
+      elif [ "$process" == "FLIR_ContTomoscanIOC" ] ; then
+        ssh -X root@10.1.50.4 "
+            tmux send-keys -t FLIR_ContTomoscanIOC "exit" ENTER 
+            sleep 2
+            cd /opt/epics/support/tomoscan/iocBoot/iocTomoScan_BEATS_Cont
+            sleep 1 
+            source /opt/SW/venv3.9/bin/activate
+            sleep 1
+            tmux new -d -s FLIR_ContTomoscanIOC './start_IOC' 
+            "
+
+      elif [ "$process" == "FLIR_PythonServerCont" ] ; then
+        ssh -X root@10.1.50.4 "
+            cd /opt/epics/support/tomoscan/iocBoot/iocTomoScan_BEATS_Cont
+            tmux send-keys -t FLIR_PythonServerCont C-c
+            sleep 1 
+            tmux send-keys -t FLIR_PythonServerCont "exit" ENTER 
+            sleep 1
+            source /opt/SW/venv3.9/bin/activate
+            sleep 1
+            tmux new -d -s FLIR_PythonServerCont
+            sleep 1
+            tmux send-keys -t FLIR_PythonServerCont "xvfb-run" Space "python" Space "-i" Space "start_tomoscan.py" ENTER
+            "
+            
+      elif [ "$process" == "FLIR_WriterServerCont" ] ; then
+        ssh -X root@10.1.50.207 "
+            cd /opt/DAQ/BEATSH5Writer
+            tmux send-keys -t FLIR_WriterServerCont C-c
+            sleep 1 
+            tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
+            sleep 1
+            source /opt/DAQ/venv/bin/activate
+            sleep 1
+            tmux new -d -s FLIR_WriterServerCont
+            sleep 1
+            tmux send-keys -t FLIR_WriterServerCont "xvfb-run" Space "./start_writer" Space "--scanMode" Space "FLIR-cont" ENTER
+            "
+    #-----------------------------------------#
+      else 
+          echo "Unknow process option has been provided!!"
+    fi
+      shift 2
+      ;;
+    -h | --help)
+      printf "\n"
+      echo "============= Restart BEATS process options ============="
+      echo " >>>>> Commom IOCs <<<<<"
+      echo " --process shutterIOC "
+      echo " --process MotorIOC"
+      echo " --process tomoscanSupportIOC"
+      echo " --process writerSupportIOC"
+      echo " --------------------------"
+      echo " >>>>> PCO & FLIR IOCs <<<<<"
+      echo " --process FLIRIOC"
+      echo " --------------------------"
+      echo " >>>>> PCO Step or Continuous Scan <<<<<"
+      echo -e " Step Scan: \t\t\t\t Continuous Scan:"                                       
+      echo -e " --process PCO_StepTomoscanIOC \t\t --process PCO_ContTomoscanIOC"
+      echo -e " --process PCO_PythonServerStep \t --process PCO_PythonServerCont"
+      echo -e " --process PCO_WriterServerStep \t --process PCO_WriterServerCont"
+      echo " --------------------------"
+      echo " >>>>> FLIR Step or Continuous Scan <<<<<"
+      echo -e " Step Scan: \t\t\t\t Continuous Scan:"                                       
+      echo -e " --process FLIR_StepTomoscanIOC \t --process FLIR_ContTomoscanIOC"
+      echo -e " --process FLIR_PythonServerStep \t --process FLIR_PythonServerCont"
+      echo -e " --process FLIR_WriterServerStep \t --process FLIR_WriterServerCont"
+      echo "===================================================="
+      printf "\n"
+      exit 2
+      ;;
+    --)
+      shift;
+      break
+      ;;
+    *)
+      echo "Unexpected option: $1"
+      ;;
+  esac
+done
+
+echo $process
