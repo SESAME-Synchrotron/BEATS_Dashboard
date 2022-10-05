@@ -17,5 +17,4 @@ The dashboard is GUI based which enables users to quickly choose the scanning pa
 
    features
    install
-   runScan
-   collect
+   MainWindow
