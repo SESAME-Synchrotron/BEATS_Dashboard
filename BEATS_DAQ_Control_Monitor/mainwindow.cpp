@@ -632,6 +632,24 @@ void MainWindow::checkStatusH()
         ui->PCOGB->setEnabled(true);
         ui->FLIRGB->setEnabled(true);
 
+        if (PCOState_ == 9 or PCOIOC_SEVR_ == NULL){
+//            ui->PCO->setEnabled(false);
+            ui->PCOSts->setText("Disconnected");
+        }
+        else {
+//            ui->PCO->setEnabled(true);
+            ui->PCOSts->setText("Connected");
+
+        }
+
+        if (FLIRState_ == 9 or FLIRIOC_SEVR_ == NULL){
+//            ui->FLIR->setEnabled(false);
+            ui->FLIRSts->setText("Disconnected");
+        }
+        else {
+//            ui->FLIR->setEnabled(true);
+            ui->FLIRSts->setText("Connected");
+        }
 
         if (PCOIOC_SEVR_ != NULL && camera == "PCO"){
 
@@ -846,25 +864,6 @@ void MainWindow::checkStatusH()
 
                 ui->contPythonServerSts->setText(stopped);
             }
-        }
-
-        if (PCOState_ == 9 or PCOIOC_SEVR_ == NULL){
-            ui->PCO->setEnabled(false);
-            ui->PCOSts->setText("Disconnected");
-        }
-        else {
-//            ui->PCO->setEnabled(true);
-            ui->PCOSts->setText("Connected");
-
-        }
-
-        if (FLIRState_ == 9 or FLIRIOC_SEVR_ == NULL){
-            ui->FLIR->setEnabled(false);
-            ui->FLIRSts->setText("Disconnected");
-        }
-        else {
-//            ui->FLIR->setEnabled(true);
-            ui->FLIRSts->setText("Connected");
         }
 
         /* --------------------------------------------------------------*/
