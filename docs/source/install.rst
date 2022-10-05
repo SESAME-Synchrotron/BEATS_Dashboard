@@ -24,7 +24,7 @@ The tool needs set of python packages and Qt libraries installed and configured.
 Pyhon packages: 
 ...............
 
-The list below contains the list of python packages needed for the scanning tool to run. After activating the python virtual environment (by typing **p3** in the terminal), you can use **pip** to install them in the virtual environment or you can copy this list in a text file (requirements.txt) and install them at once using this command (pip install -r requirements.txt)  
+The list below contains the list of python packages needed for the scanning tool to run. You can copy this list in a text file (requirements.txt) and install them at once using this command (pip install -r requirements.txt)  
 
 ::
 	
