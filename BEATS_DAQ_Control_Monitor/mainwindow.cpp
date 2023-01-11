@@ -28,15 +28,15 @@ MainWindow::MainWindow(QWidget *parent)
     this->tomoScanSupportIOC          = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL");
     this->writerSupportIOC            = new QEpicsPV("BEATS:WRITER:NumSaved");
 
-    this->PCO_TomoScanIOCStep         = new QEpicsPV("BEATS_STEP:SR_0_State");
-    this->PCO_PythonServerStep        = new QEpicsPV("BEATS_STEP:TomoScan:ServerRunning");
-    this->PCO_TomoScanIOCCont         = new QEpicsPV("BEATS_CONTINUOUS:SR_0_State");
-    this->PCO_PythonServerCont        = new QEpicsPV("BEATS_CONTINUOUS:TomoScan:ServerRunning");
+    this->PCO_TomoScanIOCStep         = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ScanStatus");
+    this->PCO_PythonServerStep        = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ServerRunning");
+    this->PCO_TomoScanIOCCont         = new QEpicsPV("tomoscanBEATS:PcoMicosCont:ScanStatus");
+    this->PCO_PythonServerCont        = new QEpicsPV("tomoscanBEATS:PcoMicosCont:ServerRunning");
 
-    this->FLIR_TomoScanIOCStep        = new QEpicsPV("beats:TomoScanStep:CameraObjective");
-    this->FLIR_PythonServerStep       = new QEpicsPV("beats:TomoScanStep:ServerRunning");
-    this->FLIR_TomoScanIOCCont        = new QEpicsPV("beats:TomoScanCont:CameraObjective");
-    this->FLIR_PythonServerCont       = new QEpicsPV("beats:TomoScanCont:ServerRunning");
+    this->FLIR_TomoScanIOCStep        = new QEpicsPV("tomoscanBEATS:FlirMicosStep:CameraObjective");
+    this->FLIR_PythonServerStep       = new QEpicsPV("tomoscanBEATS:FlirMicosStep:ServerRunning");
+    this->FLIR_TomoScanIOCCont        = new QEpicsPV("tomoscanBEATS:FlirMicosCont:CameraObjective");
+    this->FLIR_PythonServerCont       = new QEpicsPV("tomoscanBEATS:FlirMicosCont:ServerRunning");
 
     this->writerServerStep            = new QEpicsPV("BEATS:WRITER:STEP:Status");
     this->writerServerCont            = new QEpicsPV("BEATS:WRITER:CONT:Status");
@@ -55,15 +55,15 @@ MainWindow::MainWindow(QWidget *parent)
     this->tomoScanSupportIOC_SEVR     = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL.SEVR");
     this->writerSupportIOC_SEVR       = new QEpicsPV("BEATS:WRITER:NumSaved.SEVR");
 
-    this->PCO_TomoScanIOCStep_SEVR   = new QEpicsPV("BEATS_STEP:SR_0_State.SEVR");
-    this->PCO_PythonServerStep_SEVR  = new QEpicsPV("BEATS_STEP:TomoScan:ServerRunning.SEVR");
-    this->PCO_TomoScanIOCCont_SEVR   = new QEpicsPV("BEATS_CONTINUOUS:SR_0_State.SEVR");
-    this->PCO_PythonServerCont_SEVR  = new QEpicsPV("BEATS_CONTINUOUS:TomoScan:ServerRunning.SEVR");
+    this->PCO_TomoScanIOCStep_SEVR   = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ScanStatus.SEVR");
+    this->PCO_PythonServerStep_SEVR  = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ServerRunning.SEVR");
+    this->PCO_TomoScanIOCCont_SEVR   = new QEpicsPV("tomoscanBEATS:PcoMicosCont:ScanStatus.SEVR");
+    this->PCO_PythonServerCont_SEVR  = new QEpicsPV("tomoscanBEATS:PcoMicosCont:ServerRunning.SEVR");
 
-    this->FLIR_TomoScanIOCStep_SEVR    = new QEpicsPV("beats:TomoScanStep:CameraObjective.SEVR");
-    this->FLIR_PythonServerStep_SEVR   = new QEpicsPV("beats:TomoScanStep:ServerRunning.SEVR");
-    this->FLIR_TomoScanIOCCont_SEVR    = new QEpicsPV("beats:TomoScanCont:CameraObjective.SEVR");
-    this->FLIR_PythonServerCont_SEVR   = new QEpicsPV("beats:TomoScanCont:ServerRunning.SEVR");
+    this->FLIR_TomoScanIOCStep_SEVR    = new QEpicsPV("tomoscanBEATS:FlirMicosStep:CameraObjective.SEVR");
+    this->FLIR_PythonServerStep_SEVR   = new QEpicsPV("tomoscanBEATS:FlirMicosStep:ServerRunning.SEVR");
+    this->FLIR_TomoScanIOCCont_SEVR    = new QEpicsPV("tomoscanBEATS:FlirMicosCont:CameraObjective.SEVR");
+    this->FLIR_PythonServerCont_SEVR   = new QEpicsPV("tomoscanBEATS:FlirMicosCont:ServerRunning.SEVR");
 
     this->writerServerStep_SEVR       = new QEpicsPV("BEATS:WRITER:STEP:Status.SEVR");
     this->writerServerCont_SEVR       = new QEpicsPV("BEATS:WRITER:CONT:Status.SEVR");
@@ -115,7 +115,7 @@ void MainWindow::on_PCO_clicked()
 {
     camera = "PCO";
 
-    ui->generalSts->setText(camera + " Camera is selected");
+    ui->generalSts->setText(camera + " Detector is selected");
 
     // hide the FLIR indicators objects
     ui->FLIRStepTomoScanIOCInd->setHidden(true);
@@ -139,7 +139,7 @@ void MainWindow::on_FLIR_clicked()
 //    FLIRIOCStart->start("gnome-terminal -x ./FLIR_CameraStart.sh ");
     camera = "FLIR";
 
-    ui->generalSts->setText(camera + " Camera is selected");
+    ui->generalSts->setText(camera + " Detector is selected");
 
     // hide the PCO indicators objects
     ui->PCOStepTomoScanIOCInd->setHidden(true);
@@ -666,7 +666,7 @@ void MainWindow::checkStatusH()
                 ui->FLIRGB->setEnabled(false);
 
 //                ui->generalSts->setText("PCO TomoScan IOC -Step- is running ...");
-                ui->CameraType->setText(camera + " Camera && Step Scan is selected");
+                ui->CameraType->setText(camera + " Detector && Step Scan are selected");
                 ui->stepTomoScanIOCSts->setText(running);
             }
             else
@@ -717,7 +717,7 @@ void MainWindow::checkStatusH()
                 ui->FLIR->setEnabled(false);
 
 //                ui->generalSts->setText("PCO TomoScan IOC -Continuous- is running ...");
-                ui->CameraType->setText(camera + " Camera && Continuous Scan is selected");
+                ui->CameraType->setText(camera + " Detector && Continuous Scan are selected");
                 ui->contTomoScanIOCSts->setText(running);
             }
             else
@@ -773,7 +773,7 @@ void MainWindow::checkStatusH()
                 ui->PCOGB->setEnabled(false);
 
 //                ui->generalSts->setText("FLIR TomoScan IOC -Step- is running ...");
-                ui->CameraType->setText(camera + " Camera && Step Scan is selected");
+                ui->CameraType->setText(camera + " Detector && Step Scan are selected");
                 ui->stepTomoScanIOCSts->setText(running);
             }
             else
@@ -824,7 +824,7 @@ void MainWindow::checkStatusH()
                 ui->PCO->setEnabled(false);
 
 //                ui->generalSts->setText("FLIR TomoScan IOC -Continuous- is running ...");
-                ui->CameraType->setText(camera + " Camera && Continuous Scan is selected");
+                ui->CameraType->setText(camera + " Detector && Continuous Scan are selected");
                 ui->contTomoScanIOCSts->setText(running);
             }
             else
@@ -920,7 +920,7 @@ void MainWindow::checkStatusH()
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);
 
-        ui->generalSts->setText("Please make sure to start the common IOCs to begin scan!");
+        ui->generalSts->setText("Please make sure to start the common IOCs to be able to continue!");
     }
 
     if ((PCOIOC_SEVR_ == NULL or PCOState_ == 9) && camera == "PCO"){
@@ -928,7 +928,7 @@ void MainWindow::checkStatusH()
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);
 
-        ui->generalSts->setText("Can't begin the scan or make any process, check the (Camera Power, Ethernet Connection, PCO IOC)");
+        ui->generalSts->setText("Can't select the scan mode or make any process, check the (Detector Power, Ethernet Connection, PCO IOC)");
     }
 
     if ((FLIRIOC_SEVR_ == NULL or FLIRState_ == 9) && camera == "FLIR"){
@@ -936,10 +936,12 @@ void MainWindow::checkStatusH()
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);
 
-        ui->generalSts->setText("Can't begin the scan or make any process, check the (Camera Power, Ethernet Connection, FLIR IOC)");
+        ui->generalSts->setText("Can't select the scan mode or make any process, check the (Detector Power, Ethernet Connection, FLIR IOC)");
     }
 
-    ui->currentCamera->setText("Current Chosen Camera: "+ camera);
+    ui->currentCamera->setText("Current Chosen Detector: "+ camera);
+    ui->currentStage->setText("Current Rotation Stage: Micos");
+
 }
 
 void MainWindow::checkStatusL(){

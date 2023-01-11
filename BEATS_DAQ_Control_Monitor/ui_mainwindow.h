@@ -76,14 +76,15 @@ public:
     QESimpleShape *PCOStateInd;
     QLabel *PCOSts;
     QGridLayout *gridLayout_6;
+    QLabel *generalSts;
     QLabel *currentCamera;
-    QLineEdit *password;
+    QPushButton *TCPServerSocketRestart;
+    QLabel *currentStage;
     QGridLayout *ImageJLayout;
     QLabel *ImageJ;
     QPushButton *ImageJStart;
-    QPushButton *TCPServerSocketRestart;
-    QLabel *generalSts;
     QPushButton *help;
+    QLineEdit *password;
     QGridLayout *gridLayout_2;
     QGroupBox *contScanGB;
     QGridLayout *gridLayout_7;
@@ -158,7 +159,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1006, 673);
+        MainWindow->resize(1006, 649);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_3 = new QGridLayout(centralwidget);
@@ -437,6 +438,11 @@ public:
 
         PCOState = new QLabel(PCOGB);
         PCOState->setObjectName(QStringLiteral("PCOState"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(PCOState->sizePolicy().hasHeightForWidth());
+        PCOState->setSizePolicy(sizePolicy1);
 
         PCOLayout->addWidget(PCOState, 1, 0, 1, 1);
 
@@ -467,21 +473,38 @@ public:
 
         gridLayout_6 = new QGridLayout();
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        generalSts = new QLabel(centralwidget);
+        generalSts->setObjectName(QStringLiteral("generalSts"));
+        QFont font1;
+        font1.setPointSize(11);
+        generalSts->setFont(font1);
+        generalSts->setCursor(QCursor(Qt::IBeamCursor));
+        generalSts->setStyleSheet(QStringLiteral("background-color: rgb(170, 255, 255);"));
+        generalSts->setFrameShape(QFrame::StyledPanel);
+        generalSts->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_6->addWidget(generalSts, 1, 0, 1, 2);
+
         currentCamera = new QLabel(centralwidget);
         currentCamera->setObjectName(QStringLiteral("currentCamera"));
         currentCamera->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 0);"));
         currentCamera->setFrameShape(QFrame::StyledPanel);
 
-        gridLayout_6->addWidget(currentCamera, 2, 0, 1, 1);
+        gridLayout_6->addWidget(currentCamera, 3, 0, 1, 1);
 
-        password = new QLineEdit(centralwidget);
-        password->setObjectName(QStringLiteral("password"));
-        QFont font1;
-        font1.setPointSize(7);
-        password->setFont(font1);
-        password->setEchoMode(QLineEdit::Password);
+        TCPServerSocketRestart = new QPushButton(centralwidget);
+        TCPServerSocketRestart->setObjectName(QStringLiteral("TCPServerSocketRestart"));
+        TCPServerSocketRestart->setCursor(QCursor(Qt::PointingHandCursor));
+        TCPServerSocketRestart->setFlat(false);
 
-        gridLayout_6->addWidget(password, 0, 2, 1, 1);
+        gridLayout_6->addWidget(TCPServerSocketRestart, 0, 1, 1, 1);
+
+        currentStage = new QLabel(centralwidget);
+        currentStage->setObjectName(QStringLiteral("currentStage"));
+        currentStage->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 0);"));
+        currentStage->setFrameShape(QFrame::StyledPanel);
+
+        gridLayout_6->addWidget(currentStage, 2, 0, 1, 1);
 
         ImageJLayout = new QGridLayout();
         ImageJLayout->setObjectName(QStringLiteral("ImageJLayout"));
@@ -499,35 +522,22 @@ public:
 
         gridLayout_6->addLayout(ImageJLayout, 0, 0, 1, 1);
 
-        TCPServerSocketRestart = new QPushButton(centralwidget);
-        TCPServerSocketRestart->setObjectName(QStringLiteral("TCPServerSocketRestart"));
-        TCPServerSocketRestart->setCursor(QCursor(Qt::PointingHandCursor));
-        TCPServerSocketRestart->setFlat(false);
-
-        gridLayout_6->addWidget(TCPServerSocketRestart, 0, 1, 1, 1);
-
-        generalSts = new QLabel(centralwidget);
-        generalSts->setObjectName(QStringLiteral("generalSts"));
-        QFont font2;
-        font2.setPointSize(11);
-        generalSts->setFont(font2);
-        generalSts->setCursor(QCursor(Qt::IBeamCursor));
-        generalSts->setStyleSheet(QStringLiteral("background-color: rgb(170, 255, 255);"));
-        generalSts->setFrameShape(QFrame::StyledPanel);
-        generalSts->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_6->addWidget(generalSts, 1, 0, 1, 2);
-
         help = new QPushButton(centralwidget);
         help->setObjectName(QStringLiteral("help"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(help->sizePolicy().hasHeightForWidth());
         help->setSizePolicy(sizePolicy1);
         help->setCursor(QCursor(Qt::PointingHandCursor));
 
-        gridLayout_6->addWidget(help, 2, 2, 1, 1);
+        gridLayout_6->addWidget(help, 3, 2, 1, 1);
+
+        password = new QLineEdit(centralwidget);
+        password->setObjectName(QStringLiteral("password"));
+        QFont font2;
+        font2.setPointSize(7);
+        password->setFont(font2);
+        password->setEchoMode(QLineEdit::Password);
+
+        gridLayout_6->addWidget(password, 0, 2, 1, 1);
 
 
         gridLayout_3->addLayout(gridLayout_6, 3, 0, 1, 2);
@@ -915,6 +925,8 @@ public:
 
         FLIRState = new QLabel(FLIRGB);
         FLIRState->setObjectName(QStringLiteral("FLIRState"));
+        sizePolicy1.setHeightForWidth(FLIRState->sizePolicy().hasHeightForWidth());
+        FLIRState->setSizePolicy(sizePolicy1);
 
         FLIRLayout->addWidget(FLIRState, 1, 0, 1, 1);
 
@@ -1029,13 +1041,14 @@ public:
         PCOState->setText(QApplication::translate("MainWindow", "PCO State", Q_NULLPTR));
         PCOStateInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "TEST-PCO:cam1:DetectorState_RBV", Q_NULLPTR)));
         PCOSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
+        generalSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         currentCamera->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        password->setText(QString());
+        TCPServerSocketRestart->setText(QApplication::translate("MainWindow", "Restart TCP Server Socket", Q_NULLPTR));
+        currentStage->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         ImageJ->setText(QApplication::translate("MainWindow", "ImageJ", Q_NULLPTR));
         ImageJStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
-        TCPServerSocketRestart->setText(QApplication::translate("MainWindow", "Restart TCP Server Socket", Q_NULLPTR));
-        generalSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         help->setText(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
+        password->setText(QString());
         contScanGB->setTitle(QApplication::translate("MainWindow", "Continuous Scan", Q_NULLPTR));
         contTomoScanIOCStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         contWriterServerSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
@@ -1052,19 +1065,19 @@ public:
         contWriterServerStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         contPythonServerSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         contPythonServerRestart->setText(QApplication::translate("MainWindow", "Restart", Q_NULLPTR));
-        PCOContTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS_CONTINUOUS:SR_0_State", Q_NULLPTR)));
+        PCOContTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:PcoMicosCont:ScanStatus", Q_NULLPTR)));
         contTomoScanIOCRestart->setText(QApplication::translate("MainWindow", "Restart", Q_NULLPTR));
         contPythonServerStop->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
         contWriterServerStop->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
-        PCOContPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS_CONTINUOUS:TomoScan:ServerRunning", Q_NULLPTR)));
-        FLIRContTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "beats:TomoScanCont:CameraObjective", Q_NULLPTR)));
-        FLIRContPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "beats:TomoScanCont:ServerRunning", Q_NULLPTR)));
+        PCOContPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:PcoMicosCont:ServerRunning", Q_NULLPTR)));
+        FLIRContTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:FlirMicosCont:CameraObjective", Q_NULLPTR)));
+        FLIRContPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:FlirMicosCont:ServerRunning", Q_NULLPTR)));
         FLIRContWriterServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS:FLIR:WRITER:CONT:Status", Q_NULLPTR)));
         stepScanGB->setTitle(QApplication::translate("MainWindow", "Step Scan", Q_NULLPTR));
         stepMEDM->setText(QApplication::translate("MainWindow", "MEDM", Q_NULLPTR));
         stepPythonServerStop->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
         stepPythonServer->setText(QApplication::translate("MainWindow", "Python Server", Q_NULLPTR));
-        PCOStepTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS_STEP:SR_0_State", Q_NULLPTR)));
+        PCOStepTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:PcoMicosStep:ScanStatus", Q_NULLPTR)));
         stepMEDMStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         stepTomoScanIOCStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         stepWriterServer->setText(QApplication::translate("MainWindow", "Writer Server", Q_NULLPTR));
@@ -1077,12 +1090,12 @@ public:
         stepTomoScanIOCRestart->setText(QApplication::translate("MainWindow", "Restart", Q_NULLPTR));
         stepPythonServerStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         stepWriterServerSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        PCOStepPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS_STEP:TomoScan:ServerRunning", Q_NULLPTR)));
+        PCOStepPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:PcoMicosStep:ServerRunning", Q_NULLPTR)));
         PCOStepWriterServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS:PCO:WRITER:STEP:Status", Q_NULLPTR)));
         stepWriterServerStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         stepTomoScanIOCSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        FLIRStepTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "beats:TomoScanStep:CameraObjective", Q_NULLPTR)));
-        FLIRStepPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "beats:TomoScanStep:ServerRunning", Q_NULLPTR)));
+        FLIRStepTomoScanIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:FlirMicosStep:CameraObjective", Q_NULLPTR)));
+        FLIRStepPythonServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "tomoscanBEATS:FlirMicosStep:ServerRunning", Q_NULLPTR)));
         FLIRStepWriterServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS:FLIR:WRITER:STEP:Status", Q_NULLPTR)));
         CameraType->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         FLIRGB->setTitle(QApplication::translate("MainWindow", "FLIR Camera", Q_NULLPTR));

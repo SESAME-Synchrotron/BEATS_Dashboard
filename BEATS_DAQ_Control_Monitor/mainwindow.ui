@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1006</width>
-    <height>673</height>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -463,6 +463,12 @@ QGroupBox::title {
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="PCOState">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>PCO State</string>
            </property>
@@ -536,71 +542,6 @@ QGroupBox::title {
     </item>
     <item row="3" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout_6">
-      <item row="2" column="0">
-       <widget class="QLabel" name="currentCamera">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 0);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="text">
-         <string>---</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="password">
-        <property name="font">
-         <font>
-          <pointsize>7</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <layout class="QGridLayout" name="ImageJLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="ImageJ">
-          <property name="text">
-           <string>ImageJ</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="ImageJStart">
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="text">
-           <string>Start</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="TCPServerSocketRestart">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Restart TCP Server Socket</string>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="generalSts">
         <property name="font">
@@ -625,7 +566,70 @@ QGroupBox::title {
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="3" column="0">
+       <widget class="QLabel" name="currentCamera">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="text">
+         <string>---</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="TCPServerSocketRestart">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Restart TCP Server Socket</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="currentStage">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 0);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="text">
+         <string>---</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="ImageJLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="ImageJ">
+          <property name="text">
+           <string>ImageJ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="ImageJStart">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="2">
        <widget class="QPushButton" name="help">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -638,6 +642,21 @@ QGroupBox::title {
         </property>
         <property name="text">
          <string>Help</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="password">
+        <property name="font">
+         <font>
+          <pointsize>7</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
@@ -839,7 +858,7 @@ QGroupBox::title {
               </color>
              </property>
              <property name="variable" stdset="0">
-              <string>BEATS_CONTINUOUS:SR_0_State</string>
+              <string>tomoscanBEATS:PcoMicosCont:ScanStatus</string>
              </property>
             </widget>
            </item>
@@ -876,7 +895,7 @@ QGroupBox::title {
            <item row="1" column="1">
             <widget class="QESimpleShape" name="PCOContPythonServerInd">
              <property name="variable" stdset="0">
-              <string>BEATS_CONTINUOUS:TomoScan:ServerRunning</string>
+              <string>tomoscanBEATS:PcoMicosCont:ServerRunning</string>
              </property>
             </widget>
            </item>
@@ -890,14 +909,14 @@ QGroupBox::title {
               </color>
              </property>
              <property name="variable" stdset="0">
-              <string>beats:TomoScanCont:CameraObjective</string>
+              <string>tomoscanBEATS:FlirMicosCont:CameraObjective</string>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
             <widget class="QESimpleShape" name="FLIRContPythonServerInd">
              <property name="variable" stdset="0">
-              <string>beats:TomoScanCont:ServerRunning</string>
+              <string>tomoscanBEATS:FlirMicosCont:ServerRunning</string>
              </property>
             </widget>
            </item>
@@ -969,7 +988,7 @@ QGroupBox::title {
               </color>
              </property>
              <property name="variable" stdset="0">
-              <string>BEATS_STEP:SR_0_State</string>
+              <string>tomoscanBEATS:PcoMicosStep:ScanStatus</string>
              </property>
             </widget>
            </item>
@@ -1108,7 +1127,7 @@ QGroupBox::title {
            <item row="1" column="1">
             <widget class="QESimpleShape" name="PCOStepPythonServerInd">
              <property name="variable" stdset="0">
-              <string>BEATS_STEP:TomoScan:ServerRunning</string>
+              <string>tomoscanBEATS:PcoMicosStep:ServerRunning</string>
              </property>
             </widget>
            </item>
@@ -1158,14 +1177,14 @@ QGroupBox::title {
               </color>
              </property>
              <property name="variable" stdset="0">
-              <string>beats:TomoScanStep:CameraObjective</string>
+              <string>tomoscanBEATS:FlirMicosStep:CameraObjective</string>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
             <widget class="QESimpleShape" name="FLIRStepPythonServerInd">
              <property name="variable" stdset="0">
-              <string>beats:TomoScanStep:ServerRunning</string>
+              <string>tomoscanBEATS:FlirMicosStep:ServerRunning</string>
              </property>
             </widget>
            </item>
@@ -1293,6 +1312,12 @@ QGroupBox::title {
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="FLIRState">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>FLIR State</string>
            </property>
