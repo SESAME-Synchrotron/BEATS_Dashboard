@@ -1,5 +1,6 @@
 import socket
 from time import sleep
+from datetime import datetime
 # import win32comext.shell.shell as shell
 import os
 # import time
@@ -47,14 +48,14 @@ while 1:
                             if not data:
                                 break
                             if data.decode('utf-8').lower() == "start":
-                                print('Started')
+                                print('Started ', datetime.now().strftime("%d-%b-%Y, %H:%M:%S"))
                                 executeProcess(data.decode('utf-8').lower())
                             elif data.decode('utf-8').lower() == "stop":
-                                print('Stopped')
+                                print('Stopped ', datetime.now().strftime("%d-%b-%Y, %H:%M:%S"))
                                 executeProcess(data.decode('utf-8').lower())
                             elif data.decode('utf-8').lower() == "restart":
                                 executeProcess(data.decode('utf-8').lower())
-                                print('Restarted')
+                                print('Restarted ', datetime.now().strftime("%d-%b-%Y, %H:%M:%S"))
                             else:
                                 pass
                         sleep(0.05)
