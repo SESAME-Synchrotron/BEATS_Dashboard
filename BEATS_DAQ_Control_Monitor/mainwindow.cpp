@@ -7,6 +7,7 @@
 #include <QDir>
 #include <QDesktopServices>
 #include <QCryptographicHash>
+//#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->PCOIOC                      = new QEpicsPV("TEST-PCO:HDF1:StoreAttr");
     this->FLIRIOC                     = new QEpicsPV("FLIR:cam1:ARCheckConnection");
-    this->PCOState                    = new QEpicsPV("TEST-PCO:cam1:DetectorState_RBV");
+    this->PCOState                    = new QEpicsPV("TEST-PCO:cam1:StatusMessage_RBV");
     this->FLIRState                   = new QEpicsPV("FLIR:cam1:DetectorState_RBV");
 
     this->shutterIOC                  = new QEpicsPV("MIRRORS-IOC:scan1");
@@ -77,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TCPServerSocketRestart->setEnabled(false);
     ui->TCPServerSocketRestart->setHidden(true);
     ui->password->setHidden(true);
+    ui->PCO_StatusHidden->setHidden(true);
 
     TimerH = new QTimer(this);
     this->TimerH->start(400);
@@ -632,23 +634,29 @@ void MainWindow::checkStatusH()
         ui->PCOGB->setEnabled(true);
         ui->FLIRGB->setEnabled(true);
 
-        if (PCOState_ == 9 or PCOIOC_SEVR_ == NULL){
+        if (ui->PCO_StatusHidden->text().toStdString() != "0" or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected" or PCOIOC_SEVR_ == NULL){
 //            ui->PCO->setEnabled(false);
             ui->PCOSts->setText("Disconnected");
+            set_PCO_indicators_color('R');
+//            std::cout<<ui->PCO_StatusHidden->text().toStdString()<<std::endl;
+
         }
         else {
 //            ui->PCO->setEnabled(true);
             ui->PCOSts->setText("Connected");
-
+            set_PCO_indicators_color('G');
+//            std::cout<<ui->PCO_StatusHidden->text().toStdString()<<std::endl;
         }
 
         if (FLIRState_ == 9 or FLIRIOC_SEVR_ == NULL){
 //            ui->FLIR->setEnabled(false);
             ui->FLIRSts->setText("Disconnected");
+            set_FLIR_indicators_color('R');
         }
         else {
 //            ui->FLIR->setEnabled(true);
             ui->FLIRSts->setText("Connected");
+            set_FLIR_indicators_color('G');
         }
 
         if (PCOIOC_SEVR_ != NULL && camera == "PCO"){
@@ -923,7 +931,7 @@ void MainWindow::checkStatusH()
         ui->generalSts->setText("Please make sure to start the common IOCs to be able to continue!");
     }
 
-    if ((PCOIOC_SEVR_ == NULL or PCOState_ == 9) && camera == "PCO"){
+    if ((PCOIOC_SEVR_ == NULL or ui->PCO_StatusHidden->text().toStdString() != "0" or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected") && camera == "PCO"){
 
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);
@@ -954,38 +962,47 @@ void MainWindow::checkStatusL(){
 
       case 1:
         ui->PCOSts->setText("Acquire");
+        set_PCO_indicators_color('G');
         break;
 
       case 2:
         ui->PCOSts->setText("Readout");
+        set_PCO_indicators_color('G');
         break;
 
       case 3:
         ui->PCOSts->setText("Correct");
+        set_PCO_indicators_color('G');
         break;
 
       case 4:
         ui->PCOSts->setText("Saving");
+        set_PCO_indicators_color('G');
         break;
 
       case 5:
         ui->PCOSts->setText("Aborting");
+        set_PCO_indicators_color('G');
         break;
 
       case 6:
         ui->PCOSts->setText("Error");
+        set_PCO_indicators_color('R');
         break;
 
       case 7:
         ui->PCOSts->setText("Waiting");
+        set_PCO_indicators_color('G');
         break;
 
       case 8:
         ui->PCOSts->setText("Initializing");
+        set_PCO_indicators_color('G');
         break;
 
       case 10:
         ui->PCOSts->setText("Aborted");
+        set_PCO_indicators_color('G');
         break;
     }
 
@@ -997,39 +1014,85 @@ void MainWindow::checkStatusL(){
 
       case 1:
         ui->FLIRSts->setText("Acquire");
+        set_FLIR_indicators_color('G');
         break;
 
       case 2:
         ui->FLIRSts->setText("Readout");
+        set_FLIR_indicators_color('G');
         break;
 
       case 3:
         ui->FLIRSts->setText("Correct");
+        set_FLIR_indicators_color('G');
         break;
 
       case 4:
         ui->FLIRSts->setText("Saving");
+        set_FLIR_indicators_color('G');
         break;
 
       case 5:
         ui->FLIRSts->setText("Aborting");
+        set_FLIR_indicators_color('G');
         break;
 
       case 6:
         ui->FLIRSts->setText("Error");
+        set_FLIR_indicators_color('R');
         break;
 
       case 7:
         ui->FLIRSts->setText("Waiting");
+        set_FLIR_indicators_color('G');
         break;
 
       case 8:
         ui->FLIRSts->setText("Initializing");
+        set_FLIR_indicators_color('G');
         break;
 
       case 10:
         ui->FLIRSts->setText("Aborted");
+        set_FLIR_indicators_color('G');
         break;
+    }
+}
+
+void MainWindow::set_PCO_indicators_color(char PCO_Color)
+{
+    PCO_color = PCO_Color;
+
+    switch (PCO_color) {
+
+    case 'R':
+        ui->PCOStateInd->setColour0Property(QColor(255,0,0));
+        break;
+
+    case 'G':
+        ui->PCOStateInd->setColour0Property(QColor(0,255,0));
+        break;
+
+    default:
+        ui->PCOStateInd->setColour0Property(QColor(0,0,0));
+    }
+}
+
+void MainWindow::set_FLIR_indicators_color(char FLIR_Color)
+{
+    FLIR_color = FLIR_Color;
+
+    switch (FLIR_color) {
+
+    case 'R':
+        ui->FLIRStateInd->setColour0Property(QColor(255,0,0));
+        break;
+
+    case 'G':
+        ui->FLIRStateInd->setColour0Property(QColor(0,255,0));
+        break;
+    default:
+        ui->FLIRStateInd->setColour0Property(QColor(0,0,0));
     }
 }
 

@@ -21,6 +21,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include "QELabel.h"
 #include "QESimpleShape.h"
 #include "QSimpleShape.h"
 
@@ -73,18 +74,19 @@ public:
     QPushButton *PCO;
     QLabel *PCOIOC;
     QLabel *PCOState;
-    QESimpleShape *PCOStateInd;
     QLabel *PCOSts;
+    QSimpleShape *PCOStateInd;
     QGridLayout *gridLayout_6;
-    QLabel *generalSts;
-    QLabel *currentCamera;
-    QPushButton *TCPServerSocketRestart;
+    QLineEdit *password;
     QLabel *currentStage;
     QGridLayout *ImageJLayout;
     QLabel *ImageJ;
     QPushButton *ImageJStart;
+    QLabel *generalSts;
+    QLabel *currentCamera;
+    QPushButton *TCPServerSocketRestart;
     QPushButton *help;
-    QLineEdit *password;
+    QELabel *PCO_StatusHidden;
     QGridLayout *gridLayout_2;
     QGroupBox *contScanGB;
     QGridLayout *gridLayout_7;
@@ -142,24 +144,29 @@ public:
     QGroupBox *FLIRGB;
     QGridLayout *gridLayout_9;
     QGridLayout *FLIRLayout;
-    QESimpleShape *FLIRStateInd;
-    QPushButton *FLIR;
-    QPushButton *FLIRIOCStop;
+    QPushButton *FLIRIOCStart;
     QLabel *FLIRState;
+    QLabel *FLIRSts;
+    QPushButton *FLIR;
+    QPushButton *FLIRDriverStart;
     QPushButton *FLIRIOCRestart;
-    QLabel *FLIRDriver;
+    QPushButton *FLIRIOCStop;
+    QLabel *FLIRIOCSts;
     QLabel *FLIRIOC;
     QESimpleShape *FLIRIOCInd;
-    QLabel *FLIRIOCSts;
-    QPushButton *FLIRIOCStart;
-    QPushButton *FLIRDriverStart;
-    QLabel *FLIRSts;
+    QLabel *FLIRDriver;
+    QSimpleShape *FLIRStateInd;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1006, 649);
+        MainWindow->resize(1006, 738);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_3 = new QGridLayout(centralwidget);
@@ -168,11 +175,11 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         generalTittle = new QLabel(centralwidget);
         generalTittle->setObjectName(QStringLiteral("generalTittle"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(generalTittle->sizePolicy().hasHeightForWidth());
-        generalTittle->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(generalTittle->sizePolicy().hasHeightForWidth());
+        generalTittle->setSizePolicy(sizePolicy1);
         QFont font;
         font.setPointSize(14);
         generalTittle->setFont(font);
@@ -438,23 +445,13 @@ public:
 
         PCOState = new QLabel(PCOGB);
         PCOState->setObjectName(QStringLiteral("PCOState"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(PCOState->sizePolicy().hasHeightForWidth());
-        PCOState->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(PCOState->sizePolicy().hasHeightForWidth());
+        PCOState->setSizePolicy(sizePolicy2);
 
         PCOLayout->addWidget(PCOState, 1, 0, 1, 1);
-
-        PCOStateInd = new QESimpleShape(PCOGB);
-        PCOStateInd->setObjectName(QStringLiteral("PCOStateInd"));
-        PCOStateInd->setEdgeColour(QColor(0, 0, 0));
-        PCOStateInd->setProperty("colour0", QVariant(QColor(5, 240, 5)));
-        PCOStateInd->setProperty("colour1", QVariant(QColor(255, 0, 0)));
-        PCOStateInd->setProperty("colour2", QVariant(QColor(255, 0, 0)));
-        PCOStateInd->setProperty("colour3", QVariant(QColor(255, 0, 0)));
-
-        PCOLayout->addWidget(PCOStateInd, 1, 1, 1, 1);
 
         PCOSts = new QLabel(PCOGB);
         PCOSts->setObjectName(QStringLiteral("PCOSts"));
@@ -465,6 +462,14 @@ public:
 
         PCOLayout->addWidget(PCOSts, 1, 2, 1, 4);
 
+        PCOStateInd = new QSimpleShape(PCOGB);
+        PCOStateInd->setObjectName(QStringLiteral("PCOStateInd"));
+        sizePolicy2.setHeightForWidth(PCOStateInd->sizePolicy().hasHeightForWidth());
+        PCOStateInd->setSizePolicy(sizePolicy2);
+        PCOStateInd->setMinimumSize(QSize(20, 20));
+
+        PCOLayout->addWidget(PCOStateInd, 1, 1, 1, 1);
+
 
         gridLayout_10->addLayout(PCOLayout, 0, 0, 1, 1);
 
@@ -473,31 +478,14 @@ public:
 
         gridLayout_6 = new QGridLayout();
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
-        generalSts = new QLabel(centralwidget);
-        generalSts->setObjectName(QStringLiteral("generalSts"));
+        password = new QLineEdit(centralwidget);
+        password->setObjectName(QStringLiteral("password"));
         QFont font1;
-        font1.setPointSize(11);
-        generalSts->setFont(font1);
-        generalSts->setCursor(QCursor(Qt::IBeamCursor));
-        generalSts->setStyleSheet(QStringLiteral("background-color: rgb(170, 255, 255);"));
-        generalSts->setFrameShape(QFrame::StyledPanel);
-        generalSts->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        font1.setPointSize(7);
+        password->setFont(font1);
+        password->setEchoMode(QLineEdit::Password);
 
-        gridLayout_6->addWidget(generalSts, 1, 0, 1, 2);
-
-        currentCamera = new QLabel(centralwidget);
-        currentCamera->setObjectName(QStringLiteral("currentCamera"));
-        currentCamera->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 0);"));
-        currentCamera->setFrameShape(QFrame::StyledPanel);
-
-        gridLayout_6->addWidget(currentCamera, 3, 0, 1, 1);
-
-        TCPServerSocketRestart = new QPushButton(centralwidget);
-        TCPServerSocketRestart->setObjectName(QStringLiteral("TCPServerSocketRestart"));
-        TCPServerSocketRestart->setCursor(QCursor(Qt::PointingHandCursor));
-        TCPServerSocketRestart->setFlat(false);
-
-        gridLayout_6->addWidget(TCPServerSocketRestart, 0, 1, 1, 1);
+        gridLayout_6->addWidget(password, 0, 2, 1, 1);
 
         currentStage = new QLabel(centralwidget);
         currentStage->setObjectName(QStringLiteral("currentStage"));
@@ -522,22 +510,44 @@ public:
 
         gridLayout_6->addLayout(ImageJLayout, 0, 0, 1, 1);
 
+        generalSts = new QLabel(centralwidget);
+        generalSts->setObjectName(QStringLiteral("generalSts"));
+        QFont font2;
+        font2.setPointSize(11);
+        generalSts->setFont(font2);
+        generalSts->setCursor(QCursor(Qt::IBeamCursor));
+        generalSts->setStyleSheet(QStringLiteral("background-color: rgb(170, 255, 255);"));
+        generalSts->setFrameShape(QFrame::StyledPanel);
+        generalSts->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_6->addWidget(generalSts, 1, 0, 1, 2);
+
+        currentCamera = new QLabel(centralwidget);
+        currentCamera->setObjectName(QStringLiteral("currentCamera"));
+        currentCamera->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 0);"));
+        currentCamera->setFrameShape(QFrame::StyledPanel);
+
+        gridLayout_6->addWidget(currentCamera, 3, 0, 1, 1);
+
+        TCPServerSocketRestart = new QPushButton(centralwidget);
+        TCPServerSocketRestart->setObjectName(QStringLiteral("TCPServerSocketRestart"));
+        TCPServerSocketRestart->setCursor(QCursor(Qt::PointingHandCursor));
+        TCPServerSocketRestart->setFlat(false);
+
+        gridLayout_6->addWidget(TCPServerSocketRestart, 0, 1, 1, 1);
+
         help = new QPushButton(centralwidget);
         help->setObjectName(QStringLiteral("help"));
-        sizePolicy1.setHeightForWidth(help->sizePolicy().hasHeightForWidth());
-        help->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(help->sizePolicy().hasHeightForWidth());
+        help->setSizePolicy(sizePolicy2);
         help->setCursor(QCursor(Qt::PointingHandCursor));
 
         gridLayout_6->addWidget(help, 3, 2, 1, 1);
 
-        password = new QLineEdit(centralwidget);
-        password->setObjectName(QStringLiteral("password"));
-        QFont font2;
-        font2.setPointSize(7);
-        password->setFont(font2);
-        password->setEchoMode(QLineEdit::Password);
+        PCO_StatusHidden = new QELabel(centralwidget);
+        PCO_StatusHidden->setObjectName(QStringLiteral("PCO_StatusHidden"));
 
-        gridLayout_6->addWidget(password, 0, 2, 1, 1);
+        gridLayout_6->addWidget(PCO_StatusHidden, 2, 1, 1, 1);
 
 
         gridLayout_3->addLayout(gridLayout_6, 3, 0, 1, 2);
@@ -901,15 +911,27 @@ public:
         gridLayout_9->setObjectName(QStringLiteral("gridLayout_9"));
         FLIRLayout = new QGridLayout();
         FLIRLayout->setObjectName(QStringLiteral("FLIRLayout"));
-        FLIRStateInd = new QESimpleShape(FLIRGB);
-        FLIRStateInd->setObjectName(QStringLiteral("FLIRStateInd"));
-        FLIRStateInd->setEdgeColour(QColor(0, 0, 0));
-        FLIRStateInd->setProperty("colour0", QVariant(QColor(5, 240, 5)));
-        FLIRStateInd->setProperty("colour1", QVariant(QColor(255, 0, 0)));
-        FLIRStateInd->setProperty("colour2", QVariant(QColor(255, 0, 0)));
-        FLIRStateInd->setProperty("colour3", QVariant(QColor(255, 0, 0)));
+        FLIRIOCStart = new QPushButton(FLIRGB);
+        FLIRIOCStart->setObjectName(QStringLiteral("FLIRIOCStart"));
+        FLIRIOCStart->setCursor(QCursor(Qt::PointingHandCursor));
 
-        FLIRLayout->addWidget(FLIRStateInd, 1, 1, 1, 1);
+        FLIRLayout->addWidget(FLIRIOCStart, 2, 2, 1, 1);
+
+        FLIRState = new QLabel(FLIRGB);
+        FLIRState->setObjectName(QStringLiteral("FLIRState"));
+        sizePolicy2.setHeightForWidth(FLIRState->sizePolicy().hasHeightForWidth());
+        FLIRState->setSizePolicy(sizePolicy2);
+
+        FLIRLayout->addWidget(FLIRState, 1, 0, 1, 1);
+
+        FLIRSts = new QLabel(FLIRGB);
+        FLIRSts->setObjectName(QStringLiteral("FLIRSts"));
+        FLIRSts->setCursor(QCursor(Qt::IBeamCursor));
+        FLIRSts->setFrameShape(QFrame::StyledPanel);
+        FLIRSts->setAlignment(Qt::AlignCenter);
+        FLIRSts->setWordWrap(false);
+
+        FLIRLayout->addWidget(FLIRSts, 1, 2, 1, 4);
 
         FLIR = new QPushButton(FLIRGB);
         FLIR->setObjectName(QStringLiteral("FLIR"));
@@ -917,18 +939,11 @@ public:
 
         FLIRLayout->addWidget(FLIR, 0, 0, 1, 6);
 
-        FLIRIOCStop = new QPushButton(FLIRGB);
-        FLIRIOCStop->setObjectName(QStringLiteral("FLIRIOCStop"));
-        FLIRIOCStop->setCursor(QCursor(Qt::PointingHandCursor));
+        FLIRDriverStart = new QPushButton(FLIRGB);
+        FLIRDriverStart->setObjectName(QStringLiteral("FLIRDriverStart"));
+        FLIRDriverStart->setCursor(QCursor(Qt::PointingHandCursor));
 
-        FLIRLayout->addWidget(FLIRIOCStop, 2, 3, 1, 1);
-
-        FLIRState = new QLabel(FLIRGB);
-        FLIRState->setObjectName(QStringLiteral("FLIRState"));
-        sizePolicy1.setHeightForWidth(FLIRState->sizePolicy().hasHeightForWidth());
-        FLIRState->setSizePolicy(sizePolicy1);
-
-        FLIRLayout->addWidget(FLIRState, 1, 0, 1, 1);
+        FLIRLayout->addWidget(FLIRDriverStart, 3, 2, 1, 3);
 
         FLIRIOCRestart = new QPushButton(FLIRGB);
         FLIRIOCRestart->setObjectName(QStringLiteral("FLIRIOCRestart"));
@@ -936,10 +951,19 @@ public:
 
         FLIRLayout->addWidget(FLIRIOCRestart, 2, 4, 1, 1);
 
-        FLIRDriver = new QLabel(FLIRGB);
-        FLIRDriver->setObjectName(QStringLiteral("FLIRDriver"));
+        FLIRIOCStop = new QPushButton(FLIRGB);
+        FLIRIOCStop->setObjectName(QStringLiteral("FLIRIOCStop"));
+        FLIRIOCStop->setCursor(QCursor(Qt::PointingHandCursor));
 
-        FLIRLayout->addWidget(FLIRDriver, 3, 0, 1, 1);
+        FLIRLayout->addWidget(FLIRIOCStop, 2, 3, 1, 1);
+
+        FLIRIOCSts = new QLabel(FLIRGB);
+        FLIRIOCSts->setObjectName(QStringLiteral("FLIRIOCSts"));
+        FLIRIOCSts->setCursor(QCursor(Qt::IBeamCursor));
+        FLIRIOCSts->setFrameShape(QFrame::StyledPanel);
+        FLIRIOCSts->setAlignment(Qt::AlignCenter);
+
+        FLIRLayout->addWidget(FLIRIOCSts, 2, 5, 1, 1);
 
         FLIRIOC = new QLabel(FLIRGB);
         FLIRIOC->setObjectName(QStringLiteral("FLIRIOC"));
@@ -953,34 +977,18 @@ public:
 
         FLIRLayout->addWidget(FLIRIOCInd, 2, 1, 1, 1);
 
-        FLIRIOCSts = new QLabel(FLIRGB);
-        FLIRIOCSts->setObjectName(QStringLiteral("FLIRIOCSts"));
-        FLIRIOCSts->setCursor(QCursor(Qt::IBeamCursor));
-        FLIRIOCSts->setFrameShape(QFrame::StyledPanel);
-        FLIRIOCSts->setAlignment(Qt::AlignCenter);
+        FLIRDriver = new QLabel(FLIRGB);
+        FLIRDriver->setObjectName(QStringLiteral("FLIRDriver"));
 
-        FLIRLayout->addWidget(FLIRIOCSts, 2, 5, 1, 1);
+        FLIRLayout->addWidget(FLIRDriver, 3, 0, 1, 1);
 
-        FLIRIOCStart = new QPushButton(FLIRGB);
-        FLIRIOCStart->setObjectName(QStringLiteral("FLIRIOCStart"));
-        FLIRIOCStart->setCursor(QCursor(Qt::PointingHandCursor));
+        FLIRStateInd = new QSimpleShape(FLIRGB);
+        FLIRStateInd->setObjectName(QStringLiteral("FLIRStateInd"));
+        sizePolicy2.setHeightForWidth(FLIRStateInd->sizePolicy().hasHeightForWidth());
+        FLIRStateInd->setSizePolicy(sizePolicy2);
+        FLIRStateInd->setMinimumSize(QSize(20, 20));
 
-        FLIRLayout->addWidget(FLIRIOCStart, 2, 2, 1, 1);
-
-        FLIRDriverStart = new QPushButton(FLIRGB);
-        FLIRDriverStart->setObjectName(QStringLiteral("FLIRDriverStart"));
-        FLIRDriverStart->setCursor(QCursor(Qt::PointingHandCursor));
-
-        FLIRLayout->addWidget(FLIRDriverStart, 3, 2, 1, 3);
-
-        FLIRSts = new QLabel(FLIRGB);
-        FLIRSts->setObjectName(QStringLiteral("FLIRSts"));
-        FLIRSts->setCursor(QCursor(Qt::IBeamCursor));
-        FLIRSts->setFrameShape(QFrame::StyledPanel);
-        FLIRSts->setAlignment(Qt::AlignCenter);
-        FLIRSts->setWordWrap(false);
-
-        FLIRLayout->addWidget(FLIRSts, 1, 2, 1, 4);
+        FLIRLayout->addWidget(FLIRStateInd, 1, 1, 1, 1);
 
 
         gridLayout_9->addLayout(FLIRLayout, 0, 0, 1, 1);
@@ -1039,16 +1047,16 @@ public:
         PCO->setText(QApplication::translate("MainWindow", "PCO", Q_NULLPTR));
         PCOIOC->setText(QApplication::translate("MainWindow", "PCO IOC", Q_NULLPTR));
         PCOState->setText(QApplication::translate("MainWindow", "PCO State", Q_NULLPTR));
-        PCOStateInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "TEST-PCO:cam1:DetectorState_RBV", Q_NULLPTR)));
         PCOSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        generalSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        currentCamera->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        TCPServerSocketRestart->setText(QApplication::translate("MainWindow", "Restart TCP Server Socket", Q_NULLPTR));
+        password->setText(QString());
         currentStage->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         ImageJ->setText(QApplication::translate("MainWindow", "ImageJ", Q_NULLPTR));
         ImageJStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        generalSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
+        currentCamera->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
+        TCPServerSocketRestart->setText(QApplication::translate("MainWindow", "Restart TCP Server Socket", Q_NULLPTR));
         help->setText(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
-        password->setText(QString());
+        PCO_StatusHidden->setProperty("variable", QVariant(QApplication::translate("MainWindow", "TEST-PCO:cam1:StatusMessage_RBV", Q_NULLPTR)));
         contScanGB->setTitle(QApplication::translate("MainWindow", "Continuous Scan", Q_NULLPTR));
         contTomoScanIOCStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         contWriterServerSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
@@ -1099,19 +1107,18 @@ public:
         FLIRStepWriterServerInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "BEATS:FLIR:WRITER:STEP:Status", Q_NULLPTR)));
         CameraType->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         FLIRGB->setTitle(QApplication::translate("MainWindow", "FLIR Camera", Q_NULLPTR));
-        FLIRStateInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "FLIR:cam1:DetectorState_RBV", Q_NULLPTR)));
-        FLIR->setText(QApplication::translate("MainWindow", "FLIR", Q_NULLPTR));
-        FLIRIOCStop->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
+        FLIRIOCStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         FLIRState->setText(QApplication::translate("MainWindow", "FLIR State", Q_NULLPTR));
+        FLIRSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
+        FLIR->setText(QApplication::translate("MainWindow", "FLIR", Q_NULLPTR));
+        FLIRDriverStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         FLIRIOCRestart->setText(QApplication::translate("MainWindow", "Restart", Q_NULLPTR));
-        FLIRDriver->setText(QApplication::translate("MainWindow", "FLIR Driver", Q_NULLPTR));
+        FLIRIOCStop->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
+        FLIRIOCSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
         FLIRIOC->setText(QApplication::translate("MainWindow", "FLIR IOC", Q_NULLPTR));
         FLIRIOCInd->setProperty("variable", QVariant(QApplication::translate("MainWindow", "FLIR:cam1:ARCheckConnection", Q_NULLPTR)));
         FLIRIOCInd->setProperty("variableSubstitutions", QVariant(QString()));
-        FLIRIOCSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
-        FLIRIOCStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
-        FLIRDriverStart->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
-        FLIRSts->setText(QApplication::translate("MainWindow", "---", Q_NULLPTR));
+        FLIRDriver->setText(QApplication::translate("MainWindow", "FLIR Driver", Q_NULLPTR));
     } // retranslateUi
 
 };

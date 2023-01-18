@@ -116,12 +116,18 @@ private slots:
 
     void on_password_editingFinished();
 
+    void set_PCO_indicators_color(char PCO_Color);
+    void set_FLIR_indicators_color(char FLIR_Color);
+
+
 private:
     Ui::MainWindow *ui;
 
     QString camera = NULL;
     QString cam;
     QString process;
+    char PCO_color;
+    char FLIR_color;
     QTimer* TimerH;
     QTimer* TimerL;
 
