@@ -8,7 +8,7 @@ import os
 # from pathlib import Path
 # from SMWinservice import SMWinservice
 
-HOST = "10.1.50.20"  # Standard loopback interface address (localhost)
+HOST = "10.3.5.12"  # Standard loopback interface address (localhost)
 PORT = 5050  # Port to listen on (non-privileged ports are > 1023)
 
 def executeProcess(execute):

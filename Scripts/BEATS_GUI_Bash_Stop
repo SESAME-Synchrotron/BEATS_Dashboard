@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SHORT=s:,h
+SHORT=p:,h
 LONG=process:,help
 OPTS=$(getopt -a -n weather --options $SHORT --longoptions $LONG -- "$@")
 
@@ -13,7 +13,7 @@ do
       process="$2"
       #-----------------Common IOCs--------------------------#
       if [ "$process" == "shutterIOC" ] ; then
-        ssh -X dev.control@10.1.50.5 "
+        ssh -X dev.control@10.3.5.21 "
             tmux send-keys -t  ShutterIOC.0 "exit" ENTER 
             "   
 
@@ -28,85 +28,89 @@ do
             "
 
       elif [ "$process" == "writerSupportIOC" ] ; then
-        ssh -X root@10.1.50.204 "
+        ssh -X root@10.1.32.30 "
             tmux send-keys -t WriterSupportIOC "exit" ENTER 
             "
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then
-        ssh -X root@10.1.50.204 "
-            tmux send-keys -t FLIR_CameraIOC "exit" ENTER 
-            "
+        tmux send-keys -t FLIR_CameraIOC C-c
+        sleep 0.5
+        tmux send-keys -t FLIR_CameraIOC "exit" ENTER 
+        tmux send-keys -t FLIR_CameraIOC "sleep 0.5" ENTER
+        tmux send-keys -t FLIR_CameraIOC "exit" ENTER 
+
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
         tmux send-keys -t PCO_StepTomoscanIOC "exit" ENTER 
 
       elif [ "$process" == "PCO_PythonServerStep" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
         tmux send-keys -t PCO_PythonServerStep "exit()" ENTER
         sleep 1
         tmux send-keys -t PCO_PythonServerStep "exit" ENTER
 
       elif [ "$process" == "PCO_WriterServerStep" ] ; then
-        ssh -X root@10.1.50.204 "
-            cd /opt/DAQ/BEATSH5Writer
-            tmux send-keys -t PCO_WriterServerStep C-c
-            sleep 1 
-            tmux send-keys -t PCO_WriterServerStep "exit" ENTER
-            "
+        tmux send-keys -t PCO_WriterServerStep C-c
+        sleep 1 
+        tmux send-keys -t PCO_WriterServerStep "exit()" ENTER
+        sleep 1
+        tmux send-keys -t PCO_WriterServerStep "exit" ENTER
+        sleep 1.5
+        tmux send-keys -t PCO_WriterServerStep "exit" ENTER
+
       #---------------------PCO Continuous Scan --------------------#
       elif [ "$process" == "PCO_ContTomoscanIOC" ] ; then
         tmux send-keys -t PCO_ContTomoscanIOC "exit" ENTER
 
       elif [ "$process" == "PCO_PythonServerCont" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont
         tmux send-keys -t PCO_PythonServerCont "exit()" ENTER
         sleep 1 
         tmux send-keys -t PCO_PythonServerCont "exit" ENTER
 
       elif [ "$process" == "PCO_WriterServerCont" ] ; then
-        ssh -X root@10.1.50.204 "
-            cd /opt/DAQ/BEATSH5Writer
-            tmux send-keys -t PCO_WriterServerCont C-c
-            sleep 1 
-            tmux send-keys -t PCO_WriterServerCont "exit" ENTER
-            "
+        tmux send-keys -t PCO_WriterServerCont C-c
+        sleep 1 
+        tmux send-keys -t PCO_WriterServerCont "exit()" ENTER
+        sleep 1
+        tmux send-keys -t PCO_WriterServerCont "exit" ENTER
+        sleep 1.5
+        tmux send-keys -t PCO_WriterServerCont "exit" ENTER
+
       #---------------------FLIR Step Scan --------------------#
       elif [ "$process" == "FLIR_StepTomoscanIOC" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
         tmux send-keys -t FLIR_StepTomoscanIOC "exit" ENTER 
 
       elif [ "$process" == "FLIR_PythonServerStep" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
         tmux send-keys -t FLIR_PythonServerStep "exit()" ENTER
         sleep 1 
         tmux send-keys -t FLIR_PythonServerStep "exit" ENTER 
             
-
       elif [ "$process" == "FLIR_WriterServerStep" ] ; then
-        ssh -X root@10.1.50.204 "
-            cd /opt/DAQ/BEATSH5Writer
-            tmux send-keys -t FLIR_WriterServerStep C-c
-            sleep 1 
-            tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
-            "
+        tmux send-keys -t FLIR_WriterServerStep C-c
+        sleep 1 
+        tmux send-keys -t FLIR_WriterServerStep "exit()" ENTER
+        sleep 1
+        tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
+        sleep 1.5
+        tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
+
       #---------------------FLIR Continuous Scan --------------------#
       elif [ "$process" == "FLIR_ContTomoscanIOC" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
         tmux send-keys -t FLIR_ContTomoscanIOC "exit" ENTER 
             
       elif [ "$process" == "FLIR_PythonServerCont" ] ; then
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
         tmux send-keys -t FLIR_PythonServerCont "exit()" ENTER
         sleep 1 
         tmux send-keys -t FLIR_PythonServerCont "exit" ENTER 
             
       elif [ "$process" == "FLIR_WriterServerCont" ] ; then
-        ssh -X root@10.1.50.204 "
-            cd /opt/DAQ/BEATSH5Writer
-            tmux send-keys -t FLIR_WriterServerCont C-c
-            sleep 1 
-            tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
-            "
+        tmux send-keys -t FLIR_WriterServerCont C-c
+        sleep 1 
+        tmux send-keys -t FLIR_WriterServerCont "exit()" ENTER
+        sleep 1
+        tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
+        sleep 1.5
+        tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
+
     #-----------------------------------------#
       else 
           echo "Unknow process option has been provided!!"
