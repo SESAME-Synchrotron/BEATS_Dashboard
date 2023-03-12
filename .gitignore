@@ -1,6 +1,9 @@
 /build*
 /BEATS_DAQ_Control_Monitor/*
-!/BEATS_DAQ_Control_Monitor/*.ui
-!BEATS_DAQ_Control_Monitor/*.pro
-!BEATS_DAQ_Control_Monitor/*.cpp
-!BEATS_DAQ_Control_Monitor/*.h
+!/BEATS_DAQ_Control_Monitor/BEATS_DAQ_Control_Monitor.pro
+!/BEATS_DAQ_Control_Monitor/client.cpp
+!/BEATS_DAQ_Control_Monitor/client.h
+!/BEATS_DAQ_Control_Monitor/main.cpp
+!/BEATS_DAQ_Control_Monitor/mainwindow.cpp
+!/BEATS_DAQ_Control_Monitor/mainwindow.h
+!/BEATS_DAQ_Control_Monitor/mainwindow.ui
