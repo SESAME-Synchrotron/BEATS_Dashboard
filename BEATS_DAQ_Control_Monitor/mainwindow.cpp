@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->PCOState                    = new QEpicsPV("TEST-PCO:cam1:StatusMessage_RBV");
     this->FLIRState                   = new QEpicsPV("FLIR:cam1:DetectorState_RBV");
 
-    this->shutterIOC                  = new QEpicsPV("MIRRORS-IOC:scan1");
+//    this->shutterIOC                  = new QEpicsPV("MIRRORS-IOC:scan1");
     this->motorIOC                    = new QEpicsPV("IOC:m4");
     this->tomoScanSupportIOC          = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL");
     this->writerSupportIOC            = new QEpicsPV("BEATS:WRITER:NumSaved");
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->PCOIOC_SEVR                 = new QEpicsPV("TEST-PCO:HDF1:StoreAttr.SEVR");
     this->FLIRIOC_SEVR                = new QEpicsPV("FLIR:cam1:ARCheckConnection.SEVR");
 
-    this->shutterIOC_SEVR             = new QEpicsPV("MIRRORS-IOC:scan1.SEVR");
+//    this->shutterIOC_SEVR             = new QEpicsPV("MIRRORS-IOC:scan1.SEVR");
     this->motorIOC_SEVR               = new QEpicsPV("IOC:m4.SEVR");
     this->tomoScanSupportIOC_SEVR     = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL.SEVR");
     this->writerSupportIOC_SEVR       = new QEpicsPV("BEATS:WRITER:NumSaved.SEVR");
@@ -497,7 +497,7 @@ void MainWindow::checkStatusH()
    PCOIOC_SEVR_                  = this->PCOIOC_SEVR->get().toString();
    FLIRIOC_SEVR_                 = this->FLIRIOC_SEVR->get().toString();
 
-   shutterIOC_SEVR_              = this->shutterIOC_SEVR->get().toString();
+//   shutterIOC_SEVR_              = this->shutterIOC_SEVR->get().toString();
    motorIOC_SEVR_                = this->motorIOC_SEVR->get().toString();
    tomoScanSupportIOC_SEVR_      = this->tomoScanSupportIOC_SEVR->get().toString();
    writerSupportIOC_SEVR_        = this->writerSupportIOC_SEVR->get().toString();
@@ -533,20 +533,20 @@ void MainWindow::checkStatusH()
    FLIR_PythonServer_Cont_ = this->FLIR_PythonServerCont->get().toInt();
 /* --------------------------------------------------------------*/
 
-    if (shutterIOC_SEVR_ != NULL){
-        ui->shutterIOCStart->setEnabled(false);
-        ui->shutterIOCStop->setEnabled(true);
-        ui->shutterIOCRestart->setEnabled(true);
+//    if (shutterIOC_SEVR_ != NULL){
+//        ui->shutterIOCStart->setEnabled(false);
+//        ui->shutterIOCStop->setEnabled(true);
+//        ui->shutterIOCRestart->setEnabled(true);
 
-        ui->shutterIOCSts->setText(running);
-    }
-    else {
-            ui->shutterIOCStart->setEnabled(true);
-            ui->shutterIOCStop->setEnabled(false);
-            ui->shutterIOCRestart->setEnabled(false);
+//        ui->shutterIOCSts->setText(running);
+//    }
+//    else {
+//            ui->shutterIOCStart->setEnabled(true);
+//            ui->shutterIOCStop->setEnabled(false);
+//            ui->shutterIOCRestart->setEnabled(false);
 
-            ui->shutterIOCSts->setText(stopped);
-    }
+//            ui->shutterIOCSts->setText(stopped);
+//    }
 
 
     if (motorIOC_SEVR_ != NULL){
@@ -629,12 +629,13 @@ void MainWindow::checkStatusH()
     }
     /* --------------------------------------------------------------*/
 
-    if (!(ui->shutterIOCStart->isEnabled() or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
+//    if (!(ui->shutterIOCStart->isEnabled() or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
+    if (!(ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
 
         ui->PCOGB->setEnabled(true);
         ui->FLIRGB->setEnabled(true);
 
-        if (ui->PCO_StatusHidden->text().toStdString() != "0" or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected" or PCOIOC_SEVR_ == NULL){
+        if (ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected" or PCOIOC_SEVR_ == NULL){
 //            ui->PCO->setEnabled(false);
             ui->PCOSts->setText("Disconnected");
             set_PCO_indicators_color('R');
@@ -931,7 +932,7 @@ void MainWindow::checkStatusH()
         ui->generalSts->setText("Please make sure to start the common IOCs to be able to continue!");
     }
 
-    if ((PCOIOC_SEVR_ == NULL or ui->PCO_StatusHidden->text().toStdString() != "0" or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected") && camera == "PCO"){
+    if ((PCOIOC_SEVR_ == NULL or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected") && camera == "PCO"){
 
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);

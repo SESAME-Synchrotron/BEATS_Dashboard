@@ -2,7 +2,7 @@ import socket
 import sys
 import argparse
 
-HOST = "10.1.50.20"  # The server's hostname or IP address
+HOST = "10.3.5.12"  # The server's hostname or IP address
 PORT = 5050  # The port used by the server
 
 def recieveProcess(process):
