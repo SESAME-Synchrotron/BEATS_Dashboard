@@ -28,7 +28,7 @@ do
             "
 
       elif [ "$process" == "writerSupportIOC" ] ; then
-        ssh -X root@10.1.32.30 "
+        ssh -X root@writernode "
             tmux send-keys -t WriterSupportIOC "exit" ENTER 
             "
       #---------------------PCO & FLIR IOCs --------------------#

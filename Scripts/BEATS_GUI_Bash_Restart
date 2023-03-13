@@ -38,7 +38,7 @@ do
             "
 
       elif [ "$process" == "writerSupportIOC" ] ; then
-        ssh -X root@10.1.32.30 "
+        ssh -X root@writernode "
             cd /opt/DAQ/BEATS_DAQ_Supp_IOC/supportIOC
             tmux send-keys -t WriterSupportIOC "exit" ENTER
             sleep 2
