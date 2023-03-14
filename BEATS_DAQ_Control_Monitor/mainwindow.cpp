@@ -24,10 +24,20 @@ MainWindow::MainWindow(QWidget *parent)
     this->PCOState                    = new QEpicsPV("TEST-PCO:cam1:StatusMessage_RBV");
     this->FLIRState                   = new QEpicsPV("FLIR:cam1:DetectorState_RBV");
 
-//    this->shutterIOC                  = new QEpicsPV("MIRRORS-IOC:scan1");
+    this->shutterIOC                  = new QEpicsPV("I10EH-SHUTTER:command");
     this->motorIOC                    = new QEpicsPV("IOC:m4");
     this->tomoScanSupportIOC          = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL");
     this->writerSupportIOC            = new QEpicsPV("BEATS:WRITER:NumSaved");
+
+    this->exposureShutterIOC          = new QEpicsPV("I10EH-SHUTTER:command");
+    this->radiationShutterIOC         = new QEpicsPV("I10FE-PSS-PHST:getStatus");
+    this->photonShutterIOC            = new QEpicsPV("I10FE-VA-PSH:getStatus");
+    this->combinedStopperIOC          = new QEpicsPV("I10OH-VA-COMB:getStatus");
+    this->PSSIOC                      = new QEpicsPV("I10EH-SHUTTER:command");
+
+    this->radiationShutterFault       = new QEpicsPV("I10FE-PSS-PHST:getFault");
+    this->photonShutterFault          = new QEpicsPV("I10FE-VA-PSH:getFault");
+    this->combinedStopperFault        = new QEpicsPV("I10OH-VA-COMB:getFault");
 
     this->PCO_TomoScanIOCStep         = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ScanStatus");
     this->PCO_PythonServerStep        = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ServerRunning");
@@ -51,10 +61,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->PCOIOC_SEVR                 = new QEpicsPV("TEST-PCO:HDF1:StoreAttr.SEVR");
     this->FLIRIOC_SEVR                = new QEpicsPV("FLIR:cam1:ARCheckConnection.SEVR");
 
-//    this->shutterIOC_SEVR             = new QEpicsPV("MIRRORS-IOC:scan1.SEVR");
+    this->shutterIOC_SEVR             = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
     this->motorIOC_SEVR               = new QEpicsPV("IOC:m4.SEVR");
     this->tomoScanSupportIOC_SEVR     = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL.SEVR");
     this->writerSupportIOC_SEVR       = new QEpicsPV("BEATS:WRITER:NumSaved.SEVR");
+
+    this->exposureShutterIOC_SEVR     = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
+    this->radiationShutterIOC_SEVR    = new QEpicsPV("I10FE-PSS-PHST:getStatus.SEVR");
+    this->photonShutterIOC_SEVR       = new QEpicsPV("I10FE-VA-PSH:getStatus.SEVR");
+    this->combinedStopperIOC_SEVR     = new QEpicsPV("I10OH-VA-COMB:getStatus.SEVR");
+    this->PSSIOC_SEVR                 = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
 
     this->PCO_TomoScanIOCStep_SEVR   = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ScanStatus.SEVR");
     this->PCO_PythonServerStep_SEVR  = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ServerRunning.SEVR");
@@ -79,6 +95,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TCPServerSocketRestart->setHidden(true);
     ui->password->setHidden(true);
     ui->PCO_StatusHidden->setHidden(true);
+
+    ui->shutterIOCStart->setEnabled(false);
+    ui->shutterIOCStop->setEnabled(false);
+    ui->shutterIOCRestart->setEnabled(false);
+
+//    ui->PCOstep->setHidden(true);
+//    ui->PCOcont->setHidden(true);
+//    ui->FLIRstep->setHidden(true);
+//    ui->FLIRcont->setHidden(true);
 
     TimerH = new QTimer(this);
     this->TimerH->start(400);
@@ -243,20 +268,20 @@ void MainWindow::on_FLIRDriverStart_clicked()
 
 void MainWindow::on_shutterIOCStart_clicked()
 {
-    startProcess("shutterIOC","");
-    ui->generalSts->setText("Shutter IOC " + started + " ...");
+//    startProcess("shutterIOC","");
+//    ui->generalSts->setText("Shutter IOC " + started + " ...");
 }
 
 void MainWindow::on_shutterIOCStop_clicked()
 {
-    stopProcess("shutterIOC","");
-    ui->generalSts->setText("Shutter IOC " + stopped + " ...");
+//    stopProcess("shutterIOC","");
+//    ui->generalSts->setText("Shutter IOC " + stopped + " ...");
 }
 
 void MainWindow::on_shutterIOCRestart_clicked()
 {
-    restartProcess("shutterIOC","");
-    ui->generalSts->setText("Shutter IOC " + restarted + " ...");
+//    restartProcess("shutterIOC","");
+//    ui->generalSts->setText("Shutter IOC " + restarted + " ...");
 }
 /* --------------------------------------------------------------*/
 
@@ -497,10 +522,16 @@ void MainWindow::checkStatusH()
    PCOIOC_SEVR_                  = this->PCOIOC_SEVR->get().toString();
    FLIRIOC_SEVR_                 = this->FLIRIOC_SEVR->get().toString();
 
-//   shutterIOC_SEVR_              = this->shutterIOC_SEVR->get().toString();
+   shutterIOC_SEVR_              = this->shutterIOC_SEVR->get().toString();
    motorIOC_SEVR_                = this->motorIOC_SEVR->get().toString();
    tomoScanSupportIOC_SEVR_      = this->tomoScanSupportIOC_SEVR->get().toString();
    writerSupportIOC_SEVR_        = this->writerSupportIOC_SEVR->get().toString();
+
+   exposureShutterIOC_SEVR_      = this->exposureShutterIOC_SEVR->get().toString();
+   radiationShutterIOC_SEVR_     = this->radiationShutterIOC_SEVR->get().toString();
+   photonShutterIOC_SEVR_        = this->photonShutterIOC_SEVR->get().toString();
+   combinedStopperIOC_SEVR_      = this->combinedStopperIOC_SEVR->get().toString();
+   PSSIOC_SEVR_                  = this->PSSIOC_SEVR->get().toString();
 
    PCO_TomoScanIOC_Step_SEVR_    = this->PCO_TomoScanIOCStep_SEVR->get().toString();
    PCO_PythonServer_Step_SEVR_   = this->PCO_PythonServerStep_SEVR->get().toString();
@@ -519,6 +550,14 @@ void MainWindow::checkStatusH()
    PCOState_                     = this->PCOState->get().toInt();
    FLIRState_                    = this->FLIRState->get().toInt();
 
+   radiationShutter              = this->radiationShutterIOC->get().toInt();
+   photonShutter                 = this->photonShutterIOC->get().toInt();
+   combinedStopper               = this->combinedStopperIOC->get().toInt();
+
+   radiationShutterFault_        = this->radiationShutterFault->get().toInt();
+   photonShutterFault_           = this->photonShutterFault->get().toInt();
+   combinedStopperFault_         = this->combinedStopperFault->get().toInt();
+
    writerServer_Step_            = this->writerServerStep->get().toInt();
    writerServer_Cont_            = this->writerServerCont->get().toInt();
 
@@ -527,10 +566,10 @@ void MainWindow::checkStatusH()
    FLIR_WriterServer_Step_       = this->FLIR_WriterServerStep->get().toInt();
    FLIR_WriterServer_Cont_       = this->FLIR_WriterServerCont->get().toInt();
 
-   PCO_PythonServer_Step_  = this->PCO_PythonServerStep->get().toInt();
-   PCO_PythonServer_Cont_  = this->PCO_PythonServerCont->get().toInt();
-   FLIR_PythonServer_Step_ = this->FLIR_PythonServerStep->get().toInt();
-   FLIR_PythonServer_Cont_ = this->FLIR_PythonServerCont->get().toInt();
+   PCO_PythonServer_Step_        = this->PCO_PythonServerStep->get().toInt();
+   PCO_PythonServer_Cont_        = this->PCO_PythonServerCont->get().toInt();
+   FLIR_PythonServer_Step_       = this->FLIR_PythonServerStep->get().toInt();
+   FLIR_PythonServer_Cont_       = this->FLIR_PythonServerCont->get().toInt();
 /* --------------------------------------------------------------*/
 
 //    if (shutterIOC_SEVR_ != NULL){
@@ -547,6 +586,16 @@ void MainWindow::checkStatusH()
 
 //            ui->shutterIOCSts->setText(stopped);
 //    }
+
+       if (exposureShutterIOC_SEVR_ != NULL or radiationShutterIOC_SEVR_ != NULL or photonShutterIOC_SEVR_ != NULL or combinedStopperIOC_SEVR_ != NULL){
+           ui->shutterIOCSts->setText(running);
+           ui->shutterIOCInd->setColour0Property(QColor(0,255,0));
+       }
+
+       else {
+           ui->shutterIOCSts->setText("Check the IOCs");
+           ui->shutterIOCInd->setColour0Property(QColor(255,0,0));
+       }
 
 
     if (motorIOC_SEVR_ != NULL){
@@ -630,7 +679,8 @@ void MainWindow::checkStatusH()
     /* --------------------------------------------------------------*/
 
 //    if (!(ui->shutterIOCStart->isEnabled() or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
-    if (!(ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
+    if (!(ui->shutterIOCSts->text().toStdString() == "Check the IOCs" or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled() or (radiationShutter != 3 or radiationShutterFault_ != 0) or (photonShutter != 3 or photonShutterFault_ != 0) or (combinedStopperFault_ != 0))){
+//    if (!(ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
 
         ui->PCOGB->setEnabled(true);
         ui->FLIRGB->setEnabled(true);
@@ -677,6 +727,7 @@ void MainWindow::checkStatusH()
 //                ui->generalSts->setText("PCO TomoScan IOC -Step- is running ...");
                 ui->CameraType->setText(camera + " Detector && Step Scan are selected");
                 ui->stepTomoScanIOCSts->setText(running);
+//                ui->PCOstep->setHidden(false);
             }
             else
             {
@@ -688,6 +739,7 @@ void MainWindow::checkStatusH()
                 ui->FLIRGB->setEnabled(true);
 
                 ui->stepTomoScanIOCSts->setText(stopped);
+//                ui->PCOstep->setHidden(true);
             }
 
             if (PCO_PythonServer_Step_SEVR_ != NULL && PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_ ==1){
@@ -728,6 +780,7 @@ void MainWindow::checkStatusH()
 //                ui->generalSts->setText("PCO TomoScan IOC -Continuous- is running ...");
                 ui->CameraType->setText(camera + " Detector && Continuous Scan are selected");
                 ui->contTomoScanIOCSts->setText(running);
+//                ui->PCOcont->setHidden(false);
             }
             else
             {
@@ -739,6 +792,7 @@ void MainWindow::checkStatusH()
                 ui->FLIR->setEnabled(true);
 
                 ui->contTomoScanIOCSts->setText(stopped);
+//                ui->PCOcont->setHidden(true);
             }
 
             if (PCO_PythonServer_Cont_SEVR_ != NULL && PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_ == 1){
@@ -784,6 +838,7 @@ void MainWindow::checkStatusH()
 //                ui->generalSts->setText("FLIR TomoScan IOC -Step- is running ...");
                 ui->CameraType->setText(camera + " Detector && Step Scan are selected");
                 ui->stepTomoScanIOCSts->setText(running);
+//                ui->FLIRstep->setHidden(false);
             }
             else
             {
@@ -795,6 +850,7 @@ void MainWindow::checkStatusH()
                 ui->PCOGB->setEnabled(true);
 
                 ui->stepTomoScanIOCSts->setText(stopped);
+//                ui->FLIRstep->setHidden(true);
             }
 
             if (FLIR_PythonServer_Step_SEVR_ != NULL && FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_ ==1){
@@ -835,6 +891,7 @@ void MainWindow::checkStatusH()
 //                ui->generalSts->setText("FLIR TomoScan IOC -Continuous- is running ...");
                 ui->CameraType->setText(camera + " Detector && Continuous Scan are selected");
                 ui->contTomoScanIOCSts->setText(running);
+//                ui->FLIRcont->setHidden(false);
             }
             else
             {
@@ -846,6 +903,7 @@ void MainWindow::checkStatusH()
                 ui->PCO->setEnabled(true);
 
                 ui->contTomoScanIOCSts->setText(stopped);
+//                ui->FLIRcont->setHidden(true);
             }
 
             if (FLIR_PythonServer_Cont_SEVR_ != NULL && FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_ == 1){
@@ -929,7 +987,7 @@ void MainWindow::checkStatusH()
         ui->stepScanGB->setEnabled(false);
         ui->contScanGB->setEnabled(false);
 
-        ui->generalSts->setText("Please make sure to start the common IOCs to be able to continue!");
+        ui->generalSts->setText("Please make sure to start the common IOCs to be able to continue! or check the radiation & photon shutters are opened");
     }
 
     if ((PCOIOC_SEVR_ == NULL or ui->PCO_StatusHidden->text().toStdString() == "Disconnected" or ui->PCO_StatusHidden->text().toStdString() == "disconnected") && camera == "PCO"){

@@ -147,6 +147,16 @@ private:
     QEpicsPV* tomoScanSupportIOC;
     QEpicsPV* writerSupportIOC;
 
+    QEpicsPV* exposureShutterIOC;
+    QEpicsPV* radiationShutterIOC;
+    QEpicsPV* photonShutterIOC;
+    QEpicsPV* combinedStopperIOC;
+    QEpicsPV* PSSIOC;
+
+    QEpicsPV* radiationShutterFault;
+    QEpicsPV* photonShutterFault;
+    QEpicsPV* combinedStopperFault;
+
     QEpicsPV* PCO_TomoScanIOCStep;
     QEpicsPV* PCO_PythonServerStep;
     QEpicsPV* PCO_TomoScanIOCCont;
@@ -174,6 +184,12 @@ private:
     QEpicsPV* tomoScanSupportIOC_SEVR;
     QEpicsPV* writerSupportIOC_SEVR;
 
+    QEpicsPV* exposureShutterIOC_SEVR;
+    QEpicsPV* radiationShutterIOC_SEVR;
+    QEpicsPV* photonShutterIOC_SEVR;
+    QEpicsPV* combinedStopperIOC_SEVR;
+    QEpicsPV* PSSIOC_SEVR;
+
     QEpicsPV* PCO_TomoScanIOCStep_SEVR;
     QEpicsPV* PCO_PythonServerStep_SEVR;
     QEpicsPV* PCO_TomoScanIOCCont_SEVR;
@@ -196,6 +212,12 @@ private:
     QString motorIOC_SEVR_;
     QString tomoScanSupportIOC_SEVR_;
     QString writerSupportIOC_SEVR_;
+
+    QString exposureShutterIOC_SEVR_;
+    QString radiationShutterIOC_SEVR_;
+    QString photonShutterIOC_SEVR_;
+    QString combinedStopperIOC_SEVR_;
+    QString PSSIOC_SEVR_;
 
     QString PCO_TomoScanIOC_Step_SEVR_;
     QString PCO_PythonServer_Step_SEVR_;
@@ -225,6 +247,14 @@ private:
     int PCO_PythonServer_Cont_;
     int FLIR_PythonServer_Step_;
     int FLIR_PythonServer_Cont_;
+
+    int radiationShutter;
+    int photonShutter;
+    int combinedStopper;
+
+    int radiationShutterFault_;
+    int photonShutterFault_;
+    int combinedStopperFault_;
 
 };
 #endif // MAINWINDOW_H
