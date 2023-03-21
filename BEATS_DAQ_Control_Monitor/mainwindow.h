@@ -251,6 +251,7 @@ private:
     int radiationShutter;
     int photonShutter;
     int combinedStopper;
+    bool PSS;
 
     int radiationShutterFault_;
     int photonShutterFault_;

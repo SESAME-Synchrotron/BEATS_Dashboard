@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'BEATS Dashboard'
-copyright = '2022, Data Collection team of SESAME'
+copyright = '2023, Data Collection team of SESAME'
 author = 'Data Collection team SESAME'
 
 

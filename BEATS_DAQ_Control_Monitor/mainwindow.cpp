@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->radiationShutterIOC         = new QEpicsPV("I10FE-PSS-PHST:getStatus");
     this->photonShutterIOC            = new QEpicsPV("I10FE-VA-PSH:getStatus");
     this->combinedStopperIOC          = new QEpicsPV("I10OH-VA-COMB:getStatus");
-    this->PSSIOC                      = new QEpicsPV("I10EH-SHUTTER:command");
+    this->PSSIOC                      = new QEpicsPV("I10OH-VA-COMB:isPSSInterlock");
 
     this->radiationShutterFault       = new QEpicsPV("I10FE-PSS-PHST:getFault");
     this->photonShutterFault          = new QEpicsPV("I10FE-VA-PSH:getFault");
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->radiationShutterIOC_SEVR    = new QEpicsPV("I10FE-PSS-PHST:getStatus.SEVR");
     this->photonShutterIOC_SEVR       = new QEpicsPV("I10FE-VA-PSH:getStatus.SEVR");
     this->combinedStopperIOC_SEVR     = new QEpicsPV("I10OH-VA-COMB:getStatus.SEVR");
-    this->PSSIOC_SEVR                 = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
+    this->PSSIOC_SEVR                 = new QEpicsPV("I10OH-VA-COMB:isPSSInterlock.SEVR");
 
     this->PCO_TomoScanIOCStep_SEVR   = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ScanStatus.SEVR");
     this->PCO_PythonServerStep_SEVR  = new QEpicsPV("tomoscanBEATS:PcoMicosStep:ServerRunning.SEVR");
@@ -553,6 +553,7 @@ void MainWindow::checkStatusH()
    radiationShutter              = this->radiationShutterIOC->get().toInt();
    photonShutter                 = this->photonShutterIOC->get().toInt();
    combinedStopper               = this->combinedStopperIOC->get().toInt();
+   PSS                           = this->PSSIOC->get().toBool();
 
    radiationShutterFault_        = this->radiationShutterFault->get().toInt();
    photonShutterFault_           = this->photonShutterFault->get().toInt();
@@ -587,7 +588,7 @@ void MainWindow::checkStatusH()
 //            ui->shutterIOCSts->setText(stopped);
 //    }
 
-       if (exposureShutterIOC_SEVR_ != NULL or radiationShutterIOC_SEVR_ != NULL or photonShutterIOC_SEVR_ != NULL or combinedStopperIOC_SEVR_ != NULL){
+       if (exposureShutterIOC_SEVR_ != NULL or radiationShutterIOC_SEVR_ != NULL or photonShutterIOC_SEVR_ != NULL or combinedStopperIOC_SEVR_ != NULL or PSSIOC_SEVR_ != NULL){
            ui->shutterIOCSts->setText(running);
            ui->shutterIOCInd->setColour0Property(QColor(0,255,0));
        }
@@ -679,8 +680,8 @@ void MainWindow::checkStatusH()
     /* --------------------------------------------------------------*/
 
 //    if (!(ui->shutterIOCStart->isEnabled() or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
-    if (!(ui->shutterIOCSts->text().toStdString() == "Check the IOCs" or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled() or (radiationShutter != 3 or radiationShutterFault_ != 0) or (photonShutter != 3 or photonShutterFault_ != 0) or (combinedStopperFault_ != 0))){
-//    if (!(ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
+//    if (!(ui->shutterIOCSts->text().toStdString() == "Check the IOCs" or ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled() or (radiationShutter != 3 or radiationShutterFault_ != 0) or (photonShutter != 3 or photonShutterFault_ != 0) or (combinedStopperFault_ != 0) or (PSS != 1))){
+    if (!(ui->motorIOCStart->isEnabled() or ui->tomoScanSupportIOCStart->isEnabled() or ui->writerSupportIOCStart->isEnabled())){
 
         ui->PCOGB->setEnabled(true);
         ui->FLIRGB->setEnabled(true);

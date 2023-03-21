@@ -21,6 +21,9 @@ do
         ssh -X root@10.1.50.12 "
             cd /opt/top/motor-sim 
             tmux new -d -s MotorIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd ' "
+        # tmux new -d -s MicosStageIOC
+        # tmux send-keys -t MicosStageIOC "ssh -X root@10.3.5.104" ENTER
+        # tmux send-keys -t MicosStageIOC "cd /home/control/micos-ioc; ./bin/linux-x86_64/ioc iocBoot/ioc/st.cmd" ENTER
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
         ssh -X root@10.1.50.16 "

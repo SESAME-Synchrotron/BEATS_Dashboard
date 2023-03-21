@@ -21,6 +21,11 @@ do
         ssh -X root@10.1.50.12 "
             tmux send-keys -t MotorIOC.0 "exit" ENTER
             "
+        # tmux send-keys -t MicosStageIOC C-c
+        # sleep 0.5
+        # tmux send-keys -t MicosStageIOC "exit" ENTER 
+        # tmux send-keys -t MicosStageIOC "sleep 0.5" ENTER
+        # tmux send-keys -t MicosStageIOC "exit" ENTER 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
         ssh -X root@10.1.50.16 "
@@ -51,8 +56,8 @@ do
       elif [ "$process" == "PCO_WriterServerStep" ] ; then
         tmux send-keys -t PCO_WriterServerStep C-c
         sleep 1 
-        tmux send-keys -t PCO_WriterServerStep "exit()" ENTER
-        sleep 1
+        # tmux send-keys -t PCO_WriterServerStep "exit()" ENTER
+        # sleep 1
         tmux send-keys -t PCO_WriterServerStep "exit" ENTER
         sleep 1.5
         tmux send-keys -t PCO_WriterServerStep "exit" ENTER
@@ -69,8 +74,8 @@ do
       elif [ "$process" == "PCO_WriterServerCont" ] ; then
         tmux send-keys -t PCO_WriterServerCont C-c
         sleep 1 
-        tmux send-keys -t PCO_WriterServerCont "exit()" ENTER
-        sleep 1
+        # tmux send-keys -t PCO_WriterServerCont "exit()" ENTER
+        # sleep 1
         tmux send-keys -t PCO_WriterServerCont "exit" ENTER
         sleep 1.5
         tmux send-keys -t PCO_WriterServerCont "exit" ENTER
@@ -87,8 +92,8 @@ do
       elif [ "$process" == "FLIR_WriterServerStep" ] ; then
         tmux send-keys -t FLIR_WriterServerStep C-c
         sleep 1 
-        tmux send-keys -t FLIR_WriterServerStep "exit()" ENTER
-        sleep 1
+        # tmux send-keys -t FLIR_WriterServerStep "exit()" ENTER
+        # sleep 1
         tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
         sleep 1.5
         tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
@@ -105,8 +110,8 @@ do
       elif [ "$process" == "FLIR_WriterServerCont" ] ; then
         tmux send-keys -t FLIR_WriterServerCont C-c
         sleep 1 
-        tmux send-keys -t FLIR_WriterServerCont "exit()" ENTER
-        sleep 1
+        # tmux send-keys -t FLIR_WriterServerCont "exit()" ENTER
+        # sleep 1
         tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
         sleep 1.5
         tmux send-keys -t FLIR_WriterServerCont "exit" ENTER

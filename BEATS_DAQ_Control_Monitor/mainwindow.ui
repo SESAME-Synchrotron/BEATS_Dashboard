@@ -885,6 +885,20 @@ QGroupBox::title {
             <height>20</height>
            </size>
           </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
           <property name="variable" stdset="0">
            <string>I10EH-SHUTTER:command</string>
           </property>
@@ -903,6 +917,23 @@ QGroupBox::title {
             <width>20</width>
             <height>20</height>
            </size>
+          </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10OH-VA-COMB:isPSSInterlock</string>
           </property>
          </widget>
         </item>
@@ -953,6 +984,20 @@ QGroupBox::title {
             <height>20</height>
            </size>
           </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
           <property name="variable" stdset="0">
            <string>I10FE-PSS-PHST:Main</string>
           </property>
@@ -979,6 +1024,20 @@ QGroupBox::title {
             <height>20</height>
            </size>
           </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
           <property name="variable" stdset="0">
            <string>I10FE-VA-PSH:Main</string>
           </property>
@@ -997,6 +1056,20 @@ QGroupBox::title {
             <width>20</width>
             <height>20</height>
            </size>
+          </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
           </property>
           <property name="variable" stdset="0">
            <string>I10OH-VA-COMB:Main</string>
@@ -1049,6 +1122,9 @@ QGroupBox::title {
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10OH-VA-COMB:isPSSInterlock</string>
           </property>
          </widget>
         </item>
