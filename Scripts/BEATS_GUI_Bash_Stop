@@ -47,11 +47,14 @@ do
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
         tmux send-keys -t PCO_StepTomoscanIOC "exit" ENTER 
+        tmux kill-session -t RPTriggerServer
 
       elif [ "$process" == "PCO_PythonServerStep" ] ; then
         tmux send-keys -t PCO_PythonServerStep "exit()" ENTER
         sleep 1
         tmux send-keys -t PCO_PythonServerStep "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t PCO_PythonServerStep
 
       elif [ "$process" == "PCO_WriterServerStep" ] ; then
         tmux send-keys -t PCO_WriterServerStep C-c
@@ -61,6 +64,8 @@ do
         tmux send-keys -t PCO_WriterServerStep "exit" ENTER
         sleep 1.5
         tmux send-keys -t PCO_WriterServerStep "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t PCO_WriterServerStep
 
       #---------------------PCO Continuous Scan --------------------#
       elif [ "$process" == "PCO_ContTomoscanIOC" ] ; then
@@ -70,6 +75,8 @@ do
         tmux send-keys -t PCO_PythonServerCont "exit()" ENTER
         sleep 1 
         tmux send-keys -t PCO_PythonServerCont "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t PCO_PythonServerCont
 
       elif [ "$process" == "PCO_WriterServerCont" ] ; then
         tmux send-keys -t PCO_WriterServerCont C-c
@@ -79,6 +86,8 @@ do
         tmux send-keys -t PCO_WriterServerCont "exit" ENTER
         sleep 1.5
         tmux send-keys -t PCO_WriterServerCont "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t PCO_WriterServerCont
 
       #---------------------FLIR Step Scan --------------------#
       elif [ "$process" == "FLIR_StepTomoscanIOC" ] ; then
@@ -88,7 +97,9 @@ do
         tmux send-keys -t FLIR_PythonServerStep "exit()" ENTER
         sleep 1 
         tmux send-keys -t FLIR_PythonServerStep "exit" ENTER 
-            
+        sleep 0.5
+        tmux kill-session -t FLIR_PythonServerStep
+
       elif [ "$process" == "FLIR_WriterServerStep" ] ; then
         tmux send-keys -t FLIR_WriterServerStep C-c
         sleep 1 
@@ -97,6 +108,8 @@ do
         tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
         sleep 1.5
         tmux send-keys -t FLIR_WriterServerStep "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t FLIR_WriterServerStep
 
       #---------------------FLIR Continuous Scan --------------------#
       elif [ "$process" == "FLIR_ContTomoscanIOC" ] ; then
@@ -106,6 +119,8 @@ do
         tmux send-keys -t FLIR_PythonServerCont "exit()" ENTER
         sleep 1 
         tmux send-keys -t FLIR_PythonServerCont "exit" ENTER 
+        sleep 0.5
+        tmux kill-session -t FLIR_PythonServerCont
             
       elif [ "$process" == "FLIR_WriterServerCont" ] ; then
         tmux send-keys -t FLIR_WriterServerCont C-c
@@ -115,6 +130,8 @@ do
         tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
         sleep 1.5
         tmux send-keys -t FLIR_WriterServerCont "exit" ENTER
+        sleep 0.5
+        tmux kill-session -t FLIR_WriterServerCont
 
     #-----------------------------------------#
       else 

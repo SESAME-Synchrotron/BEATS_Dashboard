@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <qepicspv.h>
+#include <client.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

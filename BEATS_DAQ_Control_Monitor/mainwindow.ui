@@ -572,42 +572,6 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="QESimpleShape" name="PCOstep">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="colour0" stdset="0">
-           <color>
-            <red>5</red>
-            <green>240</green>
-            <blue>5</blue>
-           </color>
-          </property>
-          <property name="variable" stdset="0">
-           <string>tomoscanBEATS:PcoMicosStep:ScanStatus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="PCOsts">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="text">
-           <string>tomoscan FLIR</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="3">
          <widget class="QLabel" name="Stepsts">
           <property name="frameShape">
@@ -650,54 +614,6 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>65</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="labelsts">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="text">
-           <string>Tomoscan</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="Contsts">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="text">
-           <string>Continuous </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="margin">
-           <number>5</number>
-          </property>
-          <property name="indent">
-           <number>-1</number>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QESimpleShape" name="FLIRcont">
           <property name="sizePolicy">
@@ -724,6 +640,87 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
+        <item row="4" column="1" colspan="3">
+         <widget class="QLabel" name="currentStage">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 0);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="text">
+           <string>---</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="Contsts">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>Continuous </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="margin">
+           <number>5</number>
+          </property>
+          <property name="indent">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QESimpleShape" name="PCOstep">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="colour0" stdset="0">
+           <color>
+            <red>5</red>
+            <green>240</green>
+            <blue>5</blue>
+           </color>
+          </property>
+          <property name="variable" stdset="0">
+           <string>tomoscanBEATS:PcoMicosStep:ScanStatus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="labelsts">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>Tomoscan</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="PCOsts">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>tomoscan FLIR</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1" colspan="3">
          <widget class="QLabel" name="currentCamera">
           <property name="styleSheet">
@@ -737,18 +734,34 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="4" column="1" colspan="3">
-         <widget class="QLabel" name="currentStage">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 0);</string>
+        <item row="2" column="0">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
-          <property name="text">
-           <string>---</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>65</width>
+            <height>20</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
+        </item>
+        <item row="5" column="0" colspan="4">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -775,8 +788,8 @@ QGroupBox::title {
       </item>
       <item row="3" column="0">
        <layout class="QGridLayout" name="shuttersLayout">
-        <item row="1" column="3">
-         <widget class="QELabel" name="radiationShutterSts">
+        <item row="4" column="2">
+         <widget class="QELabel" name="exposureShutterFault">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -784,40 +797,20 @@ QGroupBox::title {
            <set>Qt::AlignCenter</set>
           </property>
           <property name="variable" stdset="0">
-           <string>I10FE-PSS-PHST:getStatus</string>
+           <string/>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QELabel" name="photonShutterFault">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="shutters">
           <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+           <enum>QFrame::Box</enum>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10FE-VA-PSH:getFault</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QELabel" name="radiationShutterFault">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10FE-VA-PSH:getFault</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="photonShutter">
           <property name="text">
-           <string>Photon Shutter</string>
+           <string>Shutter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -828,6 +821,26 @@ QGroupBox::title {
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="exposureShutter">
+          <property name="text">
+           <string>Exposure Shutter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QELabel" name="radiationShutterSts">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-PSS-PHST:getStatus</string>
           </property>
          </widget>
         </item>
@@ -844,63 +857,23 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="PSS">
-          <property name="text">
-           <string>PSS</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QELabel" name="photonShutterSts">
+        <item row="0" column="3">
+         <widget class="QLabel" name="status">
           <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>Status</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
-          <property name="variable" stdset="0">
-           <string>I10FE-VA-PSH:getStatus</string>
-          </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="exposureShutter">
+        <item row="1" column="0">
+         <widget class="QLabel" name="radiationShutter">
           <property name="text">
-           <string>Exposure Shutter</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QESimpleShape" name="exposureShutterInd">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="colour2" stdset="0">
-           <color>
-            <red>252</red>
-            <green>233</green>
-            <blue>79</blue>
-           </color>
-          </property>
-          <property name="colour3" stdset="0">
-           <color>
-            <red>255</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10EH-SHUTTER:command</string>
+           <string>Radiation Shutter</string>
           </property>
          </widget>
         </item>
@@ -937,41 +910,15 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
-         <widget class="QELabel" name="combinedStopperSts">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10OH-VA-COMB:getStatus</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="radiationShutter">
+        <item row="2" column="0">
+         <widget class="QLabel" name="photonShutter">
           <property name="text">
-           <string>Radiation Shutter</string>
+           <string>Photon Shutter</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QELabel" name="exposureShutterFault">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QESimpleShape" name="radiationShutterInd">
+        <item row="4" column="1">
+         <widget class="QESimpleShape" name="exposureShutterInd">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -999,47 +946,7 @@ QGroupBox::title {
            </color>
           </property>
           <property name="variable" stdset="0">
-           <string>I10FE-PSS-PHST:Main</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="combinedStopper">
-          <property name="text">
-           <string>Combined Stopper</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QESimpleShape" name="photonShutterInd">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="colour2" stdset="0">
-           <color>
-            <red>252</red>
-            <green>233</green>
-            <blue>79</blue>
-           </color>
-          </property>
-          <property name="colour3" stdset="0">
-           <color>
-            <red>255</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10FE-VA-PSH:Main</string>
+           <string>I10EH-SHUTTER:command</string>
           </property>
          </widget>
         </item>
@@ -1076,32 +983,6 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QELabel" name="combinedStopperFault">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string>I10OH-VA-COMB:getFault</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLabel" name="status">
-          <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="text">
-           <string>Status</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="faults">
           <property name="frameShape">
@@ -1128,18 +1009,163 @@ QGroupBox::title {
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="shutters">
+        <item row="1" column="2">
+         <widget class="QELabel" name="radiationShutterFault">
           <property name="frameShape">
-           <enum>QFrame::Box</enum>
-          </property>
-          <property name="text">
-           <string>Shutter</string>
+           <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-VA-PSH:getFault</string>
+          </property>
          </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="PSS">
+          <property name="text">
+           <string>PSS</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QELabel" name="combinedStopperSts">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10OH-VA-COMB:getStatus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QESimpleShape" name="photonShutterInd">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-VA-PSH:Main</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QELabel" name="combinedStopperFault">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10OH-VA-COMB:getFault</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QELabel" name="photonShutterFault">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-VA-PSH:getFault</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="combinedStopper">
+          <property name="text">
+           <string>Combined Stopper</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QELabel" name="photonShutterSts">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-VA-PSH:getStatus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QESimpleShape" name="radiationShutterInd">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="colour2" stdset="0">
+           <color>
+            <red>252</red>
+            <green>233</green>
+            <blue>79</blue>
+           </color>
+          </property>
+          <property name="colour3" stdset="0">
+           <color>
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </property>
+          <property name="variable" stdset="0">
+           <string>I10FE-PSS-PHST:Main</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>

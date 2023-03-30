@@ -51,27 +51,32 @@ do
 
       elif [ "$process" == "PCODriver" ] ; then
           ssh -X sesame@pcodriver "
-            medm -x -macro "P=TEST-PCO:,R=cam1:" /home/sesame/medm-files/ADBase.adl
+            nohup medm -x -macro "P=TEST-PCO:,R=cam1:" /home/sesame/medm-files/ADBase.adl &
           "
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
         cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step 
         tmux new -d -s PCO_StepTomoscanIOC './start_IOC' 
+        tmux new -d -s RPTriggerServer
+        tmux send-keys -t RPTriggerServer "ssh sesame@10.3.5.111" ENTER
+        tmux send-keys -t RPTriggerServer "RPTrigServ" ENTER
 
       elif [ "$process" == "PCO_PythonServerStep" ] ; then
+        tmux kill-session -t PCO_PythonServerStep
         cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
         #source /opt/SW/venv3.9/bin/activate
         tmux new -d -s PCO_PythonServerStep 
         tmux send-keys -t PCO_PythonServerStep "p3; python -i start_tomoscan.py" ENTER 
 
       elif [ "$process" == "PCO_WriterServerStep" ] ; then
+        tmux kill-session -t PCO_WriterServerStep
         tmux new -d -s PCO_WriterServerStep
         tmux send-keys -t PCO_WriterServerStep "ssh -X root@writernode" ENTER
         tmux send-keys -t PCO_WriterServerStep "cd /opt/DAQ/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode PCO-MICOS-Step" ENTER
 
       elif [ "$process" == "PCO_StepMEDM" ] ; then
         ssh -X root@localhost "
-          medm -x -macro "P=tomoscanBEATS:,R=PcoMicosStep:,BEAMLINE=tomoScan_BEATS_PCO_MICOS_Step" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan-Step.adl &
+          nohup medm -x -macro "P=tomoscanBEATS:,R=PcoMicosStep:,BEAMLINE=tomoScan_BEATS_PCO_MICOS_Step" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan-Step.adl &
         "
       #---------------------PCO Continuous Scan --------------------#
       elif [ "$process" == "PCO_ContTomoscanIOC" ] ; then
@@ -79,19 +84,21 @@ do
         tmux new -d -s PCO_ContTomoscanIOC './start_IOC'
 
       elif [ "$process" == "PCO_PythonServerCont" ] ; then
+        tmux kill-session -t PCO_PythonServerCont
         cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont
         #source /opt/SW/venv3.9/bin/activate
         tmux new -d -s PCO_PythonServerCont
         tmux send-keys -t PCO_PythonServerCont "p3; python -i start_tomoscan.py" ENTER ;
 
       elif [ "$process" == "PCO_WriterServerCont" ] ; then
+        tmux kill-session -t PCO_WriterServerCont
         tmux new -d -s PCO_WriterServerCont
         tmux send-keys -t PCO_WriterServerCont "ssh -X root@writernode" ENTER
         tmux send-keys -t PCO_WriterServerCont "cd /opt/DAQ/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode PCO-MICOS-Cont" ENTER
 
       elif [ "$process" == "PCO_ContMEDM" ] ; then
         ssh -X root@localhost "
-          medm -x -macro "P=tomoscanBEATS:,R=PcoMicosCont:,BEAMLINE=tomoScan_BEATS_PCO_MICOS_Cont" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan.adl &
+          nohup medm -x -macro "P=tomoscanBEATS:,R=PcoMicosCont:,BEAMLINE=tomoScan_BEATS_PCO_MICOS_Cont" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan.adl &
         "
       #---------------------FLIR Step Scan --------------------#
       elif [ "$process" == "FLIR_StepTomoscanIOC" ] ; then
@@ -99,19 +106,21 @@ do
         tmux new -d -s FLIR_StepTomoscanIOC './start_IOC' 
 
       elif [ "$process" == "FLIR_PythonServerStep" ] ; then
+        tmux kill-session -t FLIR_PythonServerStep
         cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
         #source /opt/SW/venv3.9/bin/activate
         tmux new -d -s FLIR_PythonServerStep
         tmux send-keys -t FLIR_PythonServerStep "p3; python -i start_tomoscan.py" ENTER 
 
       elif [ "$process" == "FLIR_WriterServerStep" ] ; then
+        tmux kill-session -t FLIR_WriterServerStep
         tmux new -d -s FLIR_WriterServerStep 
         tmux send-keys -t FLIR_WriterServerStep "ssh -X root@writernode" ENTER
         tmux send-keys -t FLIR_WriterServerStep "cd /opt/DAQ/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode FLIR-MICOS-Step" ENTER
 
       elif [ "$process" == "FLIR_StepMEDM" ] ; then
         ssh -X root@localhost "
-          medm -x -macro "P=tomoscanBEATS:,R=FlirMicosStep:,BEAMLINE=tomoScan_BEATS_FLIR_MICOS_Step" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan-Step.adl &
+          nohup medm -x -macro "P=tomoscanBEATS:,R=FlirMicosStep:,BEAMLINE=tomoScan_BEATS_FLIR_MICOS_Step" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan-Step.adl &
         "
       #---------------------FLIR Continuous Scan --------------------#
       elif [ "$process" == "FLIR_ContTomoscanIOC" ] ; then
@@ -119,19 +128,21 @@ do
         tmux new -d -s FLIR_ContTomoscanIOC './start_IOC' 
 
       elif [ "$process" == "FLIR_PythonServerCont" ] ; then
+        tmux kill-session -t FLIR_PythonServerCont
         cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
         #source /opt/SW/venv3.9/bin/activate
         tmux new -d -s FLIR_PythonServerCont
         tmux send-keys -t FLIR_PythonServerCont "p3; python -i start_tomoscan.py" ENTER 
             
       elif [ "$process" == "FLIR_WriterServerCont" ] ; then
+        tmux kill-session -t FLIR_WriterServerCont
         tmux new -d -s FLIR_WriterServerCont
         tmux send-keys -t FLIR_WriterServerCont "ssh -X root@writernode" ENTER
         tmux send-keys -t FLIR_WriterServerCont "cd /opt/DAQ/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode FLIR-MICOS-Cont" ENTER
                         
       elif [ "$process" == "FLIR_ContMEDM" ] ; then
         ssh -X root@localhost "
-          medm -x -macro "P=tomoscanBEATS:,R=FlirMicosCont:,BEAMLINE=tomoScan_BEATS_FLIR_MICOS_Cont" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan.adl &
+          nohup medm -x -macro "P=tomoscanBEATS:,R=FlirMicosCont:,BEAMLINE=tomoScan_BEATS_FLIR_MICOS_Cont" /opt/epics/synApps/support/BEATS_tomoscan/tomoScanApp/op/adl/tomoScan.adl &
         "
     #-----------------------------------------#
       elif [ "$process" == "ImageJ" ] ; then
