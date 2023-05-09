@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1005</width>
-    <height>831</height>
+    <height>938</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -256,14 +256,64 @@ QGroupBox::title {
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="0">
           <layout class="QGridLayout" name="commonIOCsLAyout">
-           <item row="2" column="0">
-            <widget class="QLabel" name="tomoScanSupportIOC">
+           <item row="3" column="0">
+            <widget class="QLabel" name="writerSupportIOC">
              <property name="text">
-              <string>TomoScan Support IOC</string>
+              <string>Writer Support IOC</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="5">
+           <item row="1" column="3">
+            <widget class="QPushButton" name="motorIOCStop">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="7">
+            <widget class="QLabel" name="motorIOCSts">
+             <property name="cursor">
+              <cursorShape>IBeamCursor</cursorShape>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="text">
+              <string>---</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QESimpleShape" name="writerSupportIOCInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="variable" stdset="0">
+              <string>BEATS:WRITER:NumSaved</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QPushButton" name="writerSupportIOCStop">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
             <widget class="QLabel" name="tomoScanSupportIOCSts">
              <property name="cursor">
               <cursorShape>IBeamCursor</cursorShape>
@@ -279,7 +329,7 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="3" column="5">
+           <item row="3" column="7">
             <widget class="QLabel" name="writerSupportIOCSts">
              <property name="cursor">
               <cursorShape>IBeamCursor</cursorShape>
@@ -295,16 +345,6 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="shutterIOCStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="2">
             <widget class="QPushButton" name="writerSupportIOCStart">
              <property name="cursor">
@@ -315,13 +355,20 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="2" column="4">
-            <widget class="QPushButton" name="tomoScanSupportIOCRestart">
+           <item row="0" column="0">
+            <widget class="QLabel" name="shutterIOC">
+             <property name="text">
+              <string>Shutters IOCs</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="tomoScanSupportIOCStop">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="text">
-              <string>Restart</string>
+              <string>Stop</string>
              </property>
             </widget>
            </item>
@@ -345,48 +392,41 @@ QGroupBox::title {
               </color>
              </property>
              <property name="variable" stdset="0">
-              <string>IOC:m4</string>
+              <string>I10-EH-MO-MICOS:m1</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="shutterIOC">
+           <item row="0" column="2">
+            <widget class="QPushButton" name="shutterIOCStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
-              <string>Shutters IOCs</string>
+              <string>Start</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QESimpleShape" name="writerSupportIOCInd">
-             <property name="colour0" stdset="0">
-              <color>
-               <red>5</red>
-               <green>240</green>
-               <blue>5</blue>
-              </color>
-             </property>
-             <property name="variable" stdset="0">
-              <string>BEATS:WRITER:NumSaved</string>
+           <item row="1" column="0">
+            <widget class="QLabel" name="motorIOC">
+             <property name="text">
+              <string>Motion Stage (Micos) IOC</string>
              </property>
             </widget>
            </item>
            <item row="1" column="5">
-            <widget class="QLabel" name="motorIOCSts">
+            <widget class="QPushButton" name="motorGUI">
              <property name="cursor">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="text">
-              <string>---</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <string>Motor GUI</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="5">
+           <item row="0" column="1">
+            <widget class="QSimpleShape" name="shutterIOCInd"/>
+           </item>
+           <item row="0" column="7">
             <widget class="QLabel" name="shutterIOCSts">
              <property name="cursor">
               <cursorShape>IBeamCursor</cursorShape>
@@ -402,15 +442,28 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="writerSupportIOC">
+           <item row="2" column="2">
+            <widget class="QPushButton" name="tomoScanSupportIOCStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
-              <string>Writer Support IOC</string>
+              <string>Start</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="3">
-            <widget class="QPushButton" name="writerSupportIOCStop">
+           <item row="1" column="2">
+            <widget class="QPushButton" name="motorIOCStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="shutterIOCStop">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
@@ -429,47 +482,21 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QPushButton" name="tomoScanSupportIOCStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
+           <item row="2" column="0">
+            <widget class="QLabel" name="tomoScanSupportIOC">
              <property name="text">
-              <string>Start</string>
+              <string>TomoScan Support IOC</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="tomoScanSupportIOCStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
+           <item row="1" column="6">
+            <widget class="QPushButton" name="motroReset">
              <property name="text">
-              <string>Stop</string>
+              <string>Default Reset</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="shutterIOCStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Start</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QPushButton" name="motorIOCStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
+           <item row="0" column="4" colspan="3">
             <widget class="QPushButton" name="shutterIOCRestart">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
@@ -479,15 +506,8 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="motorIOC">
-             <property name="text">
-              <string>Motion Stage (Micos) IOC</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QPushButton" name="writerSupportIOCRestart">
+           <item row="2" column="4" colspan="3">
+            <widget class="QPushButton" name="tomoScanSupportIOCRestart">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
@@ -496,18 +516,15 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="motorIOCStart">
+           <item row="3" column="4" colspan="3">
+            <widget class="QPushButton" name="writerSupportIOCRestart">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="text">
-              <string>Start</string>
+              <string>Restart</string>
              </property>
             </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSimpleShape" name="shutterIOCInd"/>
            </item>
           </layout>
          </item>

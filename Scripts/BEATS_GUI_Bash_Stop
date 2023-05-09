@@ -12,20 +12,15 @@ do
     -p | --process )
       process="$2"
       #-----------------Common IOCs--------------------------#
-      if [ "$process" == "shutterIOC" ] ; then
-        ssh -X dev.control@10.3.5.21 "
-            tmux send-keys -t  ShutterIOC.0 "exit" ENTER 
-            "   
-
-      elif [ "$process" == "motorIOC" ] ; then
-        ssh -X root@10.1.50.12 "
-            tmux send-keys -t MotorIOC.0 "exit" ENTER
-            "
-        # tmux send-keys -t MicosStageIOC C-c
-        # sleep 0.5
-        # tmux send-keys -t MicosStageIOC "exit" ENTER 
-        # tmux send-keys -t MicosStageIOC "sleep 0.5" ENTER
-        # tmux send-keys -t MicosStageIOC "exit" ENTER 
+      if [ "$process" == "motorIOC" ] ; then
+        # ssh -X dev.control@10.1.50.11 "
+        #     tmux send-keys -t MicosIOC.0 "exit" ENTER
+        #     "
+        tmux send-keys -t MicosStageIOC C-c
+        sleep 0.5
+        tmux send-keys -t MicosStageIOC "exit" ENTER 
+        tmux send-keys -t MicosStageIOC "sleep 0.5" ENTER
+        tmux send-keys -t MicosStageIOC "exit" ENTER 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
         ssh -X root@10.1.50.16 "

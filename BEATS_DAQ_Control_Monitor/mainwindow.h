@@ -36,6 +36,8 @@ private slots:
 
     void on_motorIOCRestart_clicked();
 
+    void on_motorGUI_clicked();
+
     void on_tomoScanSupportIOCStop_clicked();
 
     void on_tomoScanSupportIOCRestart_clicked();
@@ -88,6 +90,7 @@ private slots:
 
     void checkStatusH();
     void checkStatusL();
+    void checkScanSts();
 
     void on_FLIRIOCStart_clicked();
 
@@ -120,6 +123,7 @@ private slots:
     void set_PCO_indicators_color(char PCO_Color);
     void set_FLIR_indicators_color(char FLIR_Color);
 
+    void on_motroReset_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -131,6 +135,7 @@ private:
     char FLIR_color;
     QTimer* TimerH;
     QTimer* TimerL;
+    QTimer* scanSts;
 
     QString started = "Started";
     QString running = "Running";

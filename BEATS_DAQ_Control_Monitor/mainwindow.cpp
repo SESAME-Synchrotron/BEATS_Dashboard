@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->FLIRState                   = new QEpicsPV("FLIR:cam1:DetectorState_RBV");
 
     this->shutterIOC                  = new QEpicsPV("I10EH-SHUTTER:command");
-    this->motorIOC                    = new QEpicsPV("IOC:m4");
+    this->motorIOC                    = new QEpicsPV("I10-EH-MO-MICOS:m1");
     this->tomoScanSupportIOC          = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL");
     this->writerSupportIOC            = new QEpicsPV("BEATS:WRITER:NumSaved");
 
@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->FLIRIOC_SEVR                = new QEpicsPV("FLIR:cam1:ARCheckConnection.SEVR");
 
     this->shutterIOC_SEVR             = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
-    this->motorIOC_SEVR               = new QEpicsPV("IOC:m4.SEVR");
+    this->motorIOC_SEVR               = new QEpicsPV("I10-EH-MO-MICOS:m1.SEVR");
     this->tomoScanSupportIOC_SEVR     = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL.SEVR");
     this->writerSupportIOC_SEVR       = new QEpicsPV("BEATS:WRITER:NumSaved.SEVR");
 
@@ -128,6 +128,11 @@ MainWindow::MainWindow(QWidget *parent)
     this->TimerL->start(1000);
 
     connect(TimerL, SIGNAL(timeout()), this, SLOT(checkStatusL()));    // infinite loop
+
+    scanSts = new QTimer(this);
+    this->scanSts->start(2000);
+
+    connect(scanSts, SIGNAL(timeout()), this, SLOT(checkScanSts()));    // infinite loop
 
     if ( PCO_WriterServer_Step_ == 1 or PCO_WriterServer_Cont_ == 1 or PCO_TomoScanIOC_Step_SEVR_ != NULL or PCO_TomoScanIOC_Cont_SEVR_ != NULL)
         ui->FLIR->setEnabled(false);
@@ -315,6 +320,11 @@ void MainWindow::on_motorIOCRestart_clicked()
 {
     restartProcess("motorIOC","");
     ui->generalSts->setText("Motor IOC " + restarted + " ...");
+}
+
+void MainWindow::on_motorGUI_clicked()
+{
+    startProcess("motorGUI","");
 }
 /* --------------------------------------------------------------*/
 
@@ -1239,6 +1249,23 @@ void MainWindow::on_help_clicked()
 
 }
 
+void MainWindow::checkScanSts()
+{
+//    int x = 0;
+    if (writerSupportIOC_SEVR_ != NULL)
+    {
+        if (PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_SEVR_ != NULL && PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_ ==1 && PCO_WriterServer_Step_ == 1 && PCO_TomoScanIOC_Step_SEVR_ != NULL)
+            Client::writePV("BEATS:ScanMode", 1);
+        else if (PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_SEVR_ != NULL && PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_ ==1 && PCO_WriterServer_Cont_ == 1 && PCO_TomoScanIOC_Cont_SEVR_ != NULL)
+            Client::writePV("BEATS:ScanMode", 2);
+        else if (FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_SEVR_ != NULL && FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_ ==1 && FLIR_WriterServer_Step_ == 1 && FLIR_TomoScanIOC_Step_SEVR_ != NULL)
+            Client::writePV("BEATS:ScanMode", 3);
+        else if (FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_SEVR_ != NULL && FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_ ==1 && FLIR_WriterServer_Cont_ == 1 && FLIR_TomoScanIOC_Cont_SEVR_ != NULL)
+            Client::writePV("BEATS:ScanMode", 4);
+        else
+            Client::writePV("BEATS:ScanMode", 0);
+    }
+}
 void MainWindow::on_password_editingFinished()
 {
     QString pass = ui->password->text();
@@ -1249,4 +1276,13 @@ void MainWindow::on_password_editingFinished()
         ui->TCPServerSocketRestart->setEnabled(true);
         ui->password->clear();
     }
+}
+
+void MainWindow::on_motroReset_clicked()
+{
+     ui->generalSts->setText(camera + " Reset MICOS controller to default setttings");
+     Client::writePV("I10-EH-MO-MICOS:m1:LIMITTYPE_CMD", 2);
+     Client::writePV("I10-EH-MO-MICOS:m1.LLM",-9999);
+     Client::writePV("I10-EH-MO-MICOS:m1.HLM", 9999);
+     Client::writePV("I10-EH-MO-MICOS:m1.ACCL", 0.1);
 }

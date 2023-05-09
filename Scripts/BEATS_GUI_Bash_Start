@@ -12,18 +12,19 @@ do
     -p | --process )
       process="$2"
       #-----------------Common IOCs--------------------------#
-      if [ "$process" == "shutterIOC" ] ; then
-        ssh -X dev.control@10.3.5.21 "
-            cd /home/dev.control/top/mirrors
-            tmux new -d -s ShutterIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd'"
+      if [ "$process" == "motorIOC" ] ; then
+        # ssh -X dev.control@10.3.5.11 "
+            # cd /home/dev.control/micos-ioc 
+            # tmux new -d -s MicosIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd ' "
+        tmux new -d -s MicosStageIOC
+        tmux send-keys -t MicosStageIOC "ssh -X dev.control@10.3.5.11" ENTER
+        tmux send-keys -t MicosStageIOC "cd /home/dev.control/micos-ioc; ./bin/linux-x86_64/ioc iocBoot/ioc/st.cmd" ENTER
 
-      elif [ "$process" == "motorIOC" ] ; then
-        ssh -X root@10.1.50.12 "
-            cd /opt/top/motor-sim 
-            tmux new -d -s MotorIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd ' "
-        # tmux new -d -s MicosStageIOC
-        # tmux send-keys -t MicosStageIOC "ssh -X root@10.3.5.104" ENTER
-        # tmux send-keys -t MicosStageIOC "cd /home/control/micos-ioc; ./bin/linux-x86_64/ioc iocBoot/ioc/st.cmd" ENTER
+      elif [ "$process" == "motorGUI" ] ; then
+        ssh -X dev.control@10.3.5.11 "
+            cd /home/dev.control/micos-ioc/ ;
+            ./motor-gui.sh
+            "
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
         ssh -X root@10.1.50.16 "

@@ -12,25 +12,17 @@ do
     -p | --process )
       process="$2"
       #-----------------Common IOCs--------------------------#
-      if [ "$process" == "shutterIOC" ] ; then
-        ssh -X dev.control@10.3.5.21 "
-            cd /home/dev.control/top/mirrors 
-            tmux send-keys -t ShutterIOC.0 "exit" ENTER
-            sleep 2 
-            tmux new -d -s ShutterIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd' 
-            "   
-
-      elif [ "$process" == "motorIOC" ] ; then
-        ssh -X root@10.1.50.12 "
-            cd /opt/top/motor-sim 
-            tmux send-keys -t MotorIOC.0 "exit" ENTER
-            sleep 2
-            tmux new -d -s MotorIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd'
-            "
-        # tmux send-keys -t MicosStageIOC C-c
-        # sleep 0.5
-        # tmux send-keys -t MicosStageIOC "sleep 0.5" ENTER
-        # tmux send-keys -t MicosStageIOC "cd /home/control/micos-ioc; ./bin/linux-x86_64/ioc iocBoot/ioc/st.cmd" ENTER
+      if [ "$process" == "motorIOC" ] ; then
+        # ssh -X dev.control@10.1.50.11 "
+        #     cd /home/dev.control/micos-ioc 
+        #     tmux send-keys -t MicosIOC.0 "exit" ENTER
+        #     sleep 2
+        #     tmux new -d -s MicosIOC './bin/linux-x86_64/ioc iocBoot/ioc/st.cmd'
+        #     "
+        tmux send-keys -t MicosStageIOC C-c
+        sleep 0.5
+        tmux send-keys -t MicosStageIOC "sleep 0.5" ENTER
+        tmux send-keys -t MicosStageIOC "cd /home/dev.control/micos-ioc; ./bin/linux-x86_64/ioc iocBoot/ioc/st.cmd" ENTER
 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
