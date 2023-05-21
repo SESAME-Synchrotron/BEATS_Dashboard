@@ -60,7 +60,7 @@ do
         tmux new -d -s PCO_StepTomoscanIOC './start_IOC' 
         tmux new -d -s RPTriggerServer
         tmux send-keys -t RPTriggerServer "ssh sesame@10.3.5.111" ENTER
-        tmux send-keys -t RPTriggerServer "RPTrigServ" ENTER
+        tmux send-keys -t RPTriggerServer "cd /home/sesame/RP; python3.9 server.py" ENTER
 
       elif [ "$process" == "PCO_PythonServerStep" ] ; then
         tmux kill-session -t PCO_PythonServerStep
