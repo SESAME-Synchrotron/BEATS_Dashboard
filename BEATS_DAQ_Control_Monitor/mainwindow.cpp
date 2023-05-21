@@ -1252,7 +1252,7 @@ void MainWindow::on_help_clicked()
 void MainWindow::checkScanSts()
 {
 //    int x = 0;
-    if (writerSupportIOC_SEVR_ != NULL)
+    if (writerSupportIOC_SEVR_ != NULL and motorIOC_SEVR_ != NULL and tomoScanSupportIOC_SEVR_ != NULL and (PCOIOC_SEVR_ != NULL or FLIRIOC_SEVR_ != NULL))
     {
         if (PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_SEVR_ != NULL && PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_ ==1 && PCO_WriterServer_Step_ == 1 && PCO_TomoScanIOC_Step_SEVR_ != NULL)
             Client::writePV("BEATS:ScanMode", 1);
@@ -1265,6 +1265,8 @@ void MainWindow::checkScanSts()
         else
             Client::writePV("BEATS:ScanMode", 0);
     }
+    else
+        Client::writePV("BEATS:ScanMode", 0);
 }
 void MainWindow::on_password_editingFinished()
 {
@@ -1285,4 +1287,7 @@ void MainWindow::on_motroReset_clicked()
      Client::writePV("I10-EH-MO-MICOS:m1.LLM",-9999);
      Client::writePV("I10-EH-MO-MICOS:m1.HLM", 9999);
      Client::writePV("I10-EH-MO-MICOS:m1.ACCL", 0.1);
+     Client::writePV("I10-EH-MO-MICOS:m1.VMAX", 180);
+     Client::writePV("I10-EH-MO-MICOS:m1.VELO", 10);
+     Client::writePV("I10-EH-MO-MICOS:m1.DIR", 1);
 }
