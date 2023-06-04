@@ -43,11 +43,11 @@ do
       elif [ "$process" == "FLIRIOC" ] ; then
         tmux new -d -s FLIR_CameraIOC
         tmux send-keys -t FLIR_CameraIOC "ssh -X root@flirserver" ENTER
-        tmux send-keys -t FLIR_CameraIOC "cd /home/dev.control/ioc; ./bin/linux-x86_64/ad-iaxd iocBoot/iocad-iaxd/st.cmd " ENTER
+        tmux send-keys -t FLIR_CameraIOC "cd /home/dev.control/ioc; ./bin/linux-x86_64/ad-iaxd iocBoot/iocad-iaxd/st.cmd" ENTER
 
       elif [ "$process" == "FLIRDriver" ] ; then
         ssh -X root@flirserver "
-            cd && /home/dev.control/run_GUI.sh
+            cd && /home/dev.control/run-GUI-ORYX.sh
             "
 
       elif [ "$process" == "PCODriver" ] ; then

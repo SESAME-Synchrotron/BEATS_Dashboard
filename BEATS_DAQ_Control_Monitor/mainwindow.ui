@@ -161,7 +161,7 @@ QGroupBox::title {
             </color>
            </property>
            <property name="variable" stdset="0">
-            <string>FLIR:cam1:ARCheckConnection</string>
+            <string>FLIR:cam1:AsynIO</string>
            </property>
            <property name="variableSubstitutions" stdset="0">
             <string/>

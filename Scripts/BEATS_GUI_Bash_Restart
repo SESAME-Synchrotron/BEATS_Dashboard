@@ -43,10 +43,10 @@ do
             "
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then
-        tmux send-keys -t FLIR_CameraIOC C-c
-        sleep 0.5
-        tmux send-keys -t FLIR_CameraIOC.0 "sleep 0.5" ENTER
-        tmux send-keys -t FLIR_CameraIOC.0 "./bin/linux-x86_64/ad-iaxd iocBoot/iocad-iaxd/st.cmd" ENTER
+        tmux send-keys -t FLIR_CameraIOC "exit" ENTER
+        sleep 1
+        # tmux send-keys -t FLIR_CameraIOC.0 "sleep 0.5" ENTER
+        tmux send-keys -t FLIR_CameraIOC.0 "./bin/linux-x86_64/ad-iaxd iocBoot/iocad-iaxd/st.cmd " ENTER
 
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then

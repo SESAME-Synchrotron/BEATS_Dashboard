@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     // read PVs and SEVR//
 
     this->PCOIOC                      = new QEpicsPV("TEST-PCO:HDF1:StoreAttr");
-    this->FLIRIOC                     = new QEpicsPV("FLIR:cam1:ARCheckConnection");
+    this->FLIRIOC                     = new QEpicsPV("FLIR:cam1:AsynIO");
     this->PCOState                    = new QEpicsPV("TEST-PCO:cam1:StatusMessage_RBV");
     this->FLIRState                   = new QEpicsPV("FLIR:cam1:DetectorState_RBV");
 
@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->FLIR_WriterServerCont       = new QEpicsPV("BEATS:FLIR:WRITER:CONT:Status");
 
     this->PCOIOC_SEVR                 = new QEpicsPV("TEST-PCO:HDF1:StoreAttr.SEVR");
-    this->FLIRIOC_SEVR                = new QEpicsPV("FLIR:cam1:ARCheckConnection.SEVR");
+    this->FLIRIOC_SEVR                = new QEpicsPV("FLIR:cam1:AsynIO.CNCT");
 
     this->shutterIOC_SEVR             = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
     this->motorIOC_SEVR               = new QEpicsPV("I10-EH-MO-MICOS:m1.SEVR");
