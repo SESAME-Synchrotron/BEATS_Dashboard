@@ -1245,7 +1245,7 @@ void MainWindow::set_FLIR_indicators_color(char FLIR_Color)
 
 void MainWindow::on_help_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://hesebscantool.readthedocs.io/en/latest/runScan.html#live-data-plotting"));
+    QDesktopServices::openUrl(QUrl("https://beats.readthedocs.io/en/latest/daq_dashboard.html"));
 
 }
 
