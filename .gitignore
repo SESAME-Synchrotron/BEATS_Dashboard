@@ -7,3 +7,6 @@
 !/BEATS_DAQ_Control_Monitor/mainwindow.cpp
 !/BEATS_DAQ_Control_Monitor/mainwindow.h
 !/BEATS_DAQ_Control_Monitor/mainwindow.ui
+Scripts/*.out
+*.out
+/docs*
