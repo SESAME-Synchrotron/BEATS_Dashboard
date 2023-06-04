@@ -12,4 +12,4 @@ At the moment, the BEATS dashboard has the following features:
 * Online (last log) logging.
 * Public documentation targeting end-users (how-to).
 
-This documentation is targeting scientists and developers, for more: 
+This documentation is targeting scientists and developers, for more: https://beats.readthedocs.io/en/latest/daq_dashboard.html
