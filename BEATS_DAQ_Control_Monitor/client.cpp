@@ -51,8 +51,25 @@ void Client::writeArray(QString name, void *data, unsigned long size)
         return;
     }
 
-    //ca_array_put(DBF_LONG, size, pvID, data);
-    ca_array_put(DBF_DOUBLE, size, pvID, data);
+    ca_array_put(DBF_LONG, size, pvID, data);
+//    ca_array_put(DBF_DOUBLE, size, pvID, data);
+    return;
+}
+
+void Client::writeStringToWaveform(QString name, QString value)
+{
+    int status;
+    chid pvID;
+
+    ca_search(name.toStdString().c_str(), &pvID);
+    status = ca_pend_io(1);
+    if (status != ECA_NORMAL)
+    {
+        QMessageBox::warning(nullptr, "Error writing to PV", "Could not write the value to PV: " + name);
+        return;
+    }
+
+    ca_array_put(DBR_CHAR, value.length() + 1, pvID, const_cast<char*>(value.toStdString().c_str()));
     return;
 }
 
