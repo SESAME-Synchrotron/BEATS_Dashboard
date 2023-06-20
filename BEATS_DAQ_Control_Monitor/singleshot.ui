@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>singleShot</class>
+ <widget class="QMainWindow" name="singleShot">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>464</width>
+    <height>647</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="tittle">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255); border: 1px solid black; border-radius: 5px; margin-top: 0.5em; subcontrol-origin: margin; left: 10px; padding: 0 3px 0 3px;</string>
+      </property>
+      <property name="text">
+       <string>DAQ | Single Shot Image</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="margin">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QGridLayout" name="prefixLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="prefix">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="text">
+         <string>Prefix</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="prefixVAL">
+        <property name="placeholderText">
+         <string>TEST-PCO: or FLIR:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="readoutGB">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 0.5em;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 3px 0 3px;
+}
+</string>
+      </property>
+      <property name="title">
+       <string>Readout</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="raedoutLayout1">
+         <item row="1" column="0">
+          <widget class="QLabel" name="binning">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Binning</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="regionStart">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Region start</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="regionSize">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Region size</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QELabel" name="regionStartXRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)MinX_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QELineEdit" name="regionSizeX">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)SizeX</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QELabel" name="binningYRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)BinY_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QELineEdit" name="regionStartX">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)MinX</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QELineEdit" name="binningX">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)BinX</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
+          <widget class="QELabel" name="regionSizeYRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)SizeY_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="QELabel" name="regionStartYRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)MinY_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QELabel" name="regionSizeXRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)SizeX_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3">
+          <widget class="QELineEdit" name="regionSizeY">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)SizeY</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QELineEdit" name="binningY">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)BinY</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QELabel" name="binningXRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)BinX_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" colspan="2">
+          <widget class="QLabel" name="Y">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Y / Y_RBV</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QLabel" name="X">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>X / X_RBV</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QELineEdit" name="regionStartY">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)MinY</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="raedoutLayout2">
+         <item row="1" column="0">
+          <widget class="QLabel" name="gain">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Gain</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QELabel" name="gainRBV">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)Gain_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QELineEdit" name="gainVAL">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)Gain</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="gainAuto">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Gain auto</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QELabel" name="colorModeRBV">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)ColorMode_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="colorMode">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Color mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QEComboBox" name="colorModeVAL">
+           <property name="variable" stdset="0">
+            <string>$(P)ColorMode</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QELabel" name="gainAutoRBV">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)GainAuto_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QEComboBox" name="gainAutoVAL">
+           <property name="variable" stdset="0">
+            <string>$(P)GainAuto</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QGroupBox" name="collectGB">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 0.5em;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 3px 0 3px;
+}
+</string>
+      </property>
+      <property name="title">
+       <string>Readout</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="collectLayout1">
+         <item row="1" column="1">
+          <widget class="QELabel" name="imageModeRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)ImageMode_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+           <property name="displayAlarmStateOption" stdset="0">
+            <enum>QELabel::Never</enum>
+           </property>
+           <property name="precision">
+            <number>6</number>
+           </property>
+           <property name="addUnits">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QELabel" name="triggerModeRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)TriggerMode_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+           <property name="displayAlarmStateOption" stdset="0">
+            <enum>QELabel::Never</enum>
+           </property>
+           <property name="precision">
+            <number>6</number>
+           </property>
+           <property name="addUnits">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QELabel" name="imagesRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)NumImages_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+           <property name="displayAlarmStateOption" stdset="0">
+            <enum>QELabel::Never</enum>
+           </property>
+           <property name="precision">
+            <number>6</number>
+           </property>
+           <property name="addUnits">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="triggerMode">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Trigger mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="imageMode">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Image mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="images">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string># Images</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="collectLayout2">
+         <item row="3" column="3">
+          <widget class="QELabel" name="exposureTimeRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)AcquireTime_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1" colspan="2">
+          <widget class="QELabel" name="acquireBusyRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)AcquireBusy</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" colspan="2">
+          <widget class="QELineEdit" name="exposureTimeVAL">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)AcquireTime</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="acquireBusy">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Acquire busy</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QEPushButton" name="imagesCounter0">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Set counter to 0</string>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)ArrayCounter</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+           <property name="clickText">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1" colspan="2">
+          <widget class="QELabel" name="imagesCounterRBV">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)ArrayCounter_RBV</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="exposureTime">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Exposure time</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="imagesCounter">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Images counter</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="exposureAuto">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Exposure auto</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QEComboBox" name="exposureAutoVAL">
+           <property name="variable" stdset="0">
+            <string>$(P)ExposureAuto</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=FLIR5:cam5:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="saveGB">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 0.5em;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 3px 0 3px;
+}
+</string>
+      </property>
+      <property name="title">
+       <string>Readout</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="savLayout">
+         <item row="0" column="1">
+          <widget class="QLabel" name="imagePath">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Image path: &lt;span style=&quot; vertical-align:sub;&quot;&gt;(only the path and image name without extension)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="saveImage">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>save image (.tiff)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="imagePathVAL">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="placeholderText">
+            <string>e.g. /home/Desktop/image</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="status">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string>Status:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="statusVAL">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 0);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QEComboBox</class>
+   <extends>QComboBox</extends>
+   <header>QEComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QELabel</class>
+   <extends>QLabel</extends>
+   <header>QELabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QELineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>QELineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QEPushButton</class>
+   <extends>QPushButton</extends>
+   <header>QEPushButton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
