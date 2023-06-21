@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QDir::setCurrent("/opt/operation/BEATS_Dashboard/Scripts");       // set the directory of the bash scripts
+    QDir::setCurrent("../Scripts");       // set the directory of the bash scripts
 
     // read PVs and SEVR//
 
