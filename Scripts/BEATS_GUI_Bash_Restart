@@ -13,7 +13,7 @@ do
       process="$2"
       #-----------------Common IOCs--------------------------#
       if [ "$process" == "motorIOC" ] ; then
-        # ssh -X dev.control@10.1.50.11 "
+        # ssh -X dev.control@motionstage "
         #     cd /home/dev.control/micos-ioc 
         #     tmux send-keys -t MicosIOC.0 "exit" ENTER
         #     sleep 2
@@ -26,7 +26,7 @@ do
 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
-        ssh -X root@10.1.50.16 "
+        ssh -X root@tomoscansupport "
             cd /opt/epics7/synApps/support/suppIoc
             tmux send-keys -t TomoscanSupportIOC "exit" ENTER
             sleep 2
@@ -52,11 +52,11 @@ do
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
         tmux send-keys -t PCO_StepTomoscanIOC "exit" ENTER 
         sleep 2
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
         tmux new -d -s PCO_StepTomoscanIOC './start_IOC'
         # tmux kill-session -t RPTriggerServer
         # tmux new -d -s RPTriggerServer
-        # tmux send-keys -t RPTriggerServer "ssh sesame@10.3.5.111" ENTER
+        # tmux send-keys -t RPTriggerServer "ssh sesame@rasppi" ENTER
         # tmux send-keys -t RPTriggerServer "RPTrigServ"
 
       elif [ "$process" == "PCO_PythonServerStep" ] ; then
@@ -64,9 +64,9 @@ do
         # tmux send-keys -t PCO_PythonServerStep "exit()" ENTER
         sleep 0.5
         # source /opt/SW/venv3.9/bin/activate
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Step
         tmux new -d -s PCO_PythonServerStep 
-        tmux send-keys -t PCO_PythonServerStep "source /opt/SW/venv3.9/bin/activate; python -i start_tomoscan.py" ENTER
+        tmux send-keys -t PCO_PythonServerStep "p3; python -i start_tomoscan.py" ENTER
         # tmux send-keys -t PCO_PythonServerStep "python -i start_tomoscan.py" ENTER  
 
       elif [ "$process" == "PCO_WriterServerStep" ] ; then
@@ -84,7 +84,7 @@ do
       elif [ "$process" == "PCO_ContTomoscanIOC" ] ; then
         tmux send-keys -t PCO_ContTomoscanIOC "exit" ENTER 
         sleep 2 
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont 
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont 
         tmux new -d -s PCO_ContTomoscanIOC './start_IOC'
 
       elif [ "$process" == "PCO_PythonServerCont" ] ; then
@@ -92,9 +92,9 @@ do
         # tmux send-keys -t PCO_PythonServerCont "exit()" ENTER
         sleep 0.5
         # source /opt/SW/venv3.9/bin/activate
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_PCO_MICOS_Cont
         tmux new -d -s PCO_PythonServerCont
-        tmux send-keys -t PCO_PythonServerCont "source /opt/SW/venv3.9/bin/activate; python -i start_tomoscan.py" ENTER
+        tmux send-keys -t PCO_PythonServerCont "p3; python -i start_tomoscan.py" ENTER
         # tmux send-keys -t PCO_PythonServerCont "python -i start_tomoscan.py" ENTER  
 
       elif [ "$process" == "PCO_WriterServerCont" ] ; then
@@ -112,17 +112,17 @@ do
       elif [ "$process" == "FLIR_StepTomoscanIOC" ] ; then
         tmux send-keys -t FLIR_StepTomoscanIOC "exit" ENTER 
         sleep 2
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
         tmux new -d -s FLIR_StepTomoscanIOC './start_IOC' 
 
       elif [ "$process" == "FLIR_PythonServerStep" ] ; then
         tmux kill-session -t FLIR_PythonServerStep
         # tmux send-keys -t FLIR_PythonServerStep "exit()" ENTER
         sleep 0.5
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Step
         # source /opt/SW/venv3.9/bin/activate
         tmux new -d -s FLIR_PythonServerStep
-        tmux send-keys -t FLIR_PythonServerStep "source /opt/SW/venv3.9/bin/activate; python -i start_tomoscan.py" ENTER
+        tmux send-keys -t FLIR_PythonServerStep "p3; python -i start_tomoscan.py" ENTER
         # tmux send-keys -t FLIR_PythonServerStep "python -i start_tomoscan.py" ENTER    
 
       elif [ "$process" == "FLIR_WriterServerStep" ] ; then
@@ -140,16 +140,16 @@ do
       elif [ "$process" == "FLIR_ContTomoscanIOC" ] ; then
         tmux send-keys -t FLIR_ContTomoscanIOC "exit" ENTER 
         sleep 2
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
         tmux new -d -s FLIR_ContTomoscanIOC './start_IOC' 
           
       elif [ "$process" == "FLIR_PythonServerCont" ] ; then
         tmux kill-session -t FLIR_PythonServerCont
         # tmux send-keys -t FLIR_PythonServerCont "exit()" ENTER
         sleep 0.5 
-        cd /opt/epics/synApps/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
+        cd /opt/epics/support/BEATS_tomoscan/iocBoot/iocTomoScan_BEATS_FLIR_MICOS_Cont 
         tmux new -d -s FLIR_PythonServerCont
-        tmux send-keys -t FLIR_PythonServerCont "source /opt/SW/venv3.9/bin/activate; python -i start_tomoscan.py" ENTER
+        tmux send-keys -t FLIR_PythonServerCont "p3; python -i start_tomoscan.py" ENTER
         # tmux send-keys -t FLIR_PythonServerCont "python -i start_tomoscan.py" ENTER
         
       elif [ "$process" == "FLIR_WriterServerCont" ] ; then

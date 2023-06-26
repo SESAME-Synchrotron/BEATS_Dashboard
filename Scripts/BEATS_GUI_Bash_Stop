@@ -13,7 +13,7 @@ do
       process="$2"
       #-----------------Common IOCs--------------------------#
       if [ "$process" == "motorIOC" ] ; then
-        # ssh -X dev.control@10.1.50.11 "
+        # ssh -X dev.control@motionstage "
         #     tmux send-keys -t MicosIOC.0 "exit" ENTER
         #     "
         tmux send-keys -t MicosStageIOC C-c
@@ -23,7 +23,7 @@ do
         tmux send-keys -t MicosStageIOC "exit" ENTER 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
-        ssh -X root@10.1.50.16 "
+        ssh -X root@tomoscansupport "
             tmux send-keys -t TomoscanSupportIOC "exit" ENTER
             "
 
