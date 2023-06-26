@@ -37,7 +37,9 @@ do
       elif [ "$process" == "writerSupportIOC" ] ; then
         ssh -X root@writernode "
             cd /opt/DAQ/BEATS_DAQ_Supp_IOC/supportIOC
-            tmux new -d -s WriterSupportIOC './bin/linux-x86_64/Supp iocBoot/iocSupp/st.cmd'
+            tmux new -d -s WriterSupportIOC 
+            tmux send-keys -t WriterSupportIOC \"./bin/linux-x86_64/Supp iocBoot/iocSupp/st.cmd\"
+            tmux send-keys -t WriterSupportIOC ENTER
             "
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then

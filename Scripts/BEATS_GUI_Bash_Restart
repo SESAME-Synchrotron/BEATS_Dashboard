@@ -39,7 +39,8 @@ do
             cd /opt/DAQ/BEATS_DAQ_Supp_IOC/supportIOC
             tmux send-keys -t WriterSupportIOC "exit" ENTER
             sleep 2
-            tmux  new -d -s WriterSupportIOC './bin/linux-x86_64/Supp iocBoot/iocSupp/st.cmd'
+            tmux  new -d -s WriterSupportIOC 
+            tmux send-keys -t WriterSupportIOC \"./bin/linux-x86_64/Supp iocBoot/iocSupp/st.cmd\" ENTER
             "
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then
