@@ -17,6 +17,8 @@ singleShot::singleShot(QWidget *parent) :
     ui->readoutGB->setEnabled(false);
     ui->collectGB->setEnabled(false);
     ui->saveGB->setEnabled(false);
+
+    Client::writePV(interlock, 0);
 }
 
 singleShot::~singleShot()
@@ -26,37 +28,38 @@ singleShot::~singleShot()
 
 void singleShot::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Space)       // if the space key only pressed
+    if(event->key() == Qt::Key_Space)
     {
-        if(!interlock and trigger1)         // interlock: to avoid multi acquiring (until each acquiring has been done) and triggr: to check if the prefix is correct
+        if(this->_interlock->get().toBool() == 0 and trigger1 == 1)
         {
-            interlock = 1;                  // lock
+            interlock = 1;
             ui->statusVAL->setText("");
-
-//            Client::writePV(BEATS_triggerMode, BEATS_triggerMode_val);
-//            Client::writePV(BEATS_imageMode, BEATS_imageMode_val);
-//            Client::writePV(BEATS_NImages, BEATS_NImages_val);
 
             if(ui->saveImage->isChecked())
             {
-                /* if the save button is checked and the path is correct and non empty do acquiring */
-
                 if(ui->imagePathVAL->text().isEmpty() or trigger2 == 0)
                 {
                     QMessageBox::warning(this, "Invalid path", "please enter a valid path ");
-                    interlock = 0;
+//                    interlock = 0;
                 }
                 else
-                {   acquire();
+                {
+                    Client::writeStringToWaveform("SingleShot:ImagePath", ui->imagePathVAL->text());
+                    string command = "python3.9 /home/control/DAQ/operation/BEATS_Dashboard/Scripts/singleShotImage.py --saveImage Yes --detectorPVPrefix ";
+                    command += ui->prefixVAL->text().toStdString();
+                    system(command.c_str());
+//                    acquire();
+//                    reshaping();
                     ui->statusVAL->setText("saving image to " + ui->imagePathVAL->text() + "...");
-                    reshaping();
                 }
             }
             else
             {
-                /* if the save button is not checked, do the noraml acquiring without saving */
-                acquire();
-                interlock = 0;  // unlock after acquiring
+                string command = "python3.9 /home/control/DAQ/operation/BEATS_Dashboard/Scripts/singleShotImage.py --detectorPVPrefix ";
+                command += ui->prefixVAL->text().toStdString();
+                system(command.c_str());
+//                acquire();
+//                interlock = 0;
             }
         }
         else
@@ -70,20 +73,18 @@ void singleShot::keyPressEvent(QKeyEvent* event)
 void singleShot::acquire()
 {
     ui->statusVAL->setText("open exposure shutter...");
-    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_HVal);     // open exposure shutter
-    usleep(10000);                                                          // wait 0.01 seconds
-    Client::writePV(BEATS_acquire, BEATS_acquire_val);                      // acquire
+    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_HVal);
+    usleep(10000);
+    Client::writePV(BEATS_acquire, BEATS_acquire_val);
     ui->statusVAL->setText("acquire image...");
-    usleep(this->exposureTime->get().toDouble() * 1000000);                 // wait (exposure time)
-    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_LVal);     // close the exposure shutter
-    usleep(10000);                                                          // wait 0.01 seconds
+    usleep(this->exposureTime->get().toDouble() * 1000000);
+    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_LVal);
+    usleep(10000);
 }
 
 void singleShot::reshaping()
 {
-    /* strip and reshaping the main array to the required size */
-
-    usleep(600000);     // unnecessary
+    usleep(600000);
 
     int sizeX = this->regionSizeX->get().toInt();
     int sizeY = this->regionSizeY->get().toInt();
@@ -118,36 +119,37 @@ void singleShot::reshaping()
 //    for(QVariant& l:reshapedArray)
 //        std::cout<<l.toString().toStdString()<<std::endl;
 //    std::cout<<"    "<< reshapedArray.size()<<std::endl;
-
-    interlock = 0;
 }
 
 void singleShot::saveImage(int sizeX, int sizeY, QVariantList list)
 {
     ui->statusVAL->setText("start saving PNG image ...");
 
-    QImage image(sizeX, sizeY, QImage::Format_RGB32);
+    QImage image(sizeX, sizeY, QImage::Format_Grayscale8);
 
     if(list.size() == sizeX * sizeY) {
         for (int row = 0; row < sizeY; ++row) {
             for (int col = 0; col < sizeX; ++col) {
                 QVariant pixelValue = list[row * sizeX + col];
-                int pixel = pixelValue.toInt();
+                auto pixel = pixelValue.toUInt();
 
-                image.setPixel(col, row, pixel);
-//                std::cout<<pixel<<std::endl;
+                QColor color(pixel, pixel, pixel);
+                image.setPixelColor(col, row, color);
+//                image.setPixel(col, row, pixel);
             }
         }
     }
+
     else {
         // Handle error: Invalid size of the reshapedArray
         // For example, display an error message or take appropriate action.
     }
 
-    QString filename = "/home/dcasu/aaa.png";
-    image.save(filename, "PNG");
+    QString filename = ui->imagePathVAL->text();
+    image.save(filename);
 
     ui->statusVAL->setText("image saved to " + filename + "!");
+//    interlock = 0;
 }
 
 void singleShot::on_saveImage_stateChanged(int arg1)
@@ -192,7 +194,7 @@ void singleShot::on_prefixVAL_textEdited(const QString &arg1)
 
 void singleShot::on_imagePathVAL_textEdited(const QString &arg1)
 {
-    if(regex_match(arg1.toStdString(), regex("^[^-\\s][a-zA-Z0-9\\-]*$")))
+    if(regex_match(arg1.toStdString(), regex("^[^-\\s][a-zA-Z0-9\\-/]*$")))
     {
         trigger2 = 1;
         setBorderLineEdit(false, ui->imagePathVAL);
@@ -265,7 +267,5 @@ void singleShot::setPrefix(QString val)
     ui->imagesCounterRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->imagesCounter0->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->acquireBusyRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
-
-    cout<<"setPrefix"<<endl;
-    cout<<BEATS_acquireBusy.toStdString()<<endl;
+    ui->acquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
 }

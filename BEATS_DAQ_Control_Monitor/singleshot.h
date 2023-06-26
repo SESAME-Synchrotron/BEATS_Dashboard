@@ -50,8 +50,8 @@ private:
 
     void acquire();
 
-    QString PV_Prefix = "FLIR5:cam5:";
-    QString PV_PrefixArrayData = "FLIR5:";
+    QString PV_Prefix = "F";
+    QString PV_PrefixArrayData = "F";
 
     QString BEATS_binningX;
     QString BEATS_binningY ;
@@ -69,6 +69,7 @@ private:
     QString BEATS_arrayData        = PV_PrefixArrayData + "image1:ArrayData";
     QString BEATS_imageCounter     = PV_Prefix + "ArrayCounter_RBV";
     QString BEATS_exposureShutter  = "I10EH-SHUTTER:command";
+    QString interlock              = "SingleShot:Interlock";
 
     QEpicsPV* regionSizeX  = new QEpicsPV(BEATS_regionSizeX_RBV);
     QEpicsPV* regionSizeY  = new QEpicsPV(BEATS_regionSizeY_RBV);
@@ -78,8 +79,8 @@ private:
     QEpicsPV* arrayData    = new QEpicsPV(BEATS_arrayData);
     QEpicsPV* imageCounter = new QEpicsPV(BEATS_imageCounter);
     QEpicsPV* exposureShutter = new QEpicsPV(BEATS_exposureShutter); int BEATS_exposureShutter_HVal = 1; int BEATS_exposureShutter_LVal = 0;
+    QEpicsPV* _interlock  = new QEpicsPV(interlock);
 
-    bool interlock = 0;
     bool trigger1 = 0;
     bool trigger2 = 0;
 

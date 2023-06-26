@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QDir::setCurrent("../Scripts");       // set the directory of the bash scripts
+    QDir::setCurrent("/home/control/DAQ/operation/BEATS_Dashboard/Scripts");       // set the directory of the bash scripts
 
     // read PVs and SEVR//
 
@@ -231,19 +231,19 @@ void MainWindow::restartProcess(QString Process, QString Camera)
 void MainWindow::on_PCOIOCStart_clicked()
 {
     QProcess* PCOStart = new QProcess(this);
-    PCOStart->start("gnome-terminal -x python TCPClientSocket.py --process start");
+    PCOStart->start("gnome-terminal -x python3 TCPClientSocket.py --process start");
 }
 
 void MainWindow::on_PCOIOCStop_clicked()
 {
     QProcess* PCOStop = new QProcess(this);
-    PCOStop->start("gnome-terminal -x python TCPClientSocket.py --process stop");
+    PCOStop->start("gnome-terminal -x python3 TCPClientSocket.py --process stop");
 }
 
 void MainWindow::on_PCOIOCRestart_clicked()
 {
     QProcess* PCORestart = new QProcess(this);
-    PCORestart->start("gnome-terminal -x python TCPClientSocket.py --process restart");
+    PCORestart->start("gnome-terminal -x python3 TCPClientSocket.py --process restart");
 }
 
 void MainWindow::on_TCPServerSocketRestart_clicked()
