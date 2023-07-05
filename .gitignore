@@ -11,5 +11,6 @@
 !/BEATS_DAQ_Control_Monitor/singleshot.h
 !/BEATS_DAQ_Control_Monitor/singleshot.ui
 Scripts/*.out
+Scripts/*.png
 *.out
 /docs*
