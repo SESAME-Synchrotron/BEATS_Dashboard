@@ -53,8 +53,8 @@ do
             "
 
       elif [ "$process" == "PCODriver" ] ; then
-          ssh -X sesame@pcodriver "
-            nohup medm -x -macro "P=TEST-PCO:,R=cam1:" /home/sesame/medm-files/ADBase.adl &
+          ssh -X control@localhost "
+            nohup medm -x -macro "P=TEST-PCO:,R=cam1:" /home/control/DAQ/operation/medm-files/ADBase.adl &
           "
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then
