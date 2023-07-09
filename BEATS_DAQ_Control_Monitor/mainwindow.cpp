@@ -1,14 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <string>
-#include <QString>
-#include <QProcess>
-#include <QDir>
-#include <QDesktopServices>
-#include <QCryptographicHash>
-//#include <iostream>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -207,49 +199,58 @@ void MainWindow::startProcess(QString Process, QString Camera)
 {
     process = Process;
     cam = Camera;
-    QProcess* startProcess = new QProcess(this);
-    startProcess->start("gnome-terminal -x ./BEATS_GUI_Bash_Start --process " + cam + process);
+
+    std::string command = "gnome-terminal -- ./BEATS_GUI_Bash_Start --process ";
+    command += cam.toStdString();
+    command += process.toStdString();
+    system(command.c_str());
 }
 
 void MainWindow::stopProcess(QString Process, QString Camera)
 {
     process = Process;
     cam = Camera;
-    QProcess* stopProcess = new QProcess(this);
-    stopProcess->start("gnome-terminal -x ./BEATS_GUI_Bash_Stop --process " + cam + process);
+
+    std::string command = "gnome-terminal -- ./BEATS_GUI_Bash_Stop --process ";
+    command += cam.toStdString();
+    command += process.toStdString();
+    system(command.c_str());
 }
 
 void MainWindow::restartProcess(QString Process, QString Camera)
 {
     process = Process;
     cam = Camera;
-    QProcess* restartProcess = new QProcess(this);
-    restartProcess->start("gnome-terminal -x ./BEATS_GUI_Bash_Restart --process " + cam + process);
+
+    std::string command = "gnome-terminal -- ./BEATS_GUI_Bash_Restart --process ";
+    command += cam.toStdString();
+    command += process.toStdString();
+    system(command.c_str());
 }
 /* --------------------------------------------------------------*/
 
 void MainWindow::on_PCOIOCStart_clicked()
 {
-    QProcess* PCOStart = new QProcess(this);
-    PCOStart->start("gnome-terminal -x python3 TCPClientSocket.py --process start");
+    std::string command = "gnome-terminal -- python3 TCPClientSocket.py --process start ";
+    system(command.c_str());
 }
 
 void MainWindow::on_PCOIOCStop_clicked()
 {
-    QProcess* PCOStop = new QProcess(this);
-    PCOStop->start("gnome-terminal -x python3 TCPClientSocket.py --process stop");
+    std::string command = "gnome-terminal -- python3 TCPClientSocket.py --process stop ";
+    system(command.c_str());
 }
 
 void MainWindow::on_PCOIOCRestart_clicked()
 {
-    QProcess* PCORestart = new QProcess(this);
-    PCORestart->start("gnome-terminal -x python3 TCPClientSocket.py --process restart");
+    std::string command = "gnome-terminal -- python3 TCPClientSocket.py --process restart ";
+    system(command.c_str());
 }
 
 void MainWindow::on_TCPServerSocketRestart_clicked()
 {
-    QProcess* TCPServerSocketRestart = new QProcess(this);
-    TCPServerSocketRestart->start("gnome-terminal -x python TCPClientSocket.py --process TCPServerSocketRestart");
+    std::string command = "gnome-terminal -- python3 TCPClientSocket.py --process TCPServerSocketRestart ";
+    system(command.c_str());
 
     ui->TCPServerSocketRestart->setEnabled(false);
 }

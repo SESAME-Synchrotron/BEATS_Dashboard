@@ -2,9 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "singleshot.h"
+
 #include <qepicspv.h>
 #include <client.h>
-#include "singleshot.h"
+
+#include <QDir>
+#include <QDesktopServices>
+#include <QCryptographicHash>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
