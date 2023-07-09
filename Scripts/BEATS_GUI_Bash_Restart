@@ -26,13 +26,9 @@ do
 
 
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
-        ssh -X root@tomoscansupport "
-            cd /opt/epics7/synApps/support/suppIoc
-            tmux send-keys -t TomoscanSupportIOC "exit" ENTER
-            sleep 2
-            tmux new -d -s TomoscanSupportIOC 
-            tmux send-keys -t TomoscanSupportIOC.0 \"softIoc -d suppIoc.db\" ENTER
-            "
+        tmux send-keys -t TomoscanSupportIOC C-c
+        sleep 0.5
+        tmux send-keys -t TomoscanSupportIOC "cd /home/control/DAQ/operation/tomoscanSupport; ./bin/linux-x86_64/tomoscanSupp iocBoot/ioctomoscanSupp/st.cmd" ENTER
 
       elif [ "$process" == "writerSupportIOC" ] ; then
         ssh -X root@writernode "
