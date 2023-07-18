@@ -132,6 +132,7 @@ private slots:
     void on_motroReset_clicked();
 
     void on_singleShotImageStart_clicked();
+    void on_singleShotImageStart_closed();
 
 private:
     Ui::MainWindow *ui;
@@ -270,5 +271,8 @@ private:
     int radiationShutterFault_;
     int photonShutterFault_;
     int combinedStopperFault_;
+
+    singleShot* openSingleShot;
+    bool isSingleShotImageOpened = false;
 };
 #endif // MAINWINDOW_H

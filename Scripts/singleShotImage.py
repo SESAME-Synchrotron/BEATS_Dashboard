@@ -6,6 +6,7 @@ import argparse
 import sys
 from PIL import Image
 import numpy as np
+import os
 
 PV_Prefixes = ["TEST-PCO:", "FLIR:"]
 
@@ -44,16 +45,17 @@ def reshaping(PV_Prefix):
     print(f"reshape image to {epics.PV(PV_Prefix + 'cam1:ArraySizeX_RBV').get()} X {epics.PV(PV_Prefix + 'cam1:ArraySizeY_RBV').get()}")
     reshapedArray = np.reshape(x, (sizeX, sizeY))
     print("image reshaped!")
-    saveImage(PV_Prefix, reshapedArray)
+    saveImage(reshapedArray)
 
-def saveImage(PV_Prefix, reshapedArray):
+def saveImage(reshapedArray):
     
     # Convert the array to an image
-    print(f"saving image to {epics.PV('SingleShot:ImagePath').get(as_string=True)}")
+    imagePath, imageExtension = os.path.splitext(epics.PV("SingleShot:ImagePath").get(as_string=True))
+    print(f"saving image to {imagePath}{imageExtension}")
     image = Image.fromarray(reshapedArray.astype(np.uint8))
-    image.save(epics.PV("SingleShot:ImagePath").get(as_string=True) + ".png")
+    image.save(imagePath + imageExtension)
     epics.PV("SingleShot:Interlock").put(0, wait=True)
-    print("image saved!")
+    print(f"image {imagePath}{imageExtension} saved!")
 
 
 if __name__ == "__main__":

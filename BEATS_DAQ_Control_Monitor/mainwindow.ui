@@ -160,6 +160,20 @@ QGroupBox::title {
              <blue>5</blue>
             </color>
            </property>
+           <property name="colour2" stdset="0">
+            <color>
+             <red>252</red>
+             <green>233</green>
+             <blue>79</blue>
+            </color>
+           </property>
+           <property name="colour3" stdset="0">
+            <color>
+             <red>252</red>
+             <green>233</green>
+             <blue>79</blue>
+            </color>
+           </property>
            <property name="variable" stdset="0">
             <string>FLIR:cam1:AsynIO</string>
            </property>
@@ -298,6 +312,20 @@ QGroupBox::title {
                <blue>5</blue>
               </color>
              </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>BEATS:WRITER:NumSaved</string>
              </property>
@@ -374,6 +402,20 @@ QGroupBox::title {
            </item>
            <item row="2" column="1">
             <widget class="QESimpleShape" name="tomoScanSupportIOCInd">
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>PA:BEATS:STA_A_FES_OPEN_PL</string>
              </property>
@@ -386,9 +428,23 @@ QGroupBox::title {
             <widget class="QESimpleShape" name="motorIOCInd">
              <property name="colour0" stdset="0">
               <color>
-               <red>5</red>
-               <green>240</green>
-               <blue>5</blue>
+               <red>20</red>
+               <green>60</green>
+               <blue>20</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
               </color>
              </property>
              <property name="variable" stdset="0">
@@ -1361,6 +1417,27 @@ QGroupBox::title {
            </item>
            <item row="2" column="1">
             <widget class="QESimpleShape" name="PCOContWriterServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>BEATS:PCO:WRITER:CONT:Status</string>
              </property>
@@ -1465,6 +1542,20 @@ QGroupBox::title {
                <blue>5</blue>
               </color>
              </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:PcoMicosCont:ScanStatus</string>
              </property>
@@ -1502,6 +1593,27 @@ QGroupBox::title {
            </item>
            <item row="1" column="1">
             <widget class="QESimpleShape" name="PCOContPythonServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:PcoMicosCont:ServerRunning</string>
              </property>
@@ -1516,6 +1628,20 @@ QGroupBox::title {
                <blue>5</blue>
               </color>
              </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:FlirMicosCont:CameraObjective</string>
              </property>
@@ -1523,6 +1649,27 @@ QGroupBox::title {
            </item>
            <item row="1" column="2">
             <widget class="QESimpleShape" name="FLIRContPythonServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:FlirMicosCont:ServerRunning</string>
              </property>
@@ -1530,6 +1677,27 @@ QGroupBox::title {
            </item>
            <item row="2" column="2">
             <widget class="QESimpleShape" name="FLIRContWriterServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>BEATS:FLIR:WRITER:CONT:Status</string>
              </property>
@@ -1593,6 +1761,20 @@ QGroupBox::title {
                <red>5</red>
                <green>240</green>
                <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
               </color>
              </property>
              <property name="variable" stdset="0">
@@ -1734,6 +1916,27 @@ QGroupBox::title {
            </item>
            <item row="1" column="1">
             <widget class="QESimpleShape" name="PCOStepPythonServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:PcoMicosStep:ServerRunning</string>
              </property>
@@ -1741,6 +1944,27 @@ QGroupBox::title {
            </item>
            <item row="2" column="1">
             <widget class="QESimpleShape" name="PCOStepWriterServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>BEATS:PCO:WRITER:STEP:Status</string>
              </property>
@@ -1784,6 +2008,20 @@ QGroupBox::title {
                <blue>5</blue>
               </color>
              </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:FlirMicosStep:CameraObjective</string>
              </property>
@@ -1791,6 +2029,27 @@ QGroupBox::title {
            </item>
            <item row="1" column="2">
             <widget class="QESimpleShape" name="FLIRStepPythonServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>tomoscanBEATS:FlirMicosStep:ServerRunning</string>
              </property>
@@ -1798,6 +2057,27 @@ QGroupBox::title {
            </item>
            <item row="2" column="2">
             <widget class="QESimpleShape" name="FLIRStepWriterServerInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
              <property name="variable" stdset="0">
               <string>BEATS:FLIR:WRITER:STEP:Status</string>
              </property>
@@ -1900,6 +2180,27 @@ QGroupBox::title {
          </item>
          <item row="2" column="1">
           <widget class="QESimpleShape" name="PCOIOCInd">
+           <property name="colour0" stdset="0">
+            <color>
+             <red>5</red>
+             <green>240</green>
+             <blue>5</blue>
+            </color>
+           </property>
+           <property name="colour2" stdset="0">
+            <color>
+             <red>252</red>
+             <green>233</green>
+             <blue>79</blue>
+            </color>
+           </property>
+           <property name="colour3" stdset="0">
+            <color>
+             <red>252</red>
+             <green>233</green>
+             <blue>79</blue>
+            </color>
+           </property>
            <property name="variable" stdset="0">
             <string>TEST-PCO:HDF1:StoreAttr</string>
            </property>

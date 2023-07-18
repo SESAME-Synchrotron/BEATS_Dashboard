@@ -12,6 +12,7 @@
 
 #include <QLineEdit>
 #include <regex>
+#include <QDir>
 
 namespace Ui {
 class singleShot;
@@ -32,6 +33,12 @@ private slots:
     void on_prefixVAL_textEdited(const QString &arg1);
 
     void on_imagePathVAL_textEdited(const QString &arg1);
+
+    void on_tiff_clicked();
+
+    void on_png_clicked();
+
+    void on_acquire_clicked();
 
 private:
 
@@ -75,6 +82,7 @@ private:
     QEpicsPV* imageSize    = new QEpicsPV(BEATS_imageSize_RBV);
     QEpicsPV* exposureTime = new QEpicsPV(BEATS_exposureTime_RBV);
     QEpicsPV* acquireBusy  = new QEpicsPV(BEATS_acquireBusy);
+    QEpicsPV* acquire_     = new QEpicsPV(BEATS_acquire);
     QEpicsPV* arrayData    = new QEpicsPV(BEATS_arrayData);
     QEpicsPV* imageCounter = new QEpicsPV(BEATS_imageCounter);
     QEpicsPV* exposureShutter = new QEpicsPV(BEATS_exposureShutter); int BEATS_exposureShutter_HVal = 1; int BEATS_exposureShutter_LVal = 0;
@@ -87,6 +95,8 @@ private:
     QVariantList acquiredArray;
     QVariantList reshapedList;
     QVariantList reshapedArray;
+
+    std::string imageExtension = ".tiff";
 };
 
 #endif // SINGLESHOT_H

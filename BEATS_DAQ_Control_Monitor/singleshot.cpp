@@ -13,12 +13,16 @@ singleShot::singleShot(QWidget *parent) :
 
     ui->statusVAL->setText("");
     ui->imagePathVAL->setEnabled(false);
+    ui->tiff->setEnabled(false);
+    ui->png->setEnabled(false);
 
     ui->readoutGB->setEnabled(false);
     ui->collectGB->setEnabled(false);
     ui->saveGB->setEnabled(false);
 
     Client::writePV(interlock, 0);
+
+    QDir::setCurrent("/home/control/Desktop/");
 }
 
 singleShot::~singleShot()
@@ -30,6 +34,25 @@ void singleShot::keyPressEvent(QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Space)
     {
+        acquire();
+    }
+}
+
+//void singleShot::acquire()
+//{
+//    ui->statusVAL->setText("open exposure shutter...");
+//    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_HVal);
+//    usleep(10000);
+//    Client::writePV(BEATS_acquire, BEATS_acquire_val);
+//    ui->statusVAL->setText("acquire image...");
+//    usleep(this->exposureTime->get().toDouble() * 1000000);
+//    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_LVal);
+//    usleep(10000);
+//}
+
+void singleShot::acquire()
+{
+    if(!(this->acquire_->get().toInt() == 1) and !(this->acquireBusy->get().toInt() == 1))
         if(this->_interlock->get().toBool() == 0 and trigger1 == 1)
         {
             interlock = 1;
@@ -40,16 +63,16 @@ void singleShot::keyPressEvent(QKeyEvent* event)
                 if(ui->imagePathVAL->text().isEmpty() or trigger2 == 0)
                 {
                     QMessageBox::warning(this, "Invalid path", "please enter a valid path ");
-//                    interlock = 0;
+    //                    interlock = 0;
                 }
                 else
                 {
-                    Client::writeStringToWaveform("SingleShot:ImagePath", ui->imagePathVAL->text());
+                    Client::writeStringToWaveform("SingleShot:ImagePath", ui->imagePathVAL->text() + QString::fromStdString(imageExtension));
                     string command = "python3.9 /home/control/DAQ/operation/BEATS_Dashboard/Scripts/singleShotImage.py --saveImage Yes --detectorPVPrefix ";
                     command += ui->prefixVAL->text().toStdString();
                     system(command.c_str());
-//                    acquire();
-//                    reshaping();
+    //                    acquire();
+    //                    reshaping();
                     ui->statusVAL->setText("saving image to " + ui->imagePathVAL->text() + "...");
                 }
             }
@@ -58,8 +81,8 @@ void singleShot::keyPressEvent(QKeyEvent* event)
                 string command = "python3.9 /home/control/DAQ/operation/BEATS_Dashboard/Scripts/singleShotImage.py --detectorPVPrefix ";
                 command += ui->prefixVAL->text().toStdString();
                 system(command.c_str());
-//                acquire();
-//                interlock = 0;
+    //                acquire();
+    //                interlock = 0;
             }
         }
         else
@@ -67,19 +90,8 @@ void singleShot::keyPressEvent(QKeyEvent* event)
             ui->statusVAL->setText("wait until finishing previous image ...");
             QMessageBox::warning(this, "warning", "wait until finish processing the previous image ...");
         }
-    }
-}
-
-void singleShot::acquire()
-{
-    ui->statusVAL->setText("open exposure shutter...");
-    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_HVal);
-    usleep(10000);
-    Client::writePV(BEATS_acquire, BEATS_acquire_val);
-    ui->statusVAL->setText("acquire image...");
-    usleep(this->exposureTime->get().toDouble() * 1000000);
-    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_LVal);
-    usleep(10000);
+    else
+        QMessageBox::warning(this, "warning", "there is an external process running, please wait until finish ...");
 }
 
 void singleShot::reshaping()
@@ -154,10 +166,32 @@ void singleShot::saveImage(int sizeX, int sizeY, QVariantList list)
 
 void singleShot::on_saveImage_stateChanged(int arg1)
 {
-    if(arg1 == Qt::Checked)
+    if(arg1 == Qt::Checked){
         ui->imagePathVAL->setEnabled(true);
-    else
+        ui->tiff->setEnabled(true);
+        ui->png->setEnabled(true);
+    }
+
+    else{
         ui->imagePathVAL->setEnabled(false);
+        ui->tiff->setEnabled(false);
+        ui->png->setEnabled(false);
+    }
+}
+
+void singleShot::on_acquire_clicked()
+{
+    acquire();
+}
+
+void singleShot::on_tiff_clicked()
+{
+    imageExtension = ".tiff";
+}
+
+void singleShot::on_png_clicked()
+{
+    imageExtension = ".png";
 }
 
 void singleShot::setBorderLineEdit(bool val, QLineEdit *lineEdit)
@@ -194,7 +228,7 @@ void singleShot::on_prefixVAL_textEdited(const QString &arg1)
 
 void singleShot::on_imagePathVAL_textEdited(const QString &arg1)
 {
-    if(regex_match(arg1.toStdString(), regex("^[^-\\s][a-zA-Z0-9\\-/]*$")))
+    if(regex_match(arg1.toStdString(), regex("^[a-zA-Z0-9\\-_/]*$")))
     {
         trigger2 = 1;
         setBorderLineEdit(false, ui->imagePathVAL);
@@ -213,6 +247,7 @@ void singleShot::setPrefix(QString val)
     delete this->imageSize;
     delete this->exposureTime;
     delete this->acquireBusy;
+    delete  this->acquire_;
     delete this->arrayData;
     delete this->imageCounter;
 
@@ -236,6 +271,7 @@ void singleShot::setPrefix(QString val)
     this->imageSize    = new QEpicsPV(BEATS_imageSize_RBV);
     this->exposureTime = new QEpicsPV(BEATS_exposureTime_RBV);
     this->acquireBusy  = new QEpicsPV(BEATS_acquireBusy);
+    this->acquire_      = new QEpicsPV(BEATS_acquire);
     this->arrayData    = new QEpicsPV(BEATS_arrayData);
     this->imageCounter = new QEpicsPV(BEATS_imageCounter);
 
@@ -267,5 +303,4 @@ void singleShot::setPrefix(QString val)
     ui->imagesCounterRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->imagesCounter0->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->acquireBusyRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
-    ui->acquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
 }

@@ -82,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->FLIRGB->setEnabled(false);
     ui->stepScanGB->setEnabled(false);
     ui->contScanGB->setEnabled(false);
-//    ui->singleShotImageStart->setEnabled(false);
+    ui->singleShotImageStart->setEnabled(false);
 
     ui->TCPServerSocketRestart->setEnabled(false);
     ui->TCPServerSocketRestart->setHidden(true);
@@ -1255,20 +1255,27 @@ void MainWindow::checkScanSts()
 //    int x = 0;
     if (writerSupportIOC_SEVR_ != NULL and motorIOC_SEVR_ != NULL and tomoScanSupportIOC_SEVR_ != NULL and (PCOIOC_SEVR_ != NULL or FLIRIOC_SEVR_ != NULL))
     {
-        if (PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_SEVR_ != NULL && PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_ ==1 && PCO_WriterServer_Step_ == 1 && PCO_TomoScanIOC_Step_SEVR_ != NULL)
+        if (PCO_TomoScanIOC_Step_SEVR_ != NULL && PCO_PythonServer_Step_SEVR_ != NULL && PCO_PythonServer_Step_ ==1 && PCO_WriterServer_Step_ == 1 )
             Client::writePV("BEATS:ScanMode", 1);
-        else if (PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_SEVR_ != NULL && PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_ ==1 && PCO_WriterServer_Cont_ == 1 && PCO_TomoScanIOC_Cont_SEVR_ != NULL)
+        else if (PCO_TomoScanIOC_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_SEVR_ != NULL && PCO_PythonServer_Cont_ ==1 && PCO_WriterServer_Cont_ == 1)
             Client::writePV("BEATS:ScanMode", 2);
-        else if (FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_SEVR_ != NULL && FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_ ==1 && FLIR_WriterServer_Step_ == 1 && FLIR_TomoScanIOC_Step_SEVR_ != NULL)
+        else if (FLIR_TomoScanIOC_Step_SEVR_ != NULL && FLIR_PythonServer_Step_SEVR_ != NULL && FLIR_PythonServer_Step_ ==1 && FLIR_WriterServer_Step_ == 1)
             Client::writePV("BEATS:ScanMode", 3);
-        else if (FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_SEVR_ != NULL && FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_ ==1 && FLIR_WriterServer_Cont_ == 1 && FLIR_TomoScanIOC_Cont_SEVR_ != NULL)
+        else if (FLIR_TomoScanIOC_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_SEVR_ != NULL && FLIR_PythonServer_Cont_ ==1 && FLIR_WriterServer_Cont_ == 1)
             Client::writePV("BEATS:ScanMode", 4);
         else
             Client::writePV("BEATS:ScanMode", 0);
     }
     else if(writerSupportIOC_SEVR_ != NULL)
         Client::writePV("BEATS:ScanMode", 0);
+
+    if (tomoScanSupportIOC_SEVR_ != NULL and (PCOIOC_SEVR_ != NULL or FLIRIOC_SEVR_ != NULL) and (PCO_TomoScanIOC_Step_SEVR_ == NULL and PCO_TomoScanIOC_Cont_SEVR_ == NULL and FLIR_TomoScanIOC_Step_SEVR_ == NULL and FLIR_TomoScanIOC_Cont_SEVR_ == NULL)){
+        ui->singleShotImageStart->setEnabled(true);
+    }
+    else
+        ui->singleShotImageStart->setEnabled(false);
 }
+
 void MainWindow::on_password_editingFinished()
 {
     QString pass = ui->password->text();
@@ -1295,6 +1302,16 @@ void MainWindow::on_motroReset_clicked()
 
 void MainWindow::on_singleShotImageStart_clicked()
 {
-    singleShot* openSingleShot = new singleShot(this);
-    openSingleShot->show();
+    if(!isSingleShotImageOpened){
+        openSingleShot = new singleShot(this);
+        openSingleShot->setAttribute(Qt::WA_DeleteOnClose);
+        connect(openSingleShot, &QObject::destroyed, this, &MainWindow::on_singleShotImageStart_closed);
+        openSingleShot->show();
+        isSingleShotImageOpened = true;
+    }
+}
+
+void MainWindow::on_singleShotImageStart_closed()
+{
+    isSingleShotImageOpened = false;
 }
