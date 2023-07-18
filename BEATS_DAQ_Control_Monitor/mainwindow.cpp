@@ -1269,7 +1269,7 @@ void MainWindow::checkScanSts()
     else if(writerSupportIOC_SEVR_ != NULL)
         Client::writePV("BEATS:ScanMode", 0);
 
-    if (tomoScanSupportIOC_SEVR_ != NULL and (PCOIOC_SEVR_ != NULL or FLIRIOC_SEVR_ != NULL) and (PCO_TomoScanIOC_Step_SEVR_ == NULL and PCO_TomoScanIOC_Cont_SEVR_ == NULL and FLIR_TomoScanIOC_Step_SEVR_ == NULL and FLIR_TomoScanIOC_Cont_SEVR_ == NULL)){
+    if (tomoScanSupportIOC_SEVR_ != NULL and ((ui->PCO_StatusHidden->text().toStdString() != "Disconnected" and ui->PCO_StatusHidden->text().toStdString() != "disconnected" and PCOIOC_SEVR_ != NULL) or (FLIRState_ != 9 and FLIRIOC_SEVR_ != NULL)) and (PCO_TomoScanIOC_Step_SEVR_ == NULL and PCO_TomoScanIOC_Cont_SEVR_ == NULL and FLIR_TomoScanIOC_Step_SEVR_ == NULL and FLIR_TomoScanIOC_Cont_SEVR_ == NULL)){
         ui->singleShotImageStart->setEnabled(true);
     }
     else
