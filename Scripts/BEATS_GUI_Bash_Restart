@@ -28,16 +28,22 @@ do
       elif [ "$process" == "tomoscanSupportIOC" ] ; then
         tmux send-keys -t TomoscanSupportIOC C-c
         sleep 0.5
-        tmux send-keys -t TomoscanSupportIOC "cd /home/control/DAQ/operation/tomoscanSupport; ./bin/linux-x86_64/tomoscanSupp iocBoot/ioctomoscanSupp/st.cmd" ENTER
+        tmux send-keys -t TomoscanSupportIOC "cd /home/control/DAQ/operation/TomoscanSupportIOCs/tomoscanSupport; ./bin/linux-x86_64/tomoscanSupp iocBoot/ioctomoscanSupp/st.cmd" ENTER
 
       elif [ "$process" == "writerSupportIOC" ] ; then
-        ssh -X root@writernode "
-            cd /opt/DAQ/BEATS_DAQ_Supp_IOC/supportIOC
+        ssh -X control@writernode "
+            cd /home/control/BEATS_DAQ_Supp_IOC/supportIOC
             tmux send-keys -t WriterSupportIOC "exit" ENTER
             sleep 2
             tmux  new -d -s WriterSupportIOC 
             tmux send-keys -t WriterSupportIOC \"./bin/linux-x86_64/Supp iocBoot/iocSupp/st.cmd\" ENTER
             "
+
+      elif [ "$process" == "SSCAN_IOC" ] ; then
+        tmux send-keys -t SSCAN_IOC C-c
+        sleep 0.5
+        tmux send-keys -t SSCAN_IOC "cd /home/control/DAQ/operation/TomoscanSupportIOCs/sscanIOC/iocBoot/ioctool; ../../bin/linux-x86_64/tool st.cmd" ENTER
+        
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then
         tmux send-keys -t FLIR_CameraIOC "exit" ENTER

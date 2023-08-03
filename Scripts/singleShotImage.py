@@ -69,6 +69,8 @@ if __name__ == "__main__":
     save = args.saveImage
     
     if detector.upper() in PV_Prefixes:
+        epics.PV(detector.upper() + "image1:EnableCallbacks").put(1, wait=True)
+        epics.PV(detector.upper() + "image1:ArrayCallbacks").put(1, wait=True)
         if detector.upper() == "TEST-PCO:":
             epics.PV(detector.upper() + "cam1:TriggerMode").put(1, wait=True)
             acquire(detector.upper(), save[0].capitalize())

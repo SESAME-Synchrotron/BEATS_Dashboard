@@ -40,6 +40,20 @@ private slots:
 
     void on_acquire_clicked();
 
+    void on_singleShotCheckBox_stateChanged(int arg1);
+
+    void on_sscanCheckBox_stateChanged(int arg1);
+
+    void on_oneD_clicked();
+
+    void on_twoD_clicked();
+
+    void on_threeD_clicked();
+
+    void on_FourD_clicked();
+
+    void on_imagesVAL_textEdited(const QString &arg1);
+
 private:
 
     Ui::singleShot *ui;
@@ -56,7 +70,11 @@ private:
 
     void acquire();
 
+    void sscan(QString scan);
+
     QString PV_Prefix = "F";
+    QString HDF_Prefix = "F";
+    QString image_Prefix = "F";
     QString PV_PrefixArrayData = "F";
 
     QString BEATS_binningX;
@@ -67,6 +85,7 @@ private:
     QString BEATS_regionSizeY_RBV  = PV_Prefix + "ArraySizeY_RBV"  ;
     QString BEATS_imageSize_RBV    = PV_Prefix + "ArraySize_RBV"   ;
     QString BEATS_triggerMode      = PV_Prefix + "TriggerMode"     ; int BEATS_triggerMode_val  = 0;
+    QString BEATS_triggerSource    = PV_Prefix + "TriggerSource"   ;
     QString BEATS_imageMode        = PV_Prefix + "ImageMode"       ; int BEATS_imageMode_val    = 0;
     QString BEATS_NImages          = PV_Prefix + "NumImages"       ; int BEATS_NImages_val      = 1;
     QString BEATS_exposureTime_RBV = PV_Prefix + "AcquireTime_RBV" ;
@@ -74,17 +93,28 @@ private:
     QString BEATS_acquire          = PV_Prefix + "Acquire"         ; int BEATS_acquire_val      = 1;
     QString BEATS_arrayData        = PV_PrefixArrayData + "image1:ArrayData";
     QString BEATS_imageCounter     = PV_Prefix + "ArrayCounter_RBV";
+    QString BEATS_filePath         = PV_Prefix + "FilePath"        ;
+    QString BEATS_autoIncreament   = PV_Prefix + "AutoIncrement"  ;
+    QString BEATS_fileFormat       = PV_Prefix + "FileTemplate";
+    QString BEATS_autoSave         = PV_Prefix + "AutoSave";
+    QString BEATS_fileWriteMode    = PV_Prefix + "FileWriteMode";
+    QString BEATS_numCapture       = PV_Prefix + "NumCapture";
+    QString BEATS_arrayCallbacks   = PV_Prefix + "ArrayCallbacks"   ;
+    QString BEATS_enableCallbacks  = PV_Prefix + "EnableCallbacks"  ;
+    QString BEATS_startCapture     = PV_Prefix + "Capture";
     QString BEATS_exposureShutter  = "I10EH-SHUTTER:command";
     QString interlock              = "SingleShot:Interlock";
 
     QEpicsPV* regionSizeX  = new QEpicsPV(BEATS_regionSizeX_RBV);
     QEpicsPV* regionSizeY  = new QEpicsPV(BEATS_regionSizeY_RBV);
+    QEpicsPV* NImages      = new QEpicsPV(BEATS_NImages);
     QEpicsPV* imageSize    = new QEpicsPV(BEATS_imageSize_RBV);
     QEpicsPV* exposureTime = new QEpicsPV(BEATS_exposureTime_RBV);
     QEpicsPV* acquireBusy  = new QEpicsPV(BEATS_acquireBusy);
     QEpicsPV* acquire_     = new QEpicsPV(BEATS_acquire);
     QEpicsPV* arrayData    = new QEpicsPV(BEATS_arrayData);
     QEpicsPV* imageCounter = new QEpicsPV(BEATS_imageCounter);
+
     QEpicsPV* exposureShutter = new QEpicsPV(BEATS_exposureShutter); int BEATS_exposureShutter_HVal = 1; int BEATS_exposureShutter_LVal = 0;
     QEpicsPV* _interlock  = new QEpicsPV(interlock);
 
@@ -97,6 +127,8 @@ private:
     QVariantList reshapedArray;
 
     std::string imageExtension = ".tiff";
+
+    QString scan_;
 };
 
 #endif // SINGLESHOT_H

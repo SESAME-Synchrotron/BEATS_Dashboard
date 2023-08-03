@@ -134,6 +134,12 @@ private slots:
     void on_singleShotImageStart_clicked();
     void on_singleShotImageStart_closed();
 
+    void on_sscanIOCStart_clicked();
+
+    void on_sscanIOCStop_clicked();
+
+    void on_sscanIOCRestart_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -161,6 +167,7 @@ private:
     QEpicsPV* motorIOC;
     QEpicsPV* tomoScanSupportIOC;
     QEpicsPV* writerSupportIOC;
+    QEpicsPV* sscanIOC;
 
     QEpicsPV* exposureShutterIOC;
     QEpicsPV* radiationShutterIOC;
@@ -198,6 +205,7 @@ private:
     QEpicsPV* motorIOC_SEVR;
     QEpicsPV* tomoScanSupportIOC_SEVR;
     QEpicsPV* writerSupportIOC_SEVR;
+    QEpicsPV* sscanIOC_SEVR;
 
     QEpicsPV* exposureShutterIOC_SEVR;
     QEpicsPV* radiationShutterIOC_SEVR;
@@ -227,6 +235,7 @@ private:
     QString motorIOC_SEVR_;
     QString tomoScanSupportIOC_SEVR_;
     QString writerSupportIOC_SEVR_;
+    QString sscanIOC_SEVR_;
 
     QString exposureShutterIOC_SEVR_;
     QString radiationShutterIOC_SEVR_;

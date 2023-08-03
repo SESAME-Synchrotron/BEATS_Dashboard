@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->motorIOC                    = new QEpicsPV("I10-EH-MO-MICOS:m1");
     this->tomoScanSupportIOC          = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL");
     this->writerSupportIOC            = new QEpicsPV("BEATS:WRITER:NumSaved");
+    this->sscanIOC                    = new QEpicsPV("BEATS:scan1");
 
     this->exposureShutterIOC          = new QEpicsPV("I10EH-SHUTTER:command");
 //    this->radiationShutterIOC         = new QEpicsPV("I10FE-PSS-PHST:getStatus");
@@ -57,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->motorIOC_SEVR               = new QEpicsPV("I10-EH-MO-MICOS:m1.SEVR");
     this->tomoScanSupportIOC_SEVR     = new QEpicsPV("PA:BEATS:STA_A_FES_OPEN_PL.SEVR");
     this->writerSupportIOC_SEVR       = new QEpicsPV("BEATS:WRITER:NumSaved.SEVR");
+    this->sscanIOC_SEVR               = new QEpicsPV("BEATS:scan1.SEVR");
 
     this->exposureShutterIOC_SEVR     = new QEpicsPV("I10EH-SHUTTER:command.SEVR");
 //    this->radiationShutterIOC_SEVR    = new QEpicsPV("I10FE-PSS-PHST:getStatus.SEVR");
@@ -127,10 +129,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(scanSts, SIGNAL(timeout()), this, SLOT(checkScanSts()));    // infinite loop
 
-    if ( PCO_WriterServer_Step_ == 1 or PCO_WriterServer_Cont_ == 1 or PCO_TomoScanIOC_Step_SEVR_ != NULL or PCO_TomoScanIOC_Cont_SEVR_ != NULL)
+    if (PCO_TomoScanIOC_Step_SEVR_ != NULL or PCO_TomoScanIOC_Cont_SEVR_ != NULL)
         ui->FLIR->setEnabled(false);
 
-    if (FLIR_WriterServer_Step_ == 1 or FLIR_WriterServer_Cont_ == 1 or FLIR_TomoScanIOC_Step_SEVR_ != NULL or FLIR_TomoScanIOC_Cont_SEVR_ != NULL)
+    if (FLIR_TomoScanIOC_Step_SEVR_ != NULL or FLIR_TomoScanIOC_Cont_SEVR_ != NULL)
         ui->PCO->setEnabled(false);
 
     if (PCO_TomoScanIOC_Step_SEVR_ != NULL)
@@ -364,6 +366,25 @@ void MainWindow::on_writerSupportIOCRestart_clicked()
 {
     restartProcess("writerSupportIOC","");
     ui->generalSts->setText("Writer Support IOC " + restarted + " ...");
+}
+/* --------------------------------------------------------------*/
+
+void MainWindow::on_sscanIOCStart_clicked()
+{
+    startProcess("SSCAN_IOC","");
+    ui->generalSts->setText("SSCAN IOC " + started + " ...");
+}
+
+void MainWindow::on_sscanIOCStop_clicked()
+{
+    stopProcess("SSCAN_IOC","");
+    ui->generalSts->setText("SSCAN IOC " + stopped + " ...");
+}
+
+void MainWindow::on_sscanIOCRestart_clicked()
+{
+    restartProcess("SSCAN_IOC","");
+    ui->generalSts->setText("SSCAN IOC " + restarted + " ...");
 }
 /* --------------------------------------------------------------*/
 
@@ -610,6 +631,7 @@ void MainWindow::checkStatusH()
    motorIOC_SEVR_                = this->motorIOC_SEVR->get().toString();
    tomoScanSupportIOC_SEVR_      = this->tomoScanSupportIOC_SEVR->get().toString();
    writerSupportIOC_SEVR_        = this->writerSupportIOC_SEVR->get().toString();
+   sscanIOC_SEVR_                = this->sscanIOC_SEVR->get().toString();
 
    exposureShutterIOC_SEVR_      = this->exposureShutterIOC_SEVR->get().toString();
 //   radiationShutterIOC_SEVR_     = this->radiationShutterIOC_SEVR->get().toString();
@@ -730,6 +752,21 @@ void MainWindow::checkStatusH()
         ui->writerSupportIOCRestart->setEnabled(false);
 
         ui->writerSupportIOCSts->setText(stopped);
+    }
+
+    if (sscanIOC_SEVR_ != NULL){
+        ui->sscanIOCStart->setEnabled(false);
+        ui->sscanIOCStop->setEnabled(true);
+        ui->sscanIOCRestart->setEnabled(true);
+
+        ui->sscanIOCSts->setText(running);
+    }
+    else {
+        ui->sscanIOCStart->setEnabled(true);
+        ui->sscanIOCStop->setEnabled(false);
+        ui->sscanIOCRestart->setEnabled(false);
+
+        ui->sscanIOCSts->setText(stopped);
     }
 
     if (PCOIOC_SEVR_ != NULL){

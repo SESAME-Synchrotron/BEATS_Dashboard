@@ -28,9 +28,14 @@ do
         tmux send-keys -t TomoscanSupportIOC "exit" ENTER
 
       elif [ "$process" == "writerSupportIOC" ] ; then
-        ssh -X root@writernode "
+        ssh -X control@writernode "
             tmux send-keys -t WriterSupportIOC "exit" ENTER 
             "
+
+      elif [ "$process" == "SSCAN_IOC" ] ; then
+        tmux send-keys -t SSCAN_IOC C-c
+        sleep 0.5
+        tmux send-keys -t SSCAN_IOC "exit" ENTER
       #---------------------PCO & FLIR IOCs --------------------#
       elif [ "$process" == "FLIRIOC" ] ; then
         tmux send-keys -t FLIR_CameraIOC C-c

@@ -9,7 +9,7 @@ singleShot::singleShot(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setFixedSize(this->size());      // fix the window size
+//    this->setFixedSize(this->size());      // fix the window size
 
     ui->statusVAL->setText("");
     ui->imagePathVAL->setEnabled(false);
@@ -18,11 +18,12 @@ singleShot::singleShot(QWidget *parent) :
 
     ui->readoutGB->setEnabled(false);
     ui->collectGB->setEnabled(false);
+    ui->singleShotImageMode->setEnabled(false);
     ui->saveGB->setEnabled(false);
+    ui->sscanGB->setEnabled(false);
 
     Client::writePV(interlock, 0);
 
-    QDir::setCurrent("/home/control/Desktop/");
 }
 
 singleShot::~singleShot()
@@ -52,6 +53,7 @@ void singleShot::keyPressEvent(QKeyEvent* event)
 
 void singleShot::acquire()
 {
+//    QDir::setCurrent("/home/control/Desktop/");
     if(!(this->acquire_->get().toInt() == 1) and !(this->acquireBusy->get().toInt() == 1))
         if(this->_interlock->get().toBool() == 0 and trigger1 == 1)
         {
@@ -164,6 +166,47 @@ void singleShot::saveImage(int sizeX, int sizeY, QVariantList list)
 //    interlock = 0;
 }
 
+void singleShot::on_singleShotCheckBox_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Checked){
+        ui->saveGB->setEnabled(true);
+        ui->sscanCheckBox->setEnabled(false);
+    }
+
+    else{
+        ui->saveGB->setEnabled(false);
+        ui->sscanCheckBox->setEnabled(true);
+    }
+}
+
+void singleShot::on_sscanCheckBox_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Checked){
+        ui->sscanGB->setEnabled(true);
+        ui->singleShotCheckBox->setEnabled(false);
+
+        Client::writeStringToWaveform(BEATS_filePath, "/home/dcasu");
+        Client::writePV(BEATS_autoIncreament, 1);
+        Client::writeStringToWaveform(BEATS_fileFormat, "%s%s_%3.3d.h5");
+        Client::writePV(BEATS_autoSave, 1);
+        Client::writePV(PV_Prefix + "ArrayCallbacks", 1);
+        Client::writePV(image_Prefix + "ArrayCallbacks", 1);
+        Client::writePV(image_Prefix + "EnableCallbacks", 1);
+        Client::writePV(HDF_Prefix + "ArrayCallbacks", 1);
+        Client::writePV(HDF_Prefix + "EnableCallbacks", 1);
+        Client::writePV(BEATS_imageMode, 0);
+        Client::writePV(BEATS_acquire, 1);
+        Client::writePV(BEATS_acquire, 0);
+        Client::writePV(BEATS_fileWriteMode, 1);
+        Client::writePV(BEATS_numCapture, this->NImages->get().toInt());
+    }
+
+    else{
+        ui->sscanGB->setEnabled(false);
+        ui->singleShotCheckBox->setEnabled(true);
+    }
+}
+
 void singleShot::on_saveImage_stateChanged(int arg1)
 {
     if(arg1 == Qt::Checked){
@@ -213,16 +256,30 @@ void singleShot::on_prefixVAL_textEdited(const QString &arg1)
 
         ui->readoutGB->setEnabled(true);
         ui->collectGB->setEnabled(true);
-        ui->saveGB->setEnabled(true);
+        ui->singleShotImageMode->setEnabled(true);
+
+        if(arg1 == "TEST-PCO:")
+            Client::writePV(BEATS_triggerMode, 0);
+        else
+        {
+            Client::writePV(BEATS_triggerSource, 0);
+            Client::writePV(BEATS_triggerMode, 0);
+        }
+        Client::writePV(BEATS_imageMode, 0);
+        Client::writePV(BEATS_acquire, 1);
+        Client::writePV(BEATS_acquire, 0);
     }
     else
     {
         trigger1 = 0;
 
         setBorderLineEdit(true, ui->prefixVAL);
+
         ui->readoutGB->setEnabled(false);
         ui->collectGB->setEnabled(false);
+        ui->singleShotImageMode->setEnabled(false);
         ui->saveGB->setEnabled(false);
+        ui->sscanGB->setEnabled(false);
     }
 }
 
@@ -240,24 +297,78 @@ void singleShot::on_imagePathVAL_textEdited(const QString &arg1)
     }
 }
 
+void singleShot::on_imagesVAL_textEdited(const QString &arg1)
+{
+    Client::writePV(BEATS_numCapture, arg1);
+}
+
+void singleShot::on_oneD_clicked()
+{
+    sscan("run_sscan1.sh");
+}
+
+void singleShot::on_twoD_clicked()
+{
+    sscan("run_sscan2.sh");
+}
+
+void singleShot::on_threeD_clicked()
+{
+    sscan("run_sscan3.sh");
+}
+
+void singleShot::on_FourD_clicked()
+{
+    sscan("run_sscan4.sh");
+}
+
+void singleShot::sscan(QString scan)
+{
+    if(!(this->acquire_->get().toInt() == 1) and !(this->acquireBusy->get().toInt() == 1)){
+
+        if(PV_Prefix == "TEST-PCO:cam1:"){
+            Client::writePV(BEATS_imageMode, 0);
+            Client::writePV(BEATS_triggerMode, 0);
+        }
+        else{
+            Client::writePV(BEATS_imageMode, 1);
+            Client::writePV(BEATS_triggerMode, 1);
+            Client::writePV(BEATS_triggerSource, 0);
+        }
+        Client::writePV(BEATS_acquire, 1);
+        Client::writePV(BEATS_startCapture, 1);
+        scan_ = scan;
+        std::string command = "cd && /home/control/DAQ/operation/TomoscanSupportIOCs/sscanIOC/";
+        command += scan_.toStdString();
+        system(command.c_str());
+    }
+    else
+        QMessageBox::warning(this, "warning", "there is an external process running, please wait until finish ...");
+}
+
 void singleShot::setPrefix(QString val)
 {
     delete this->regionSizeX;
     delete this->regionSizeY;
+    delete this->NImages;
     delete this->imageSize;
     delete this->exposureTime;
     delete this->acquireBusy;
-    delete  this->acquire_;
+    delete this->acquire_;
     delete this->arrayData;
     delete this->imageCounter;
 
     PV_Prefix = val + "cam1:";
+    HDF_Prefix = val + "HDF1:";
+    image_Prefix = val + "image1:";
     PV_PrefixArrayData = val;
 
     BEATS_regionSizeX_RBV  = PV_Prefix + "ArraySizeX_RBV"  ;
     BEATS_regionSizeY_RBV  = PV_Prefix + "ArraySizeY_RBV"  ;
+    BEATS_NImages          = PV_Prefix + "NumImages"       ;
     BEATS_imageSize_RBV    = PV_Prefix + "ArraySize_RBV"   ;
     BEATS_triggerMode      = PV_Prefix + "TriggerMode"     ;
+    BEATS_triggerSource    = PV_Prefix + "TriggerSource"    ;
     BEATS_imageMode        = PV_Prefix + "ImageMode"       ;
     BEATS_NImages          = PV_Prefix + "NumImages"       ;
     BEATS_exposureTime_RBV = PV_Prefix + "AcquireTime_RBV" ;
@@ -265,13 +376,23 @@ void singleShot::setPrefix(QString val)
     BEATS_acquire          = PV_Prefix + "Acquire"         ;
     BEATS_arrayData        = PV_PrefixArrayData + "image1:ArrayData";
     BEATS_imageCounter     = PV_Prefix + "ArrayCounter_RBV";
+    BEATS_filePath         = HDF_Prefix + "FilePath"        ;
+    BEATS_autoIncreament   = HDF_Prefix + "AutoIncrement"  ;
+    BEATS_fileFormat       = HDF_Prefix + "FileTemplate";
+    BEATS_autoSave         = HDF_Prefix + "AutoSave";
+    BEATS_fileWriteMode    = HDF_Prefix + "FileWriteMode";
+    BEATS_numCapture       = HDF_Prefix + "NumCapture";
+    BEATS_arrayCallbacks   = HDF_Prefix + "ArrayCallbacks"   ;
+    BEATS_enableCallbacks  = HDF_Prefix + "EnableCallbacks"  ;
+    BEATS_startCapture     = HDF_Prefix + "Capture";
 
     this->regionSizeX  = new QEpicsPV(BEATS_regionSizeX_RBV);
     this->regionSizeY  = new QEpicsPV(BEATS_regionSizeY_RBV);
+    this->NImages      = new QEpicsPV(BEATS_NImages);
     this->imageSize    = new QEpicsPV(BEATS_imageSize_RBV);
     this->exposureTime = new QEpicsPV(BEATS_exposureTime_RBV);
     this->acquireBusy  = new QEpicsPV(BEATS_acquireBusy);
-    this->acquire_      = new QEpicsPV(BEATS_acquire);
+    this->acquire_     = new QEpicsPV(BEATS_acquire);
     this->arrayData    = new QEpicsPV(BEATS_arrayData);
     this->imageCounter = new QEpicsPV(BEATS_imageCounter);
 
@@ -296,6 +417,7 @@ void singleShot::setPrefix(QString val)
     ui->colorModeRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->triggerModeRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->imageModeRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
+    ui->imagesVAL->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->imagesRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->exposureAutoVAL->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->exposureTimeVAL->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
@@ -303,4 +425,18 @@ void singleShot::setPrefix(QString val)
     ui->imagesCounterRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->imagesCounter0->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->acquireBusyRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
+    ui->startAcquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
+    ui->stopAcquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
+    ui->delFramesRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
+    ui->filePathRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filenameFormatVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filenameVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filenameRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->nextFileVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->nextFileRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filenameFormatVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filenameFormatRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->autoIncreamentRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->captureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->IcaptureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
 }
