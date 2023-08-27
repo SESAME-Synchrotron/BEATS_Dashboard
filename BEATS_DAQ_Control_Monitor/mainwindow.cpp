@@ -1283,7 +1283,7 @@ void MainWindow::set_FLIR_indicators_color(char FLIR_Color)
 
 void MainWindow::on_help_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://beats.readthedocs.io/en/latest/daq_dashboard.html"));
+    QDesktopServices::openUrl(QUrl("https://beats.readthedocs.io/daq_dashboard.html"));
 
 }
 

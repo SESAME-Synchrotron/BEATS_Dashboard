@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>486</width>
-    <height>987</height>
+    <height>1016</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -870,13 +870,52 @@ QGroupBox::title {
           </item>
           <item row="0" column="0">
            <layout class="QGridLayout" name="sscanParamLayout">
-            <item row="4" column="4">
-             <widget class="QLabel" name="IcaptureLabel">
+            <item row="4" column="0">
+             <widget class="QLabel" name="autoIncreamentLabel">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
               <property name="text">
-               <string># Capture</string>
+               <string>Auto increament</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLabel" name="filenameLabel">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="text">
+               <string>File name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QELabel" name="captureRBV">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileWriteMode_RBV</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="filePathlabel">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="text">
+               <string>File path</string>
               </property>
              </widget>
             </item>
@@ -899,122 +938,6 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="2" column="2" colspan="2">
-             <widget class="QELineEdit" name="nextFileVAL">
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)FileNumber</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4" colspan="2">
-             <widget class="QELabel" name="nextFileRBV">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)FileNumber_RBV</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2" colspan="2">
-             <widget class="QELineEdit" name="filenameFormatVAL">
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)FileTemplate</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2" colspan="2">
-             <widget class="QELineEdit" name="filenameVAL">
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)FileName</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="filePathlabel">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="text">
-               <string>File path</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QLabel" name="filenameLabel">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="text">
-               <string>File name</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="5">
-             <widget class="QELabel" name="IcaptureRBV">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)NumCapture_RBV</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4" colspan="2">
-             <widget class="QELabel" name="filenameFormatRBV">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)FileTemplate_RBV</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="0" colspan="2">
              <widget class="QLabel" name="nextFileLabel">
               <property name="frameShape">
@@ -1025,11 +948,18 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="1" column="4" colspan="2">
-             <widget class="QELabel" name="filenameRBV">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
+            <item row="4" column="4">
+             <widget class="QLabel" name="IcaptureLabel">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="text">
+               <string># Capture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="7">
+             <widget class="QELabel" name="capturingRBV">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
@@ -1037,10 +967,20 @@ QGroupBox::title {
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)FileName_RBV</string>
+               <string>$(P)Capture_RBV</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
-               <string>P=FLIR5:HDF1:</string>
+               <string>P=FLIR5:cam1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="2">
+             <widget class="QLabel" name="delFramesLabel">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="text">
+               <string>Delivered frames</string>
               </property>
              </widget>
             </item>
@@ -1064,8 +1004,8 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="4" column="3">
-             <widget class="QELabel" name="captureRBV">
+            <item row="4" column="5" colspan="3">
+             <widget class="QELabel" name="IcaptureRBV">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1076,14 +1016,14 @@ QGroupBox::title {
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)FileWriteMode_RBV</string>
+               <string>$(P)NumCapture_RBV</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=FLIR5:HDF1:</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" colspan="4">
+            <item row="0" column="2" colspan="6">
              <widget class="QELabel" name="filePathRBV">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
@@ -1099,27 +1039,103 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="autoIncreamentLabel">
+            <item row="1" column="5" colspan="3">
+             <widget class="QELabel" name="filenameRBV">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
-              <property name="text">
-               <string>Auto increament</string>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileName_RBV</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0" colspan="2">
-             <widget class="QLabel" name="delFramesLabel">
+            <item row="1" column="2" colspan="3">
+             <widget class="QELineEdit" name="filenameVAL">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileName</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" colspan="3">
+             <widget class="QELabel" name="nextFileRBV">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
               </property>
-              <property name="text">
-               <string>Delivered frames</string>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileNumber_RBV</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="2" colspan="4">
+            <item row="2" column="2" colspan="3">
+             <widget class="QELineEdit" name="nextFileVAL">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileNumber</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5" colspan="3">
+             <widget class="QELabel" name="filenameFormatRBV">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileTemplate_RBV</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="3">
+             <widget class="QELineEdit" name="filenameFormatVAL">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)FileTemplate</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=FLIR5:HDF1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2" colspan="3">
              <widget class="QELabel" name="delFramesRBV">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
@@ -1135,6 +1151,16 @@ QGroupBox::title {
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=FLIR5:cam1:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="5" colspan="2">
+             <widget class="QLabel" name="capturing">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="text">
+               <string>Capturing?</string>
               </property>
              </widget>
             </item>

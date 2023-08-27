@@ -439,4 +439,5 @@ void singleShot::setPrefix(QString val)
     ui->autoIncreamentRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->captureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->IcaptureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->capturingRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
 }
