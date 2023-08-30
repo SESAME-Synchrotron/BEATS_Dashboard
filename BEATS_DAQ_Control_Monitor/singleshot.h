@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <regex>
 #include <QDir>
+#include <QFileInfo>
 
 namespace Ui {
 class singleShot;

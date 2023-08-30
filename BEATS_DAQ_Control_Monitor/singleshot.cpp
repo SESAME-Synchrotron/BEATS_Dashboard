@@ -285,7 +285,10 @@ void singleShot::on_prefixVAL_textEdited(const QString &arg1)
 
 void singleShot::on_imagePathVAL_textEdited(const QString &arg1)
 {
-    if(regex_match(arg1.toStdString(), regex("^[a-zA-Z0-9\\-_/]*$")))
+    QFileInfo file(arg1);
+    QDir dir(file.path());
+
+    if((regex_match(arg1.toStdString(), regex("^[a-zA-Z0-9\\-_/]*$"))) and dir.exists())
     {
         trigger2 = 1;
         setBorderLineEdit(false, ui->imagePathVAL);

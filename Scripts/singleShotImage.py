@@ -7,6 +7,8 @@ import sys
 from PIL import Image
 import numpy as np
 import os
+import sys
+
 
 PV_Prefixes = ["TEST-PCO:", "FLIR:"]
 
@@ -43,7 +45,12 @@ def reshaping(PV_Prefix):
     
     # Reshape the array to 2D
     print(f"reshape image to {epics.PV(PV_Prefix + 'cam1:ArraySizeX_RBV').get()} X {epics.PV(PV_Prefix + 'cam1:ArraySizeY_RBV').get()}")
-    reshapedArray = np.reshape(x, (sizeX, sizeY))
+    try:
+        reshapedArray = np.reshape(x, (sizeX, sizeY))
+    except:
+        print("Couldn't reshape the image, please check the image dimensions!")
+        epics.PV("SingleShot:Interlock").put(0, wait=True)
+        sys.exit()
     print("image reshaped!")
     saveImage(reshapedArray)
 
@@ -53,7 +60,12 @@ def saveImage(reshapedArray):
     imagePath, imageExtension = os.path.splitext(epics.PV("SingleShot:ImagePath").get(as_string=True))
     print(f"saving image to {imagePath}{imageExtension}")
     image = Image.fromarray(reshapedArray.astype(np.uint8))
-    image.save(imagePath + imageExtension)
+    try:
+        image.save(imagePath + imageExtension)
+    except:
+        print("Couldn't save the image, please check the image path and try again!")
+        epics.PV("SingleShot:Interlock").put(0, wait=True)
+        sys.exit()
     epics.PV("SingleShot:Interlock").put(0, wait=True)
     print(f"image {imagePath}{imageExtension} saved!")
 
