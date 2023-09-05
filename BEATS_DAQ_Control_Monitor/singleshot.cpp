@@ -184,8 +184,14 @@ void singleShot::on_sscanCheckBox_stateChanged(int arg1)
     if(arg1 == Qt::Checked){
         ui->sscanGB->setEnabled(true);
         ui->singleShotCheckBox->setEnabled(false);
+        QString path;
 
-        Client::writeStringToWaveform(BEATS_filePath, "/home/dcasu");
+        if(PV_Prefix == "TEST-PCO:cam1:")
+            path = "A:\\PCO_Data";
+        else
+            path = "/home/dcasu";
+
+        Client::writeStringToWaveform(BEATS_filePath, path);
         Client::writePV(BEATS_autoIncreament, 1);
         Client::writeStringToWaveform(BEATS_fileFormat, "%s%s_%3.3d.h5");
         Client::writePV(BEATS_autoSave, 1);
