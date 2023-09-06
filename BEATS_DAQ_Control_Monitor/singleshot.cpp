@@ -253,6 +253,9 @@ void singleShot::setBorderLineEdit(bool val, QLineEdit *lineEdit)
 
 void singleShot::on_prefixVAL_textEdited(const QString &arg1)
 {
+    ui->singleShotCheckBox->setChecked(false);
+    ui->sscanCheckBox->setChecked(false);
+
     if(arg1 == "TEST-PCO:" or arg1 == "FLIR:")
     {
         trigger1 = 1;
@@ -440,6 +443,7 @@ void singleShot::setPrefix(QString val)
     ui->filePathRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->filenameFormatVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->filenameVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->fileExists->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->filenameRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->nextFileVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->nextFileRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
@@ -449,4 +453,6 @@ void singleShot::setPrefix(QString val)
     ui->captureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->IcaptureRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->capturingRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->startCapture->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->stopCapture->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
 }

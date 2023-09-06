@@ -405,6 +405,11 @@ void MainWindow::on_stepTomoScanIOCStart_clicked()
         stopProcess("_StepTomoscanIOC","PCO");
         stopProcess("_ContTomoscanIOC","PCO");
     }
+
+    if(isSingleShotImageOpened)
+    {
+        openSingleShot->close();        // close single shot image GUI if tomoscan process has been started
+    }
 }
 
 void MainWindow::on_stepTomoScanIOCStop_clicked()
@@ -520,6 +525,11 @@ void MainWindow::on_contTomoScanIOCStart_clicked()
     if (camera == "FLIR" ){
         stopProcess("_StepTomoscanIOC","PCO");
         stopProcess("_ContTomoscanIOC","PCO");
+    }
+
+    if(isSingleShotImageOpened)
+    {
+        openSingleShot->close();        // close single shot image GUI if tomoscan process has been started
     }
 }
 
