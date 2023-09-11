@@ -5,11 +5,12 @@ BEATS Dashboard is GUI based which enables users to quickly choose the scanning 
 
 Current featues
 ---------------
-At the moment, the BEATS dashboard has the following features: 
+At the moment, the BEATS dashboard has the following features:
 
 * User friendly GUI
 * Control and monitor the IOCs and scanning methodology (Tomoscan) based on the camera type.
-* Online (last log) logging.
+* Online logging (last log).
+* Shutters Status Monitoring.
 * Public documentation targeting end-users (how-to).
 
-This documentation is targeting scientists and developers, for more: https://beats.readthedocs.io/en/latest/daq_dashboard.html
+This documentation is targeting scientists and developers, for more: https://beats.readthedocs.io/daq_dashboard.html
