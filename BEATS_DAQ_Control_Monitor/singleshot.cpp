@@ -106,7 +106,7 @@ void singleShot::on_sscanCheckBox_stateChanged(int arg1)
         if(PV_Prefix == "TEST-PCO:cam1:")
             path = "A:\\PCO_Data";
         else
-            path = "/root/SSCAN/FLIR_Data";
+            path = "/SSCAN/FLIR_Data";
 
         Client::writeStringToWaveform(BEATS_filePath, path);
         Client::writePV(BEATS_autoIncreament, 1);
