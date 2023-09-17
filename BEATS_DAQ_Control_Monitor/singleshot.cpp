@@ -9,7 +9,7 @@ singleShot::singleShot(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    this->setFixedSize(this->size());      // fix the window size
+    this->setFixedSize(this->size());      // fix the window size
 
     ui->statusVAL->setText("");
     ui->imagePathVAL->setEnabled(false);
@@ -23,7 +23,6 @@ singleShot::singleShot(QWidget *parent) :
     ui->sscanGB->setEnabled(false);
 
     Client::writePV(interlock, 0);
-
 }
 
 singleShot::~singleShot()
@@ -38,18 +37,6 @@ void singleShot::keyPressEvent(QKeyEvent* event)
         acquire();
     }
 }
-
-//void singleShot::acquire()
-//{
-//    ui->statusVAL->setText("open exposure shutter...");
-//    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_HVal);
-//    usleep(10000);
-//    Client::writePV(BEATS_acquire, BEATS_acquire_val);
-//    ui->statusVAL->setText("acquire image...");
-//    usleep(this->exposureTime->get().toDouble() * 1000000);
-//    Client::writePV(BEATS_exposureShutter, BEATS_exposureShutter_LVal);
-//    usleep(10000);
-//}
 
 void singleShot::acquire()
 {
@@ -96,76 +83,6 @@ void singleShot::acquire()
         QMessageBox::warning(this, "warning", "there is an external process running, please wait until finish ...");
 }
 
-void singleShot::reshaping()
-{
-    usleep(600000);
-
-    int sizeX = this->regionSizeX->get().toInt();
-    int sizeY = this->regionSizeY->get().toInt();
-    auto size = this->imageSize->get().toLongLong();
-    mainArray = this->arrayData->get().toList();
-
-    ui->statusVAL->setText("reshaping the array to " + this->regionSizeX->get().toString() + " X " + this->regionSizeY->get().toString() + "...");
-
-    if(mainArray.size() <= size)
-        acquiredArray = mainArray;
-    else
-        acquiredArray = mainArray.mid(0, size);
-
-    int index = 0;
-    reshapedArray.clear();
-
-    for(int row = 0; row < sizeX; ++row)
-    {
-        reshapedList.clear(); // Clear the inner list for each row
-
-        for(int col = 0; col < sizeY; ++col)
-        {
-            reshapedList.append(acquiredArray.at(index));
-            ++index;
-        }
-        reshapedArray.append(reshapedList);
-    }
-    ui->statusVAL->setText("image reshaped!");
-
-    saveImage(sizeX, sizeY, reshapedArray);
-
-//    for(QVariant& l:reshapedArray)
-//        std::cout<<l.toString().toStdString()<<std::endl;
-//    std::cout<<"    "<< reshapedArray.size()<<std::endl;
-}
-
-void singleShot::saveImage(int sizeX, int sizeY, QVariantList list)
-{
-    ui->statusVAL->setText("start saving PNG image ...");
-
-    QImage image(sizeX, sizeY, QImage::Format_Grayscale8);
-
-    if(list.size() == sizeX * sizeY) {
-        for (int row = 0; row < sizeY; ++row) {
-            for (int col = 0; col < sizeX; ++col) {
-                QVariant pixelValue = list[row * sizeX + col];
-                auto pixel = pixelValue.toUInt();
-
-                QColor color(pixel, pixel, pixel);
-                image.setPixelColor(col, row, color);
-//                image.setPixel(col, row, pixel);
-            }
-        }
-    }
-
-    else {
-        // Handle error: Invalid size of the reshapedArray
-        // For example, display an error message or take appropriate action.
-    }
-
-    QString filename = ui->imagePathVAL->text();
-    image.save(filename);
-
-    ui->statusVAL->setText("image saved to " + filename + "!");
-//    interlock = 0;
-}
-
 void singleShot::on_singleShotCheckBox_stateChanged(int arg1)
 {
     if(arg1 == Qt::Checked){
@@ -189,7 +106,7 @@ void singleShot::on_sscanCheckBox_stateChanged(int arg1)
         if(PV_Prefix == "TEST-PCO:cam1:")
             path = "A:\\PCO_Data";
         else
-            path = "/home/dcasu";
+            path = "/root/SSCAN/FLIR_Data";
 
         Client::writeStringToWaveform(BEATS_filePath, path);
         Client::writePV(BEATS_autoIncreament, 1);
@@ -202,9 +119,7 @@ void singleShot::on_sscanCheckBox_stateChanged(int arg1)
         Client::writePV(HDF_Prefix + "EnableCallbacks", 1);
         Client::writePV(BEATS_imageMode, 0);
         Client::writePV(BEATS_acquire, 1);
-        Client::writePV(BEATS_acquire, 0);
         Client::writePV(BEATS_fileWriteMode, 1);
-        Client::writePV(BEATS_numCapture, this->NImages->get().toInt());
     }
 
     else{
@@ -275,8 +190,6 @@ void singleShot::on_prefixVAL_textEdited(const QString &arg1)
             Client::writePV(BEATS_triggerMode, 0);
         }
         Client::writePV(BEATS_imageMode, 0);
-        Client::writePV(BEATS_acquire, 1);
-        Client::writePV(BEATS_acquire, 0);
     }
     else
     {
@@ -309,9 +222,9 @@ void singleShot::on_imagePathVAL_textEdited(const QString &arg1)
     }
 }
 
-void singleShot::on_imagesVAL_textEdited(const QString &arg1)
+void singleShot::on_imagesVAL_dbValueChanged(int out)
 {
-    Client::writePV(BEATS_numCapture, arg1);
+    Client::writePV(BEATS_numCapture, out);
 }
 
 void singleShot::on_oneD_clicked()
@@ -440,7 +353,7 @@ void singleShot::setPrefix(QString val)
     ui->startAcquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->stopAcquire->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
     ui->delFramesRBV->setVariableNameSubstitutionsProperty("P=" + PV_Prefix);
-    ui->filePathRBV->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
+    ui->filePathVal->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->filenameFormatVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->filenameVAL->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);
     ui->fileExists->setVariableNameSubstitutionsProperty("P=" + HDF_Prefix);

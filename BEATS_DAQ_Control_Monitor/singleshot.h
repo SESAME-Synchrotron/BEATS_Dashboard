@@ -31,9 +31,9 @@ private slots:
 
     void on_saveImage_stateChanged(int arg1);
 
-    void on_prefixVAL_textEdited(const QString &arg1);
-
     void on_imagePathVAL_textEdited(const QString &arg1);
+
+    void on_prefixVAL_textEdited(const QString &arg1);
 
     void on_tiff_clicked();
 
@@ -53,17 +53,13 @@ private slots:
 
     void on_FourD_clicked();
 
-    void on_imagesVAL_textEdited(const QString &arg1);
+    void on_imagesVAL_dbValueChanged(int out);
 
 private:
 
     Ui::singleShot *ui;
 
     void keyPressEvent(QKeyEvent* event);
-
-    void reshaping();
-
-    void saveImage(int sizeX, int sizeY, QVariantList list);
 
     void setBorderLineEdit(bool val, QLineEdit *lineEdit);
 
