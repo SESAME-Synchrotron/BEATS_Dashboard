@@ -9,7 +9,7 @@ singleShot::singleShot(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setFixedSize(this->size());      // fix the window size
+//    this->setFixedSize(this->size());      // fix the window size
 
     ui->statusVAL->setText("");
     ui->imagePathVAL->setEnabled(false);
@@ -256,8 +256,8 @@ void singleShot::sscan(QString scan)
             Client::writePV(BEATS_triggerMode, 0);
         }
         else{
-            Client::writePV(BEATS_imageMode, 1);
-            Client::writePV(BEATS_triggerMode, 1);
+            Client::writePV(BEATS_imageMode, 0);
+            Client::writePV(BEATS_triggerMode, 0);
             Client::writePV(BEATS_triggerSource, 0);
         }
         Client::writePV(BEATS_acquire, 1);
