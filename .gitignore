@@ -14,3 +14,4 @@ Scripts/*.out
 Scripts/*.png
 *.out
 /docs*
+Scripts/xterm_pid.txt
