@@ -1,0 +1,24 @@
+#!/bin/bash
+
+SHORT="f:h"
+LONG="file:,help"
+OPTS=$(getopt -a -n weather --options $SHORT --longoptions $LONG -- "$@")
+
+eval set -- "$OPTS"
+
+file="$2"
+output_extension="txt"
+new_filename="${file%.*}.${output_extension}"
+working_dir="/home/control/Desktop/SSCAN_Data"
+
+if [ "$1" = "-f" ] || [ "$1" = "--file" ]; then
+   cd /home/control/DAQ/SW/mdautils-1.4.2-linux-64/bin ;
+   ./mda-dump ${working_dir}/${file} > ${working_dir}/${new_filename}
+elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    printf "\n"
+    echo "============= Start converting SSCAN  mda files to txt file ============="
+    echo "pass the file name, e.g. ./SSCAN -f or --file test.mda"
+else
+	echo "invalid input!"
+fi
+
