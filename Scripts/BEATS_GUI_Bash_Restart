@@ -80,7 +80,7 @@ do
         sleep 0.5
         tmux new -d -s PCO_WriterServerStep
         tmux send-keys -t PCO_WriterServerStep "ssh -X control@writernode" ENTER
-        tmux send-keys -t PCO_WriterServerStep "cd /home/control/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode PCO-MICOS-Step" ENTER
+        tmux send-keys -t PCO_WriterServerStep "cd /home/control/BEATSH5Writer; p3; ./start_writer --scanMode PCO-MICOS-Step" ENTER
         # tmux send-keys -t PCO_WriterServerStep "./start_writer --scanMode PCO-MICOS-Step" ENTER
             
       #---------------------PCO Continuous Scan --------------------#
@@ -108,7 +108,7 @@ do
         # sleep 1
         tmux new -d -s PCO_WriterServerCont
         tmux send-keys -t PCO_WriterServerCont "ssh -X control@writernode" ENTER
-        tmux send-keys -t PCO_WriterServerCont "cd /home/control/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode PCO-MICOS-Cont" ENTER
+        tmux send-keys -t PCO_WriterServerCont "cd /home/control/BEATSH5Writer; p3; ./start_writer --scanMode PCO-MICOS-Cont" ENTER
         # tmux send-keys -t PCO_WriterServerCont "./start_writer --scanMode FLIR-MICOS-Cont" ENTER
 
       #---------------------FLIR Step Scan --------------------#
@@ -136,7 +136,7 @@ do
         # sleep 1
         tmux new -d -s FLIR_WriterServerStep 
         tmux send-keys -t FLIR_WriterServerStep "ssh -X control@writernode" ENTER
-        tmux send-keys -t FLIR_WriterServerStep "cd /home/control/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode FLIR-MICOS-Step" ENTER
+        tmux send-keys -t FLIR_WriterServerStep "cd /home/control/BEATSH5Writer; p3; ./start_writer --scanMode FLIR-MICOS-Step" ENTER
         # tmux send-keys -t FLIR_WriterServerStep "./start_writer --scanMode FLIR-MICOS-Step" ENTER
 
       #---------------------FLIR Continuous Scan --------------------#
@@ -163,7 +163,7 @@ do
         # sleep 1
         tmux new -d -s FLIR_WriterServerCont
         tmux send-keys -t FLIR_WriterServerCont "ssh -X control@writernode" ENTER
-        tmux send-keys -t FLIR_WriterServerCont "cd /home/control/BEATSH5Writer; source /opt/operation/p3.9/bin/activate; ./start_writer --scanMode FLIR-MICOS-Cont" ENTER
+        tmux send-keys -t FLIR_WriterServerCont "cd /home/control/BEATSH5Writer; p3; ./start_writer --scanMode FLIR-MICOS-Cont" ENTER
         # tmux send-keys -t FLIR_WriterServerCont "./start_writer --scanMode FLIR-MICOS-Cont" ENTER
 
     #-----------------------------------------#
