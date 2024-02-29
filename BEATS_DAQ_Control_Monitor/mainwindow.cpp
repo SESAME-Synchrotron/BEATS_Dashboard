@@ -1362,3 +1362,9 @@ void MainWindow::on_singleShotImageStart_closed()
 {
     isSingleShotImageOpened = false;
 }
+
+void MainWindow::on_sscanStart_clicked()
+{
+    std::string command = "cd && /home/control/DAQ/operation/TomoscanSupportIOCs/sscanIOC/run_sscan1.sh";
+    system(command.c_str());
+}

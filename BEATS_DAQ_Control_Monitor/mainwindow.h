@@ -140,6 +140,8 @@ private slots:
 
     void on_sscanIOCRestart_clicked();
 
+    void on_sscanStart_clicked();
+
 private:
     Ui::MainWindow *ui;
 

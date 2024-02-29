@@ -1082,6 +1082,27 @@ QGroupBox::title {
       </item>
       <item row="0" column="0">
        <layout class="QGridLayout" name="ImageJLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="ImageJ">
+          <property name="text">
+           <string>ImageJ</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="maxSpeedLabel">
+          <property name="text">
+           <string>Rot. Internal Movement Speed</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="singleShotImageLabel">
+          <property name="text">
+           <string>Single Shot Image</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="singleShotImageStart">
           <property name="cursor">
@@ -1089,6 +1110,22 @@ QGroupBox::title {
           </property>
           <property name="text">
            <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QELineEdit" name="maxSpeedVal">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="variable" stdset="0">
+           <string>BEATS:RotInt:MaxSpeed.VAL</string>
           </property>
          </widget>
         </item>
@@ -1103,39 +1140,19 @@ QGroupBox::title {
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="maxSpeedLabel">
+         <widget class="QLabel" name="sscanLabel">
           <property name="text">
-           <string>Rot. Internal Movement Speed</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="singleShotImageLabel">
-          <property name="text">
-           <string>Single Shot Image</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="ImageJ">
-          <property name="text">
-           <string>ImageJ</string>
+           <string>SSCAN 1D</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QELineEdit" name="maxSpeedVal">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QPushButton" name="sscanStart">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="variable" stdset="0">
-           <string>BEATS:RotInt:MaxSpeed.VAL</string>
+          <property name="text">
+           <string>Start</string>
           </property>
          </widget>
         </item>
