@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>974</width>
-    <height>953</height>
+    <height>982</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1510,218 +1510,10 @@ QGroupBox::title {
         <layout class="QGridLayout" name="gridLayout_8">
          <item row="0" column="0">
           <layout class="QGridLayout" name="stepScanLayout">
-           <item row="3" column="0">
-            <widget class="QLabel" name="stepMEDM">
-             <property name="text">
-              <string>TomoScan GUI</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QPushButton" name="stepPythonServerStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="stepPythonServer">
-             <property name="text">
-              <string>Python Server</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QESimpleShape" name="PCOStepTomoScanIOCInd">
-             <property name="colour0" stdset="0">
-              <color>
-               <red>5</red>
-               <green>240</green>
-               <blue>5</blue>
-              </color>
-             </property>
-             <property name="colour2" stdset="0">
-              <color>
-               <red>252</red>
-               <green>233</green>
-               <blue>79</blue>
-              </color>
-             </property>
-             <property name="colour3" stdset="0">
-              <color>
-               <red>252</red>
-               <green>233</green>
-               <blue>79</blue>
-              </color>
-             </property>
-             <property name="variable" stdset="0">
-              <string>tomoscanBEATS:PcoMicosStep:ScanStatus</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3" colspan="4">
-            <widget class="QPushButton" name="stepMEDMStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Start</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="stepTomoScanIOCStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Start</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="stepWriterServer">
-             <property name="text">
-              <string>Writer Server</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QPushButton" name="stepTomoScanIOCStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="6">
-            <widget class="QLabel" name="stepPythonServerSts">
-             <property name="cursor">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="text">
-              <string>---</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QPushButton" name="stepWriterServerStop">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="stepTomoScanIOC">
              <property name="text">
               <string>TomoScan IOC</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="5">
-            <widget class="QPushButton" name="stepWriterServerRestart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Restart</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="5">
-            <widget class="QPushButton" name="stepPythonServerRestart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Restart</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QPushButton" name="stepTomoScanIOCRestart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Restart</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QPushButton" name="stepPythonServerStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Start</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="6">
-            <widget class="QLabel" name="stepWriterServerSts">
-             <property name="cursor">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="text">
-              <string>---</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QESimpleShape" name="PCOStepPythonServerInd">
-             <property name="colour2" stdset="0">
-              <color>
-               <red>252</red>
-               <green>233</green>
-               <blue>79</blue>
-              </color>
-             </property>
-             <property name="variable" stdset="0">
-              <string>tomoscanBEATS:PcoMicosStep:ServerRunning</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QESimpleShape" name="PCOStepWriterServerInd">
-             <property name="variable" stdset="0">
-              <string>BEATS:PCO:WRITER:STEP:Status</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="stepWriterServerStart">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>Start</string>
              </property>
             </widget>
            </item>
@@ -1741,6 +1533,26 @@ QGroupBox::title {
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QPushButton" name="stepPythonServerRestart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Restart</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="stepTomoScanIOCStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Start</string>
              </property>
             </widget>
            </item>
@@ -1772,6 +1584,250 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
+           <item row="4" column="1">
+            <widget class="QESimpleShape" name="PCOFilterInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </property>
+             <property name="colour1" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
+             </property>
+             <property name="variable" stdset="0">
+              <string>TEST-PCO:Proc1:EnableCallbacks_RBV</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="stepPythonServer">
+             <property name="text">
+              <string>Python Server</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QPushButton" name="stepPythonServerStop">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="filterPlugin">
+             <property name="text">
+              <string>Filter Plugin</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QESimpleShape" name="FLIRStepWriterServerInd">
+             <property name="variable" stdset="0">
+              <string>BEATS:FLIR:WRITER:STEP:Status</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QESimpleShape" name="FLIRFilterInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </property>
+             <property name="colour1" stdset="0">
+              <color>
+               <red>0</red>
+               <green>255</green>
+               <blue>0</blue>
+              </color>
+             </property>
+             <property name="variable" stdset="0">
+              <string>FLIR:Proc1:EnableCallbacks_RBV</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QESimpleShape" name="PCOStepTomoScanIOCInd">
+             <property name="colour0" stdset="0">
+              <color>
+               <red>5</red>
+               <green>240</green>
+               <blue>5</blue>
+              </color>
+             </property>
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="colour3" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="variable" stdset="0">
+              <string>tomoscanBEATS:PcoMicosStep:ScanStatus</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="stepTomoScanIOCStop">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="stepWriterServer">
+             <property name="text">
+              <string>Writer Server</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="6">
+            <widget class="QLabel" name="stepWriterServerSts">
+             <property name="cursor">
+              <cursorShape>IBeamCursor</cursorShape>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>---</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QPushButton" name="stepTomoScanIOCRestart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Restart</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QESimpleShape" name="PCOStepPythonServerInd">
+             <property name="colour2" stdset="0">
+              <color>
+               <red>252</red>
+               <green>233</green>
+               <blue>79</blue>
+              </color>
+             </property>
+             <property name="variable" stdset="0">
+              <string>tomoscanBEATS:PcoMicosStep:ServerRunning</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="stepWriterServerStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="stepMEDM">
+             <property name="text">
+              <string>TomoScan GUI</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3" colspan="4">
+            <widget class="QPushButton" name="stepMEDMStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="6">
+            <widget class="QLabel" name="stepPythonServerSts">
+             <property name="cursor">
+              <cursorShape>IBeamCursor</cursorShape>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="text">
+              <string>---</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QESimpleShape" name="PCOStepWriterServerInd">
+             <property name="variable" stdset="0">
+              <string>BEATS:PCO:WRITER:STEP:Status</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="5">
+            <widget class="QPushButton" name="stepWriterServerRestart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Restart</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="stepWriterServerStop">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="stepPythonServerStart">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Start</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="2">
             <widget class="QESimpleShape" name="FLIRStepPythonServerInd">
              <property name="colour2" stdset="0">
@@ -1786,10 +1842,23 @@ QGroupBox::title {
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QESimpleShape" name="FLIRStepWriterServerInd">
-             <property name="variable" stdset="0">
-              <string>BEATS:FLIR:WRITER:STEP:Status</string>
+           <item row="4" column="3">
+            <widget class="QCheckBox" name="filterPluginEnable">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Enable</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="4" colspan="3">
+            <widget class="QPushButton" name="filterPluginSettings">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Open Settings</string>
              </property>
             </widget>
            </item>

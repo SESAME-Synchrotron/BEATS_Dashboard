@@ -53,9 +53,19 @@ do
             cd && /home/dev.control/run-GUI-ORYX.sh
             "
 
+      elif [ "$process" == "FLIRFilter" ] ; then
+        ssh -X root@flirdriver "
+            cd && /home/dev.control/run-GUI-ORYX-Filter.sh
+            "
+
       elif [ "$process" == "PCODriver" ] ; then
           ssh -X control@localhost "
             nohup medm -x -macro "P=TEST-PCO:,R=cam1:" /home/control/DAQ/operation/medm-files/ADBase.adl &
+          "
+
+      elif [ "$process" == "PCOFilter" ] ; then
+          ssh -X control@localhost "
+            nohup medm -x -macro "P=TEST-PCO:,R=Proc1:" /home/control/DAQ/operation/medm-files/NDProcess.adl &
           "
       #---------------------PCO Step Scan --------------------#
       elif [ "$process" == "PCO_StepTomoscanIOC" ] ; then

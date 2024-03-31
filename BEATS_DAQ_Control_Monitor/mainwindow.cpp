@@ -114,6 +114,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->photonShutterInd->setHidden(true);
     ui->photonShutterSts->setHidden(true);
 
+    ui->filterPluginSettings->setEnabled(false);
+
     TimerH = new QTimer(this);
     this->TimerH->start(400);
 
@@ -143,7 +145,6 @@ MainWindow::MainWindow(QWidget *parent)
         ui->generalSts->setText("FLIR TomoScan IOC -Step- is running ...");
     if (FLIR_TomoScanIOC_Cont_SEVR_ != NULL)
         ui->generalSts->setText("FLIR TomoScan IOC -Continuous- is running ...");
-
 }
 
 MainWindow::~MainWindow()
@@ -154,6 +155,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_PCO_clicked()
 {
     camera = "PCO";
+    cameraFilter = "TEST-PCO";
+
+    if ((PCOIOC_SEVR_ != NULL) and PCO_FilterValue)
+        ui->filterPluginEnable->setChecked(true);
+    else
+        ui->filterPluginEnable->setChecked(false);
 
     ui->generalSts->setText(camera + " Detector has been selected");
 
@@ -161,6 +168,7 @@ void MainWindow::on_PCO_clicked()
     ui->FLIRStepTomoScanIOCInd->setHidden(true);
     ui->FLIRStepPythonServerInd->setHidden(true);
     ui->FLIRStepWriterServerInd->setHidden(true);
+    ui->FLIRFilterInd->setHidden(true);
     ui->FLIRContTomoScanIOCInd->setHidden(true);
     ui->FLIRContPythonServerInd->setHidden(true);
     ui->FLIRContWriterServerInd->setHidden(true);
@@ -168,6 +176,7 @@ void MainWindow::on_PCO_clicked()
     ui->PCOStepTomoScanIOCInd->setHidden(false);
     ui->PCOStepPythonServerInd->setHidden(false);
     ui->PCOStepWriterServerInd->setHidden(false);
+    ui->PCOFilterInd->setHidden(false);
     ui->PCOContTomoScanIOCInd->setHidden(false);
     ui->PCOContPythonServerInd->setHidden(false);
     ui->PCOContWriterServerInd->setHidden(false);
@@ -178,6 +187,12 @@ void MainWindow::on_FLIR_clicked()
 //    QProcess* FLIRIOCStart = new QProcess(this);
 //    FLIRIOCStart->start("gnome-terminal -x ./FLIR_CameraStart.sh ");
     camera = "FLIR";
+    cameraFilter = camera;
+
+    if ((FLIRIOC_SEVR_ != NULL) and FLIR_FilterValue)
+        ui->filterPluginEnable->setChecked(true);
+    else
+        ui->filterPluginEnable->setChecked(false);
 
     ui->generalSts->setText(camera + " Detector has been selected");
 
@@ -185,6 +200,7 @@ void MainWindow::on_FLIR_clicked()
     ui->PCOStepTomoScanIOCInd->setHidden(true);
     ui->PCOStepPythonServerInd->setHidden(true);
     ui->PCOStepWriterServerInd->setHidden(true);
+    ui->PCOFilterInd->setHidden(true);
     ui->PCOContTomoScanIOCInd->setHidden(true);
     ui->PCOContPythonServerInd->setHidden(true);
     ui->PCOContWriterServerInd->setHidden(true);
@@ -192,6 +208,7 @@ void MainWindow::on_FLIR_clicked()
     ui->FLIRStepTomoScanIOCInd->setHidden(false);
     ui->FLIRStepPythonServerInd->setHidden(false);
     ui->FLIRStepWriterServerInd->setHidden(false);
+    ui->FLIRFilterInd->setHidden(false);
     ui->FLIRContTomoScanIOCInd->setHidden(false);
     ui->FLIRContPythonServerInd->setHidden(false);
     ui->FLIRContWriterServerInd->setHidden(false);
@@ -407,9 +424,7 @@ void MainWindow::on_stepTomoScanIOCStart_clicked()
     }
 
     if(isSingleShotImageOpened)
-    {
         openSingleShot->close();        // close single shot image GUI if tomoscan process has been started
-    }
 }
 
 void MainWindow::on_stepTomoScanIOCStop_clicked()
@@ -427,6 +442,8 @@ void MainWindow::on_stepTomoScanIOCStop_clicked()
     // stop the python and writer servers also!!!
     stopProcess("_PythonServerStep",camera);
     stopProcess("_WriterServerStep",camera);
+
+    ui->filterPluginEnable->setChecked(false);
 }
 
 void MainWindow::on_stepTomoScanIOCRestart_clicked()
@@ -509,6 +526,45 @@ void MainWindow::on_stepMEDMStart_clicked()
 }
 /* --------------------------------------------------------------*/
 
+void MainWindow::on_filterPluginEnable_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Checked) {
+
+        Client::writePV(cameraFilter + ":Proc1:EnableCallbacks", 1);
+        Client::writePV(cameraFilter + ":Proc1:EnableFilter", 1);
+        Client::writePV(cameraFilter + ":ZMQ1:NDArrayPort", "PROC1");
+        Client::writePV(cameraFilter + ":Proc1:NumFilter", 1);
+        Client::writePV(cameraFilter + ":Proc1:FilterCallbacks", 1);
+        ui->filterPluginSettings->setEnabled(true);
+    }
+    else {
+
+        Client::writePV(cameraFilter + ":Proc1:EnableCallbacks", 0);
+        Client::writePV(cameraFilter + ":Proc1:EnableFilter", 0);
+        ui->filterPluginSettings->setEnabled(false);
+
+        camera == "PCO" ? Client::writePV(cameraFilter + ":ZMQ1:NDArrayPort", "PCO1") : Client::writePV(cameraFilter + ":ZMQ1:NDArrayPort", "flir");
+    }
+}
+/* --------------------------------------------------------------*/
+
+void MainWindow::on_filterPluginSettings_clicked()
+{
+    startProcess("Filter", camera);
+}
+/* --------------------------------------------------------------*/
+
+void MainWindow::on_PCOFilterInd_dbValueChanged(bool out)
+{
+    PCO_FilterValue = out;
+}
+
+void MainWindow::on_FLIRFilterInd_dbValueChanged(bool out)
+{
+    FLIR_FilterValue = out;
+}
+/* --------------------------------------------------------------*/
+
 void MainWindow::on_contTomoScanIOCStart_clicked()
 {
     startProcess("_ContTomoscanIOC",camera);
@@ -527,10 +583,10 @@ void MainWindow::on_contTomoScanIOCStart_clicked()
         stopProcess("_ContTomoscanIOC","PCO");
     }
 
+    ui->filterPluginEnable->setChecked(false);
+
     if(isSingleShotImageOpened)
-    {
         openSingleShot->close();        // close single shot image GUI if tomoscan process has been started
-    }
 }
 
 void MainWindow::on_contTomoScanIOCStop_clicked()

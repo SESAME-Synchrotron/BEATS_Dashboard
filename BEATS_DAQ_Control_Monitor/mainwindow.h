@@ -74,6 +74,12 @@ private slots:
 
     void on_stepMEDMStart_clicked();
 
+    void on_filterPluginEnable_stateChanged(int arg1);
+
+    void on_PCOFilterInd_dbValueChanged(bool out);
+
+    void on_FLIRFilterInd_dbValueChanged(bool out);
+
     void on_contTomoScanIOCStart_clicked();
 
     void on_contPythonServerStart_clicked();
@@ -142,11 +148,16 @@ private slots:
 
     void on_sscanStart_clicked();
 
+    void on_filterPluginSettings_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QString camera = NULL;
     QString cam;
+    QString cameraFilter;
+    bool PCO_FilterValue;
+    bool FLIR_FilterValue;
     QString process;
     char PCO_color;
     char FLIR_color;
